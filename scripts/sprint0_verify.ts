@@ -82,7 +82,20 @@ async function runSprint0Verification() {
     try {
       const voices = await elevenlabsService.getVoices();
       record('ElevenLabs API Connection', true, `API Key Valid. Retrieved ${voices.length} voices.`);
+    } catch (err: any) {
+      const msg = err?.message || String(err);
+      if (msg.includes('voices_read')) {
+        record(
+          'ElevenLabs API Connection',
+          true,
+          'API Key Valid (voices_read permission restricted on this scoped key; proceeding to test TTS synthesis)'
+        );
+      } else {
+        record('ElevenLabs API Connection', false, `Authentication or call error: ${msg}`);
+      }
+    }
 
+    try {
       console.log('Synthesizing sample voice alert...');
       const speechRes = await elevenlabsService.synthesizeSpeech(
         'FlowAgent OS Sprint zero verification online. Ready for autonomous payments on Avalanche.',
@@ -94,7 +107,7 @@ async function runSprint0Verification() {
         record('ElevenLabs Audio Synthesis', false, speechRes.error || 'Unknown error');
       }
     } catch (err: any) {
-      record('ElevenLabs API Connection', false, `Authentication or call error: ${err.message}`);
+      record('ElevenLabs Audio Synthesis', false, `TTS error: ${err.message}`);
     }
   } else {
     record(
