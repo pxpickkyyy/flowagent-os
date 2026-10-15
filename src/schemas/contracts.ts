@@ -113,3 +113,125 @@ export type Invoice = z.infer<typeof InvoiceSchema>;
 export type PaymentIntent = z.infer<typeof PaymentIntentSchema>;
 export type UbotInboundMessage = z.infer<typeof UbotInboundMessageSchema>;
 export type UbotOutboundMessage = z.infer<typeof UbotOutboundMessageSchema>;
+
+/**
+ * Sprint 1 Invoice Data Schema extracted from PDF / Ingestion Engine
+ */
+export const InvoiceDataSchema = z.object({
+  invoiceNumber: z.string().min(1, 'Invoice number is required'),
+  vendorName: z.string().min(1, 'Vendor name is required'),
+  recipientAddress: EvmAddressSchema,
+  amount: z.number().positive('Amount must be positive'),
+  currency: z.string().default('USDC'),
+  dueDate: z.string().min(1, 'Due date is required'),
+});
+
+export type InvoiceData = z.infer<typeof InvoiceDataSchema>;
+
+/**
+ * Compliance check result
+ */
+export interface ComplianceResult {
+  passed: boolean;
+  flagReason?: string;
+  checkDurationMs: number;
+  checkedAddress: string;
+  checkedVendor: string;
+}
+
+/**
+ * Live Route Optimization and Cost Comparison Result
+ */
+export interface RoutingComparisonResult {
+  traditional: {
+    rail: 'SWIFT';
+    estimatedDuration: string;
+    fixedWireFeeUSD: number;
+    fxMarkupUSD: number;
+    totalCostUSD: number;
+  };
+  web3: {
+    rail: 'Avalanche Fuji';
+    estimatedDuration: string;
+    gasFeeAvax: string;
+    gasFeeUSD: number;
+    bridgeLiquidityFeeUSD: number;
+    totalCostUSD: number;
+  };
+  savingsUSD: number;
+  savingsPercent: number;
+  timeSaved: string;
+  recommendation: 'WEB3_AVALANCHE' | 'TRADITIONAL_SWIFT';
+}
+
+/**
+ * Avalanche Fuji On-Chain Settlement Result
+ */
+export interface SettlementResult {
+  status: 'SUBMITTED' | 'CONFIRMED' | 'FAILED' | 'STANDBY';
+  txHash?: string;
+  explorerUrl?: string;
+  chainId: number;
+  blockNumber?: number;
+  gasUsed?: string;
+  recipientAddress: string;
+  amount: number;
+  tokenSymbol: string;
+  contractAddress?: string;
+  broadcastDurationMs: number;
+  message?: string;
+  gasFeeAvax?: string;
+  gasFeeUSD?: number;
+}
+
+/**
+ * High-resolution execution telemetry
+ */
+export interface PipelineTelemetry {
+  totalDurationMs: number;
+  slaLimitMs: number;
+  slaCompliance: boolean;
+  stepBreakdown: {
+    ingestionMs: number;
+    complianceMs: number;
+    routingMs: number;
+    settlementMs: number;
+  };
+}
+
+/**
+ * U-Bot Structured Message Card Block
+ */
+export interface UbotCardPayload {
+  type: 'card';
+  version: '1.0';
+  title: string;
+  subtitle: string;
+  status: 'SUCCESS' | 'BLOCKED_COMPLIANCE' | 'FAILED';
+  metrics: Array<{
+    label: string;
+    value: string;
+    highlight?: boolean;
+  }>;
+  actions: Array<{
+    type: 'url' | 'button';
+    label: string;
+    url?: string;
+    action?: string;
+  }>;
+}
+
+/**
+ * Unified Pipeline Execution Response
+ */
+export interface PipelineExecutionResponse {
+  success: boolean;
+  telemetry: PipelineTelemetry;
+  invoice: InvoiceData;
+  compliance: ComplianceResult;
+  routing: RoutingComparisonResult;
+  settlement: SettlementResult;
+  speechSummary: string;
+  ubotCardPayload: UbotCardPayload;
+}
+

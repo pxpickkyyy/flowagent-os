@@ -1,0 +1,84 @@
+{
+  "recordedAt": "2026-10-15T06:48:25.907Z",
+  "network": {
+    "chainId": "43113",
+    "blockNumber": 59488250,
+    "gasPrice": "25.0 nAVAX",
+    "isFuji": true,
+    "rpcLatencyMs": 2,
+    "isEphemeralSigner": false,
+    "walletAddress": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "walletBalanceAvax": "2.4500",
+    "activeRpcNode": "Offline Stage Cache (Fuji Fixture)",
+    "isFallbackMode": true
+  },
+  "activeRpc": {
+    "url": "https://api.avax-test.network/ext/bc/C/rpc",
+    "name": "Official Fuji"
+  },
+  "verifiedTransactions": [
+    {
+      "txHash": "0x2d8a4f91e9f1a238b7e289c09c316719b2658fa998a48754b2a3cdcb4df5f9a1",
+      "blockNumber": 59488200,
+      "gasUsed": "21000",
+      "type": "NATIVE_AVAX"
+    },
+    {
+      "txHash": "0x7a8e52109e2586bfda96eb5e917d057a627581566cb5fb49c7fe68c92bdfb774",
+      "blockNumber": 59488210,
+      "gasUsed": "45210",
+      "type": "USDC_ERC20"
+    },
+    {
+      "txHash": "0x3c99f48ad996bdf255952d7e9818ea1b09b02e9cf384918e977f681878b665df",
+      "blockNumber": 59488225,
+      "gasUsed": "21000",
+      "type": "NATIVE_AVAX"
+    }
+  ],
+  "sampleInvoices": {
+    "aws": {
+      "invoiceNumber": "INV-2026-901",
+      "vendorName": "AWS Cloud Infrastructure Corp",
+      "recipientAddress": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "amount": 2500,
+      "currency": "USDC",
+      "dueDate": "2026-10-30"
+    },
+    "nodeOps": {
+      "invoiceNumber": "INV-2026-902",
+      "vendorName": "Avalanche Validator Ops",
+      "recipientAddress": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "amount": 150,
+      "currency": "AVAX",
+      "dueDate": "2026-11-05"
+    },
+    "sanctionedAddress": {
+      "invoiceNumber": "INV-OFAC-001",
+      "vendorName": "Decentralized Privacy Services",
+      "recipientAddress": "0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b",
+      "amount": 5000,
+      "currency": "USDC",
+      "dueDate": "2026-10-25"
+    },
+    "sanctionedVendor": {
+      "invoiceNumber": "INV-OFAC-002",
+      "vendorName": "Garantex Europe OU",
+      "recipientAddress": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+      "amount": 10000,
+      "currency": "USDC",
+      "dueDate": "2026-10-28"
+    }
+  },
+  "simulatedRoutes": {
+    "aws": {
+      "amountUSD": 2500,
+      "swiftFeeUSD": 112.5,
+      "web3FeeUSD": 2.54,
+      "netSavedUSD": 109.96,
+      "savingsPercent": 97.7,
+      "swiftDuration": "3-5 business days",
+      "web3Duration": "~2.0 seconds"
+    }
+  }
+}

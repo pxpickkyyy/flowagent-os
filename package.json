@@ -7,7 +7,17 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "tsx watch src/app.ts",
-    "verify:sprint0": "tsx scripts/sprint0_verify.ts"
+    "fork:start": "powershell -ExecutionPolicy Bypass -File scripts/start_local_fork.ps1",
+    "fork:stop": "powershell -ExecutionPolicy Bypass -File scripts/stop_local_fork.ps1",
+    "verify:avalanche": "tsx scripts/verify_avalanche.ts",
+    "verify:tokenomist": "tsx scripts/verify_tokenomist.ts",
+    "verify:judging": "tsx scripts/verify_judging.ts",
+    "verify:sprint0": "tsx scripts/sprint0_verify.ts",
+    "verify:sprint1": "tsx scripts/sprint1_verify.ts",
+    "verify:sprint3": "tsx scripts/sprint3_verify.ts",
+    "stage:check": "tsx scripts/stage_check.ts",
+    "record:fixture": "tsx scripts/record_demo_fixture.ts",
+    "stage:build": "tsc"
   },
   "keywords": [
     "flowagent",
@@ -16,21 +26,31 @@
     "avalanche",
     "fuji",
     "elevenlabs",
+    "tokenomist",
     "ubot"
   ],
   "author": "FlowAgent Team",
   "license": "MIT",
   "dependencies": {
+    "@google/genai": "^2.30.0",
+    "@types/multer": "^2.3.0",
     "axios": "^1.7.9",
+    "cors": "^2.8.6",
     "dotenv": "^16.4.7",
     "elevenlabs": "^1.50.0",
     "ethers": "^6.13.5",
     "express": "^4.21.2",
+    "multer": "^2.4.0",
+    "pdf-lib": "^1.17.1",
+    "unpdf": "^1.8.1",
+    "ws": "^8.22.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
+    "@types/ws": "^8.18.2",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3"
   }
