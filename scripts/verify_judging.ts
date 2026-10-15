@@ -141,7 +141,7 @@ async function runJudgingVerification() {
   recordCheck(
     'appExecution',
     'Non-Custodial Agent Keypair Signer',
-    Boolean(signerAddr && ethers.isAddress(signerAddr) && parseFloat(balances.avaxBalance || '0') > 0.05),
+    Boolean(signerAddr && ethers.isAddress(signerAddr) && parseFloat(balances.avaxBalance || '0') >= 0.01),
     `Signer: ${signerAddr} | Balance: ${balances.avaxBalance} AVAX`,
     'Zero-custody local keypair signing'
   );

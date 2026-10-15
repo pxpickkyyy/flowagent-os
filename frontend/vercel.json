@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/pitch_deck.html",
+      "destination": "/pitch_deck.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

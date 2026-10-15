@@ -7,6 +7,9 @@ import {
   Layers,
   Terminal,
   BarChart3,
+  Presentation,
+  Github,
+  ExternalLink,
 } from 'lucide-react';
 
 export interface PresenterHudStatus {
@@ -244,6 +247,33 @@ export const Navbar: React.FC<NavbarProps> = ({
               <p className="text-[11px] text-slate-400 tracking-wider hidden sm:block uppercase font-sans">
                 TACTICAL TELEMETRY / HITL SETTLEMENT RUNTIME
               </p>
+            </div>
+
+            {/* Quick Access Links: Pitch Deck & GitHub for Judges */}
+            <div className="hidden lg:flex items-center gap-2 ml-2">
+              <a
+                href="/pitch_deck.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View Pitch Deck (11 Slides) - Opens in new tab"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-violet-950/60 to-purple-900/40 border border-violet-500/40 text-violet-200 hover:text-white hover:border-violet-400 transition-all shadow-[0_0_15px_rgba(167,139,250,0.15)]"
+              >
+                <Presentation className="w-3.5 h-3.5 text-violet-400" />
+                <span>Pitch Deck</span>
+                <ExternalLink className="w-3 h-3 text-violet-400/70" />
+              </a>
+
+              <a
+                href="https://github.com/pxpickkyyy/flowagent-os"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Open Public GitHub Repository"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/[0.04] border border-white/10 text-slate-300 hover:text-white hover:border-white/30 transition-all"
+              >
+                <Github className="w-3.5 h-3.5 text-white/80" />
+                <span>GitHub</span>
+                <ExternalLink className="w-3 h-3 text-white/40" />
+              </a>
             </div>
           </div>
 

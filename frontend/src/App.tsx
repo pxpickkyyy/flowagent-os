@@ -40,6 +40,8 @@ import {
   SPRING_SNAPPY,
 } from "./ui/primitives";
 import { AmbientBackground } from "./ui/Background";
+import UBotSimulator from "./components/UBotSimulator";
+import { Bot } from "lucide-react";
 
 const NAV_LINKS = [
   { id: "workstation", label: "Workstation" },
@@ -152,6 +154,7 @@ export default function App() {
   const [showPanicToast, setShowPanicToast] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState<ExecutionReceipt | null>(null);
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
+  const [isUbotOpen, setIsUbotOpen] = useState(false);
   const panicToastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const isInitialMountRef = useRef(true);
@@ -1176,19 +1179,28 @@ export default function App() {
                         index="02"
                         title="U-Bot financial copilot"
                         right={
-                          <button
-                            onClick={handlePlayVoice}
-                            title="Synthesize voice briefing via ElevenLabs AI"
-                            className={cn(
-                              "flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium ring-1 transition-colors duration-500 ease-cinematic",
-                              isPlayingAudio
-                                ? "bg-emerald-400/15 text-emerald-200 ring-emerald-300/40"
-                                : "bg-white/[0.03] text-white/55 ring-white/10 hover:text-white",
-                            )}
-                          >
-                            <VoiceBars active={isPlayingAudio} />
-                            <span>{isPlayingAudio ? "Synthesizing..." : "ElevenLabs TTS"}</span>
-                          </button>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => setIsUbotOpen(true)}
+                              className="flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium bg-cyan-500/10 text-cyan-300 ring-1 ring-cyan-500/30 hover:bg-cyan-500/20 transition-colors duration-500 ease-cinematic cursor-pointer"
+                            >
+                              <Bot className="w-3.5 h-3.5" />
+                              <span>Open Copilot Chat</span>
+                            </button>
+                            <button
+                              onClick={handlePlayVoice}
+                              title="Synthesize voice briefing via ElevenLabs AI"
+                              className={cn(
+                                "flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium ring-1 transition-colors duration-500 ease-cinematic",
+                                isPlayingAudio
+                                  ? "bg-emerald-400/15 text-emerald-200 ring-emerald-300/40"
+                                  : "bg-white/[0.03] text-white/55 ring-white/10 hover:text-white",
+                              )}
+                            >
+                              <VoiceBars active={isPlayingAudio} />
+                              <span>{isPlayingAudio ? "Synthesizing..." : "ElevenLabs TTS"}</span>
+                            </button>
+                          </div>
                         }
                       />
 
@@ -1284,7 +1296,7 @@ export default function App() {
                           >
                             <ShieldCheckIcon size={16} className="mt-0.5 shrink-0 text-emerald-300" />
                             <span className="text-[12px] leading-relaxed text-white/55">
-                              <span className="font-medium text-emerald-200">Tokenomist Verified</span> ·{" "}
+                              <span className="font-medium text-emerald-200">Tokenomist Intelligence: AVAX 38-day Cliff Benchmark (Institutional Tier)</span> ·{" "}
                               {selectedPreset.tokenomist.circulating} Circulating · Next Cliff: {selectedPreset.tokenomist.cliffDays}d ·{" "}
                               {selectedPreset.tokenomist.risk}
                             </span>
@@ -1761,6 +1773,33 @@ export default function App() {
                       Snowman BFT Consensus • Avalanche Fuji C-Chain Subnet Verified
                     </div>
                   </Bezel>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* ── Interactive U-Bot Copilot Drawer ───────────────────── */}
+          <AnimatePresence>
+            {isUbotOpen && (
+              <motion.div
+                key="ubot-drawer"
+                className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 0.25, ease: EASE_OUT_EXPO } }}
+                exit={{ opacity: 0, transition: { duration: 0.2, ease: EASE_IN_QUART } }}
+                onClick={() => setIsUbotOpen(false)}
+              >
+                <motion.div
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="ubot-drawer-title"
+                  className="relative flex h-full w-full max-w-2xl flex-col border-l border-white/[0.08] bg-[#07090E] shadow-[0_0_80px_rgba(0,0,0,0.85)] overflow-hidden"
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                  initial={{ x: "100%" }}
+                  animate={{ x: 0, transition: SPRING_SOFT }}
+                  exit={{ x: "100%", transition: { duration: 0.25, ease: EASE_IN_QUART } }}
+                >
+                  <UBotSimulator onClose={() => setIsUbotOpen(false)} />
                 </motion.div>
               </motion.div>
             )}

@@ -3,11 +3,12 @@
 > **Autonomous Accounts Payable & Cross-Border B2B Settlement Operating System**  
 > *Transforming unstructured vendor invoices into sub-2.0s cryptographically settled payments on Avalanche Fuji C-Chain with deterministic OFAC compliance, ElevenLabs real-time voice verification, and Tokenomist dilution radar.*
 
+[![Live dApp](https://img.shields.io/badge/Live%20dApp-flowagent--os.vercel.app-10B981?style=for-the-badge&logo=vercel)](https://flowagent-os.vercel.app)
+[![Pitch Deck](https://img.shields.io/badge/Pitch%20Deck-11%20Slides%20(Interactive)-8B5CF6?style=for-the-badge&logo=powerpoint)](https://flowagent-os.vercel.app/pitch_deck.html)
 [![Avalanche C-Chain](https://img.shields.io/badge/Avalanche-Fuji%20Testnet%20(43113)-E84142?style=for-the-badge&logo=avalanche)](https://testnet.snowtrace.io)
 [![Circle USDC](https://img.shields.io/badge/Circle-USDC%20Native-2775CA?style=for-the-badge&logo=usd-coin)](https://testnet.snowtrace.io/token/0x5425890298aed601595a70ab815c96711a31bc65)
 [![ElevenLabs Voice](https://img.shields.io/badge/ElevenLabs-Turbo%20v2.5-000000?style=for-the-badge&logo=elevenlabs)](https://elevenlabs.io)
 [![Tokenomist Intelligence](https://img.shields.io/badge/Tokenomist-Vesting%20Intelligence-6366F1?style=for-the-badge)](https://tokenomist.ai)
-[![Gemini AI](https://img.shields.io/badge/Google-Gemini%202.5%20Flash-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev)
 [![Judging Score](https://img.shields.io/badge/U--Hackathon%20Audit-100%2F100%20(A%2B)-10B981?style=for-the-badge)](scripts/verify_judging.ts)
 
 ---

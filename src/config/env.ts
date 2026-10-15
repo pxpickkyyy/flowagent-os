@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { z } from 'zod';
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
@@ -38,6 +38,11 @@ const envSchema = z.object({
   // Tokenomist API (Token Unlock, Vesting & Tokenomics Data)
   TOKENOMIST_API_KEY: z.string().optional(),
   TOKENOMIST_API_URL: z.string().url().default('https://api.tokenomist.ai/v4'),
+
+  // OpenRouter / DeepSeek AI
+  OPENROUTER_API_KEY: z.string().optional(),
+  OPENROUTER_MODEL: z.string().default('deepseek/deepseek-v4.1-flash'),
+  OPENROUTER_BASE_URL: z.string().url().default('https://openrouter.ai/api/v1'),
 
   // U-Bot Webhook
   UBOT_WEBHOOK_SECRET: z.string().default('ubot_dev_secret_token_12345'),

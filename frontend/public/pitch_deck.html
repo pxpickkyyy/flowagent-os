@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>FlowAgent OS — Stage Presentation Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-stage: #060913;
+      --bg-card: #0F172A;
+      --bg-card-elevated: #1E293B;
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      
+      --emerald: #10B981;
+      --emerald-bright: #34D399;
+      --cyan: #38BDF8;
+      --rose: #F43F5E;
+      --rose-bright: #FB7185;
+      --amber: #FBBF24;
+      --violet: #A78BFA;
+
+      --text-white: #FFFFFF;
+      --text-light: #E2E8F0;
+      --text-muted: #94A3B8;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-stage);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      height: 100dvh;
+      width: 100vw;
+      overflow: hidden;
+      user-select: none;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.12), transparent 40%);
+    }
+
+    /* Top Stage Progress Bar */
+    .top-progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 200;
+    }
+    .top-progress-fill {
+      height: 100%;
+      width: 14.28%;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald-bright));
+      box-shadow: 0 0 16px var(--emerald-bright);
+      transition: width 0.4s var(--ease-out);
+    }
+
+    /* Top Stage Header Bar */
+    .stage-topbar {
+      position: fixed;
+      top: 20px;
+      left: 48px;
+      right: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--text-light);
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--emerald-bright);
+      font-weight: 800;
+    }
+    .slide-Allocation-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-subtle);
+      color: var(--cyan);
+    }
+
+    /* Main Presentation Canvas */
+    .deck-viewport {
+      width: 100vw;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 84px 64px 96px 64px;
+    }
+
+    .slide-stage {
+      width: 100%;
+      max-width: 1440px;
+      height: 100%;
+      max-height: 820px;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.99);
+      transition: all 0.5s var(--ease-out);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 32px;
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* High-Impact Stage Typography */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      width: fit-content;
+      margin-bottom: 14px;
+    }
+    .eyebrow-cyan {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+    }
+    .eyebrow-emerald {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      color: var(--emerald-bright);
+    }
+    .eyebrow-rose {
+      background: rgba(244, 63, 94, 0.15);
+      border: 1px solid rgba(251, 113, 133, 0.4);
+      color: var(--rose-bright);
+    }
+
+    h1.hero-display {
+      font-size: clamp(3.5rem, 5.5vw, 5.25rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.04;
+      color: var(--text-white);
+    }
+
+    h2.slide-headline {
+      font-size: clamp(2.25rem, 3.6vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text-white);
+    }
+
+    p.slide-lead {
+      font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+      color: var(--text-light);
+      font-weight: 400;
+      line-height: 1.45;
+      max-width: 960px;
+      margin-top: 10px;
+    }
+
+    /* High-Contrast Stage Cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .stage-card {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .stage-card-danger {
+      background: linear-gradient(160deg, rgba(35, 12, 24, 0.95), rgba(15, 23, 42, 0.95));
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+    .stage-card-success {
+      background: linear-gradient(160deg, rgba(6, 34, 29, 0.95), rgba(15, 23, 42, 0.95));
+      border-color: rgba(52, 211, 153, 0.5);
+    }
+    .stage-card-cyan {
+      background: linear-gradient(160deg, rgba(10, 28, 48, 0.95), rgba(15, 23, 42, 0.95));
+      border-color: rgba(56, 189, 248, 0.45);
+    }
+
+    /* Giant Billboard Numbers */
+    .big-metric {
+      font-size: clamp(3rem, 4.5vw, 4.25rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 12px 0;
+      font-feature-settings: "tnum";
+    }
+    .card-kicker {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .card-desc {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+
+    /* Bottom Callout Bar */
+    .impact-banner {
+      padding: 22px 32px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .impact-banner-rose {
+      background: rgba(244, 63, 94, 0.14);
+      border: 1.5px solid rgba(244, 63, 94, 0.45);
+    }
+    .impact-banner-emerald {
+      background: rgba(16, 185, 129, 0.14);
+      border: 1.5px solid rgba(52, 211, 153, 0.45);
+    }
+
+    /* Comparison Row Styling */
+    .comp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1.15rem;
+    }
+    .comp-row:last-child {
+      border-bottom: none;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: var(--emerald-bright);
+      color: #030712;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 25px rgba(52, 211, 153, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(52, 211, 153, 0.45);
+    }
+    .btn-danger {
+      background: var(--rose);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.35);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-white);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Floating Stage Controller */
+    .stage-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    }
+    .nav-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+    .nav-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .dots-wrap {
+      display: flex;
+      gap: 8px;
+      padding: 0 8px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active {
+      width: 28px;
+      border-radius: 999px;
+      background: var(--emerald-bright);
+    }
+    .timer-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    /* Speaker Notes Drawer */
+    .speaker-drawer {
+      position: fixed;
+      top: 72px;
+      right: 32px;
+      width: 440px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1.5px solid var(--cyan);
+      border-radius: 20px;
+      padding: 24px;
+      z-index: 150;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      display: none;
+    }
+    .speaker-drawer.open {
+      display: block;
+    }
+
+    /* Panic Banner */
+    .panic-toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      background: var(--amber);
+      color: #030712;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 10px 24px;
+      border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(251, 191, 36, 0.4);
+      display: none;
+    }
+    .panic-toast.show {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      z-index: 250;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .c-emerald { color: var(--emerald-bright); }
+    .c-cyan { color: var(--cyan); }
+    .c-rose { color: var(--rose-bright); }
+    .c-amber { color: var(--amber); }
+    .c-violet { color: var(--violet); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Indicator -->
+  <div class="top-progress-track">
+    <div class="top-progress-fill" id="progressBar"></div>
+  </div>
+
+  <!-- Stage Topbar -->
+  <header class="stage-topbar">
+    <div class="brand-mark">
+      <div class="brand-icon">⚡</div>
+      <span>FlowAgent OS</span>
+      <span style="color: var(--text-muted); font-weight: 400;">| Autonomous Accounts Payable</span>
+    </div>
+    <div class="slide-Allocation-pill" id="slideTimingPill">SLIDE 1 / 7 • 0:00 – 0:20</div>
+  </header>
+
+  <!-- Stage Panic Banner (Ctrl + Shift + F) -->
+  <div class="panic-toast" id="panicToast">
+    <span>⚠️ STAGE PANIC ACTIVE: Zero-Downtime Local Anvil Cache Engaged</span>
+  </div>
+
+  <!-- Speaker Teleprompter Drawer (Toggle: 'N') -->
+  <aside class="speaker-drawer" id="speakerDrawer">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <span class="mono c-cyan" style="font-size: 0.8rem; font-weight: 700;" id="drawerCue">STAGE SCRIPT (0:00 - 0:20)</span>
+      <button onclick="toggleNotes()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1rem;">✕</button>
+    </div>
+    <p style="font-size: 1.05rem; line-height: 1.55; color: #fff;" id="drawerScript"></p>
+  </aside>
+
+  <!-- On-Chain Receipt Modal -->
+  <div class="modal-overlay" id="receiptModal" onclick="closeModal()">
+    <div class="stage-card stage-card-success" style="max-width: 600px; width: 90%;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 16px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="color: var(--emerald-bright); font-size: 1.3rem;">●</span>
+          <span style="font-size: 1.25rem; font-weight: 800;">Avalanche Fuji Execution Receipt</span>
+        </div>
+        <button onclick="closeModal()" class="btn-secondary" style="padding: 6px 14px;">✕ Close</button>
+      </div>
+      <div class="mono" style="font-size: 1rem; line-height: 2.2;">
+        <div class="comp-row"><span style="color:var(--text-muted)">Network:</span><span class="c-emerald">Avalanche Fuji C-Chain (43113)</span></div>
+        <div class="comp-row"><span style="color:var(--text-muted)">Block Height:</span><span>#59,490,095</span></div>
+        <div class="comp-row"><span style="color:var(--text-muted)">Consensus Finality:</span><span class="c-emerald">128ms (Snowman BFT)</span></div>
+        <div class="comp-row"><span style="color:var(--text-muted)">Phase 1 Status:</span><span class="c-cyan">Cryptographic Liquidity Probe Verified</span></div>
+        <div style="margin-top: 14px;">
+          <div style="color:var(--text-muted); font-size: 0.85rem;">Transaction Hash (66-Char Verified):</div>
+          <div style="padding: 12px; background: rgba(0,0,0,0.5); border-radius: 12px; word-break: break-all; font-size: 0.85rem; color: var(--cyan); margin-top: 6px;">
+            0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deck Canvas -->
+  <main class="deck-viewport">
+    <div class="slide-stage">
+
+      <!-- SLIDE 0: HERO TITLE -->
+      <section class="slide active" data-cue="0:00 – 0:20" data-script="Judges, every time an Asian SME pays an international supplier via SWIFT, they lose 3.5% in hidden FX spreads and wait up to 5 days. Today we introduce FlowAgent OS: an autonomous, non-custodial accounts payable operating system built on Avalanche.">
+        <div>
+          <div class="eyebrow eyebrow-emerald">● U-HACKATHON 2026 • FINANCIAL INFRASTRUCTURE</div>
+          <h1 class="hero-display">FlowAgent OS</h1>
+          <p class="slide-lead">
+            The Autonomous Accounts Payable Operating System.<br>
+            Converting raw commercial invoices into <strong class="c-emerald">sub-2-second</strong> cross-border settlements on Avalanche.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="stage-card stage-card-cyan">
+            <span class="card-kicker c-cyan">Settlement Speed</span>
+            <div class="big-metric c-cyan">&lt; 2.0s</div>
+            <p class="card-desc">Snowman BFT finality replacing 3–5 day bank wire floats.</p>
+          </div>
+          <div class="stage-card stage-card-success">
+            <span class="card-kicker c-emerald">Fee Reduction</span>
+            <div class="big-metric c-emerald">97.8%</div>
+            <p class="card-desc">Slashes $112.50 SWIFT wire & FX tolls down to $2.50.</p>
+          </div>
+          <div class="stage-card">
+            <span class="card-kicker c-violet">Compliance Guard</span>
+            <div class="big-metric c-violet">100%</div>
+            <p class="card-desc">Deterministic OFAC sanctions block in under 35ms.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px;">
+          <button class="btn-primary" onclick="nextSlide()">Start 3-Minute Pitch →</button>
+          <button class="btn-secondary" onclick="toggleNotes()">🎙️ Toggle Speaker Script [N]</button>
+        </div>
+      </section>
+
+      <!-- SLIDE 1: THE PROBLEM -->
+      <section class="slide" data-cue="0:20 – 0:45" data-script="Every global SME faces the same cross-border wire trap. Paying a routine $2,500 supplier invoice costs $112.50 in FX markups and wire fees, while locking up working capital for up to 5 business days across 3 correspondent banks.">
+        <div>
+          <div class="eyebrow eyebrow-rose">01 • THE SME PAIN POINT</div>
+          <h2 class="slide-headline">The Invisible Tax on Global SMEs</h2>
+          <p class="slide-lead">Cross-border B2B payments are trapped in 50-year-old correspondent banking rails.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="stage-card stage-card-danger">
+            <span class="card-kicker c-rose">Capital Lockup</span>
+            <div class="big-metric c-rose">3–5 Days</div>
+            <p class="card-desc">Funds stall across 3–4 intermediary correspondent banks before clearing.</p>
+          </div>
+          <div class="stage-card stage-card-danger">
+            <span class="card-kicker c-rose">Predatory FX Spread</span>
+            <div class="big-metric c-rose">3.5% FX</div>
+            <p class="card-desc">Commercial banks skim hidden currency spreads on every supplier payout.</p>
+          </div>
+          <div class="stage-card stage-card-danger">
+            <span class="card-kicker c-rose">Flat Wire Tolls</span>
+            <div class="big-metric c-rose">$25–$50</div>
+            <p class="card-desc">Fixed SWIFT dispatch fees make recurring vendor bills cost-prohibitive.</p>
+          </div>
+        </div>
+
+        <div class="impact-banner impact-banner-rose">
+          <span>⚠️ <strong>Real SME Reality:</strong> A routine <strong>$2,500 AWS Invoice</strong> burns <strong>$112.50 in bank fees</strong> and stalls delivery for 96+ hours.</span>
+          <span class="mono c-rose" style="font-size: 1.75rem; font-weight: 800;">-$112.50 LOST</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: THE SOLUTION & BENCHMARK -->
+      <section class="slide" data-cue="0:45 – 1:15" data-script="FlowAgent OS replaces manual bank wires with one-click autonomous orchestration. Look at the side-by-side benchmark on a $2,500 invoice: we drop the cost from $112.50 to $2.50, settle in 128 milliseconds on Avalanche, and export ready-to-file ERP accounting receipts.">
+        <div>
+          <div class="eyebrow eyebrow-emerald">02 • THE SOLUTION</div>
+          <h2 class="slide-headline">Live Liquidity Routing Benchmark</h2>
+          <p class="slide-lead">Side-by-side execution for a <strong>$2,500.00 USDC</strong> commercial supplier invoice:</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- Legacy SWIFT -->
+          <div class="stage-card stage-card-danger">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="card-kicker c-rose">Legacy SWIFT Bank Wire</span>
+                <span class="mono c-rose">OBSOLETE</span>
+              </div>
+              <div class="big-metric c-rose">$112.50 <span style="font-size:1.3rem; font-weight:500;">Fee</span></div>
+            </div>
+            <div style="margin-top: 16px;">
+              <div class="comp-row"><span>Fee Breakdown:</span><span class="mono">$25 Wire + 3.5% FX</span></div>
+              <div class="comp-row"><span>Settlement Speed:</span><span class="c-rose">3 – 5 Business Days</span></div>
+              <div class="comp-row"><span>Intermediaries:</span><span>3 Correspondent Banks</span></div>
+              <div class="comp-row"><span>ERP Reconciliation:</span><span>Manual CSV Entry</span></div>
+            </div>
+          </div>
+
+          <!-- FlowAgent Avalanche -->
+          <div class="stage-card stage-card-success">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="card-kicker c-emerald">FlowAgent OS on Avalanche</span>
+                <span class="mono c-emerald">OPTIMAL RAIL</span>
+              </div>
+              <div class="big-metric c-emerald">$2.50 <span style="font-size:1.3rem; font-weight:500;">Fee</span></div>
+            </div>
+            <div style="margin-top: 16px;">
+              <div class="comp-row"><span>Fee Breakdown:</span><span class="mono">0.1% Route + $0.0001 Gas</span></div>
+              <div class="comp-row"><span>Consensus Finality:</span><span class="c-emerald mono">0.12s (Sub-2s)</span></div>
+              <div class="comp-row"><span>Custody Model:</span><span class="c-cyan">100% Non-Custodial</span></div>
+              <div class="comp-row"><span>ERP Reconciliation:</span><span class="c-emerald">1-Click PEAK / FlowAccount CSV</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="impact-banner impact-banner-emerald">
+          <span>✅ <strong>Net Customer Value:</strong> Instant supplier fulfillment + automated ERP audit trail.</span>
+          <span class="mono c-emerald" style="font-size: 1.75rem; font-weight: 800;">+$110.00 SAVED (97.8%)</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: HYBRID ARCHITECTURE -->
+      <section class="slide" data-cue="1:15 – 1:45" data-script="Financial compliance requires zero tolerance for AI hallucinations. We never let an LLM touch calculation math or private keys. We use Gemini strictly at Layer 1 to read unstructured invoices, while Layer 2 runs 100% deterministic code for OFAC screening and route math before settling on Avalanche in Layer 3.">
+        <div>
+          <div class="eyebrow eyebrow-cyan">03 • SOUND TECHNICAL BUILD</div>
+          <h2 class="slide-headline">Hybrid Engine: Zero AI Hallucinations</h2>
+          <p class="slide-lead">AI handles unstructured input at the edge; <strong>100% deterministic code</strong> governs compliance and capital.</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="stage-card stage-card-cyan">
+            <div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="card-kicker c-cyan">Layer 1 • Ingestion</span>
+                <span class="mono c-cyan">SEMANTIC AI</span>
+              </div>
+              <h3 style="font-size: 1.65rem; font-weight: 800; margin: 14px 0;">PDF & Voice Parser</h3>
+              <p class="card-desc">Extracts Vendor, Wallet, and Amount from unstructured PDFs into strict Zod schemas in &lt;1.2s.</p>
+            </div>
+            <div class="mono c-cyan" style="margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1);">
+              🔒 Zero Private Key Access
+            </div>
+          </div>
+
+          <div class="stage-card stage-card-success">
+            <div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="card-kicker c-emerald">Layer 2 • Core Guard</span>
+                <span class="mono c-emerald">100% CODE</span>
+              </div>
+              <h3 style="font-size: 1.65rem; font-weight: 800; margin: 14px 0;">Deterministic Engine</h3>
+              <p class="card-desc">Rule-based OFAC SDN blacklist lookup, EVM checksum verification, and exact FX/Gas arbitrage math.</p>
+            </div>
+            <div class="mono c-emerald" style="margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1);">
+              ⚡ 0.35ms Execution • 0 Hallucinations
+            </div>
+          </div>
+
+          <div class="stage-card">
+            <div>
+              <div style="display:flex; justify-content:space-between;">
+                <span class="card-kicker c-violet">Layer 3 • Settlement</span>
+                <span class="mono c-violet">ON-CHAIN BFT</span>
+              </div>
+              <h3 style="font-size: 1.65rem; font-weight: 800; margin: 14px 0;">Avalanche C-Chain</h3>
+              <p class="card-desc">Two-phase cryptographic liquidity probe + non-custodial USDC settlement with multi-RPC failover.</p>
+            </div>
+            <div class="mono c-violet" style="margin-top:20px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.1);">
+              ⛓️ Sub-2s Finality (ChainID: 43113)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: ECOSYSTEM & PARTNERS -->
+      <section class="slide" data-cue="1:45 – 2:10" data-script="We deeply integrated all ecosystem partners into the core workflow: Avalanche powers our sub-2-second settlement rail, U-Bot serves as the CFO's interactive approval gateway with ElevenLabs voice alerts, and Tokenomist verifies token unlock cliffs before treasury payouts.">
+        <div>
+          <div class="eyebrow eyebrow-emerald">04 • ECOSYSTEM SYNERGY</div>
+          <h2 class="slide-headline">Meaningful Partner Architecture</h2>
+          <p class="slide-lead">Every partner solves a critical enterprise bottleneck inside the live payment loop:</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="stage-card stage-card-cyan">
+            <div>
+              <span class="card-kicker c-cyan">Core Settlement Rail</span>
+              <h3 style="font-size: 1.75rem; font-weight: 800; margin: 10px 0;">Avalanche Fuji</h3>
+              <p class="card-desc">Delivers sub-2-second deterministic finality and sub-cent gas fees required for real-time B2B trade volume.</p>
+            </div>
+            <div class="mono c-cyan" style="margin-top: 18px; font-size: 0.95rem;">
+              ● Live Block #59,490,095
+            </div>
+          </div>
+
+          <div class="stage-card stage-card-success">
+            <div>
+              <span class="card-kicker c-emerald">Approval & Voice UX</span>
+              <h3 style="font-size: 1.75rem; font-weight: 800; margin: 10px 0;">U-Bot + ElevenLabs</h3>
+              <p class="card-desc">U-Bot acts as the CFO's interactive sign-off copilot, paired with real-time ElevenLabs voice confirmations & sanction alarms.</p>
+            </div>
+            <div style="margin-top: 18px;">
+              <button class="btn-secondary" onclick="playPartnerVoice()" style="padding: 8px 16px; font-size: 0.9rem;">🔊 Play ElevenLabs Alert</button>
+            </div>
+          </div>
+
+          <div class="stage-card">
+            <div>
+              <span class="card-kicker c-amber">Treasury Risk Radar</span>
+              <h3 style="font-size: 1.75rem; font-weight: 800; margin: 10px 0;">Tokenomist API</h3>
+              <p class="card-desc">Screens circulating supply ratios and upcoming token cliff unlocks before authorizing native token vendor payouts.</p>
+            </div>
+            <div class="mono c-amber" style="margin-top: 18px; font-size: 0.95rem;">
+              ● 61.1% Circulating • 38d Cliff Verified
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: BUSINESS MODEL & MOAT -->
+      <section class="slide" data-cue="2:10 – 2:35" data-script="FlowAgent OS is a non-custodial software middleware—we never touch customer funds, avoiding banking license bottlenecks. We charge a hybrid B2B SaaS subscription plus a 10 basis point routing fee, generating 99.5% software gross margins while connecting directly into local SME accounting tools like PEAK and FlowAccount.">
+        <div>
+          <div class="eyebrow eyebrow-emerald">05 • PRACTICALITY & UNIT ECONOMICS</div>
+          <h2 class="slide-headline">Non-Custodial SaaS • 99.5% Gross Margin</h2>
+          <p class="slide-lead">Target ICP: <strong>Cross-Border Import/Export SMEs</strong> ($15k+ monthly foreign supplier volume).</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="stage-card">
+            <span class="card-kicker c-cyan">Hybrid Monetization & Defensible Moat</span>
+            <div style="margin-top: 16px;">
+              <div class="comp-row"><span><strong>1. B2B SaaS Subscription:</strong></span><span class="mono c-cyan">$199 – $1,499 / mo</span></div>
+              <div class="comp-row"><span><strong>2. Volume Routing Fee:</strong></span><span class="mono c-emerald">0.10% (10 bps)</span></div>
+              <div class="comp-row"><span><strong>3. Regulatory Posture:</strong></span><span>100% Non-Custodial Middleware</span></div>
+              <div class="comp-row"><span><strong>4. Workflow Moat:</strong></span><span class="c-amber">PEAK / FlowAccount ERP Export</span></div>
+            </div>
+          </div>
+
+          <div class="stage-card stage-card-success">
+            <span class="card-kicker c-emerald">Unit Economics ($5,000 Invoice)</span>
+            <div style="margin-top: 16px;">
+              <div class="comp-row"><span>Traditional Bank Wire Cost:</span><span class="mono c-rose">$200.00</span></div>
+              <div class="comp-row"><span>FlowAgent OS Fee (0.10%):</span><span class="mono c-emerald">$5.00</span></div>
+              <div class="comp-row"><span>Marginal COGS (OCR + Gas):</span><span class="mono c-cyan">$0.002</span></div>
+              <div class="comp-row" style="font-size: 1.35rem; font-weight: 800;">
+                <span>Software Gross Margin:</span><span class="mono c-emerald">&gt; 99.5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: LIVE DEMO DUAL SCENARIOS -->
+      <section class="slide" data-cue="2:35 – 3:00" data-script="Let's see the live system in action across two scenarios. Scenario A processes a clean $2,500 AWS invoice—verifying compliance and settling on Avalanche in 128 milliseconds with a downloadable ERP CSV. Scenario B tests a $5,000 invoice to Tornado Cash—our deterministic guard immediately slams the brakes in 34 milliseconds with zero gas lost.">
+        <div>
+          <div class="eyebrow eyebrow-emerald">06 • LIVE STAGE VERIFICATION</div>
+          <h2 class="slide-headline">Dual-Scenario Live Demo</h2>
+          <p class="slide-lead">Proving sub-2-second settlement for clean vendors and instant lockdown for sanctioned wallets:</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- Scenario A -->
+          <div class="stage-card stage-card-success">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="eyebrow eyebrow-emerald" style="margin:0;">SCENARIO A • HAPPY PATH</span>
+                <span class="mono c-emerald">128ms FINALITY</span>
+              </div>
+              <h3 style="font-size: 1.75rem; font-weight: 800; margin: 16px 0 8px 0;">AWS Cloud ($2,500 USDC)</h3>
+              <p class="card-desc">
+                ✓ Deterministic OFAC Check: <strong>PASSED (0.3ms)</strong><br>
+                ✓ Arbitrage Saved: <strong>+$110.00 (97.8%)</strong><br>
+                ✓ Output: <strong>On-Chain Receipt + ERP CSV Export</strong>
+              </p>
+            </div>
+            <div style="margin-top: 24px; display: flex; gap: 12px;">
+              <button class="btn-primary" onclick="triggerCleanDemo()">⚡ Simulate Settlement</button>
+              <button class="btn-secondary" onclick="exportDemoCsv()">📥 Export ERP CSV</button>
+            </div>
+          </div>
+
+          <!-- Scenario B -->
+          <div class="stage-card stage-card-danger">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="eyebrow eyebrow-rose" style="margin:0;">SCENARIO B • SAFETY GUARD</span>
+                <span class="mono c-rose">34ms HARD ABORT</span>
+              </div>
+              <h3 style="font-size: 1.75rem; font-weight: 800; margin: 16px 0 8px 0;">Tornado Cash ($5,000 USDC)</h3>
+              <p class="card-desc">
+                ✕ Address Flagged: <strong>OFAC SDN Blacklist Match</strong><br>
+                ✕ Execution Interlock: <strong>0 Gas Spent • 0 Funds Moved</strong><br>
+                ✕ Remediation: <strong>Actionable Compliance Checklist</strong>
+              </p>
+            </div>
+            <div style="margin-top: 24px;">
+              <button class="btn-primary btn-danger" onclick="triggerSanctionDemo()">🚫 Trigger OFAC Lockdown</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Floating Navigation -->
+  <nav class="stage-nav">
+    <button class="nav-icon-btn" onclick="prevSlide()" title="Previous Slide (←)">←</button>
+    <div class="dots-wrap" id="dotsWrap"></div>
+    <button class="nav-icon-btn" onclick="nextSlide()" title="Next Slide (→ / Space)">→</button>
+    <div class="timer-pill" id="timerDisplay" onclick="resetTimer()" title="Click to Reset 3:00 Timer">00:00 / 03:00</div>
+    <button class="nav-icon-btn" onclick="toggleNotes()" title="Speaker Script [N]">🎙️</button>
+    <button class="nav-icon-btn" onclick="toggleFullscreen()" title="Fullscreen [F]">⛶</button>
+  </nav>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsWrap = document.getElementById('dotsWrap');
+    const progressBar = document.getElementById('progressBar');
+    const timingPill = document.getElementById('slideTimingPill');
+    const drawer = document.getElementById('speakerDrawer');
+    const drawerCue = document.getElementById('drawerCue');
+    const drawerScript = document.getElementById('drawerScript');
+
+    let current = 0;
+    let seconds = 0;
+
+    // Create navigation dots
+    slides.forEach((_, idx) => {
+      const d = document.createElement('div');
+      d.className = `dot ${idx === 0 ? 'active' : ''}`;
+      d.onclick = () => goToSlide(idx);
+      dotsWrap.appendChild(d);
+    });
+
+    function goToSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === index));
+      current = index;
+
+      // Update Top Progress & Timing
+      const pct = ((index + 1) / slides.length) * 100;
+      progressBar.style.width = `${pct}%`;
+      const cue = slides[index].getAttribute('data-cue');
+      const script = slides[index].getAttribute('data-script');
+      timingPill.textContent = `SLIDE ${index + 1} / ${slides.length} • ${cue}`;
+      drawerCue.textContent = `STAGE TELEPROMPTER (${cue})`;
+      drawerScript.textContent = `"${script}"`;
+    }
+
+    function nextSlide() { goToSlide(current + 1); }
+    function prevSlide() { goToSlide(current - 1); }
+    function toggleNotes() { drawer.classList.toggle('open'); }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    }
+
+    // 3-Minute Stage Timer
+    setInterval(() => {
+      seconds++;
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      const el = document.getElementById('timerDisplay');
+      el.textContent = `${m}:${s} / 03:00`;
+      if (seconds >= 180) el.style.color = 'var(--rose-bright)';
+      else if (seconds >= 150) el.style.color = 'var(--amber)';
+    }, 1000);
+
+    function resetTimer() {
+      seconds = 0;
+      document.getElementById('timerDisplay').style.color = 'var(--text-light)';
+    }
+
+    // Voice & Interactive Rehearsal Helpers
+    function speakText(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 1.06;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function playPartnerVoice() {
+      speakText("Invoice INV-2026-901 verified. Avalanche route saves 110 dollars. Ready for CFO authorization.");
+    }
+
+    function triggerCleanDemo() {
+      speakText("Settlement finalized on Avalanche Fuji in 128 milliseconds.");
+      document.getElementById('receiptModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('receiptModal').classList.remove('open');
+    }
+
+    function triggerSanctionDemo() {
+      speakText("Critical warning. Destination wallet matches OFAC sanctions list. Transaction terminated.");
+      alert("🚫 OFAC COMPLIANCE LOCKDOWN:\nAddress 0x8576acc5... (Tornado Cash Router) blocked in 34ms with 0 gas spent.");
+    }
+
+    function exportDemoCsv() {
+      const csv = "Invoice_ID,Vendor,Recipient,Amount_USD,Rail,TxHash,Latency_MS,Net_Savings_USD\nINV-2026-901,AWS Cloud Infrastructure,0x70997970C51812dc3A010C7d01b50e0d17dc79C8,2500.00,Avalanche Fuji C-Chain,0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260,128ms,$110.00";
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = "Reconciliation_INV-2026-901.csv";
+      a.click();
+    }
+
+    // Keyboard Controls
+    window.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && (e.key === 'F' || e.key === 'f')) {
+        e.preventDefault();
+        document.getElementById('panicToast').classList.toggle('show');
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+      else if (e.key === 'n' || e.key === 'N') toggleNotes();
+      else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+      else if (e.key === 'Escape') closeModal();
+    });
+
+    // Initialize first slide state
+    goToSlide(0);
+  </script>
+</body>
+</html>

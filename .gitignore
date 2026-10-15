@@ -25,3 +25,6 @@ public/audio/*.wav
 Thumbs.db
 *.bak
 *.tmp
+
+.vercel
+.env*

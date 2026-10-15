@@ -11,11 +11,17 @@ import {
   Volume2,
   VolumeX,
   Play,
+  Pause,
   Paperclip,
   Loader2,
   AlertTriangle,
   Terminal,
   BarChart3,
+  X,
+  Sparkles,
+  ShieldCheck,
+  ArrowRight,
+  RefreshCw,
 } from 'lucide-react';
 import { ComplianceErrorInfo } from './ActionableErrorModal';
 
@@ -61,18 +67,20 @@ interface UBotSimulatorProps {
   apiBaseUrl?: string;
   onInspectCompliance?: (error: ComplianceErrorInfo) => void;
   onInvoiceActionDispatched?: () => void;
+  onClose?: () => void;
 }
 
 export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
   apiBaseUrl = '',
   onInspectCompliance,
   onInvoiceActionDispatched,
+  onClose,
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       sender: 'ubot',
-      text: "Welcome to FlowAgent OS Tactical AP Terminal.\n\nI am your autonomous corporate accounts payable agent on Avalanche Fuji (Chain 43113).\n\nSelect a Quick-Demo docket below or upload an invoice file to verify zero-lag OCR extraction, sub-100ms OFAC sanctions checking, and sub-second settlement.",
+      text: "Welcome to FlowAgent OS. I am U-Bot, your autonomous accounts payable copilot on Avalanche Fuji C-Chain (Chain ID: 43113).\n\nAsk any question, pick a Quick Docket below, or drop an invoice PDF to inspect zero-lag OCR extraction, sub-1ms OFAC sanctions screening, and sub-second settlement.",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -97,6 +105,10 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
     try {
       if (audioRef.current) {
         audioRef.current.pause();
+      }
+      if (currentlyPlayingAudio === url) {
+        setCurrentlyPlayingAudio(null);
+        return;
       }
       const audio = new Audio(url);
       audioRef.current = audio;
@@ -239,7 +251,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
         {
           id: `err_${Date.now()}`,
           sender: 'ubot',
-          text: 'Communication error reaching `/api/ubot/message`. Ensure backend is running on port 3000.',
+          text: 'Communication error reaching `/api/ubot/message`. Ensure the backend server is running.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -271,7 +283,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
         const cancelMsg: ChatMessage = {
           id: `bot_${Date.now()}`,
           sender: 'ubot',
-          text: 'Payment cancelled by operator. No funds were broadcasted on-chain.',
+          text: 'Payment cancelled by operator. Zero gas consumed and zero funds were broadcasted on-chain.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         };
         setMessages((prev) => [...prev, cancelMsg]);
@@ -279,7 +291,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
         const confirmedMsg: ChatMessage = {
           id: `bot_${Date.now()}`,
           sender: 'ubot',
-          text: data.replyText || 'Payment successfully settled on Avalanche Fuji C-Chain.',
+          text: data.replyText || 'Payment successfully settled on Avalanche Fuji C-Chain with cryptographic finality.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           card: data.ubotCardPayload,
           audioUrl: data.audioUrl,
@@ -312,7 +324,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
         {
           id: `err_${Date.now()}`,
           sender: 'ubot',
-          text: 'Action dispatch failed. Please check network telemetry.',
+          text: 'Action dispatch failed. Please check network connectivity.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -335,7 +347,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
     const uploadUserMsg: ChatMessage = {
       id: `usr_${Date.now()}`,
       sender: 'user',
-      text: `INVOICE FILE ATTACHED: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`,
+      text: `Uploaded Invoice: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages((prev) => [...prev, uploadUserMsg]);
@@ -352,7 +364,7 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
       const botReply: ChatMessage = {
         id: `bot_${Date.now()}`,
         sender: 'ubot',
-        text: data.replyText || 'Invoice uploaded and parsed successfully.',
+        text: data.replyText || 'Invoice uploaded and extracted successfully.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         card: data.ubotCardPayload,
         audioUrl: data.audioUrl,
@@ -380,398 +392,413 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
   };
 
   return (
-    <div data-ui="ubot-simulator" className="double-bezel-shell h-full flex flex-col">
-      <div className="double-bezel-core h-full flex flex-col overflow-hidden corner-crosshair">
-        {/* Simulator Terminal Header */}
-        <div className="p-4 lg:p-5 bg-black/40 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-phosphor-cyan">
-              <Terminal className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm font-extrabold uppercase text-white font-display">
-                  U-BOT COPILOT TERMINAL
-                </h3>
-                <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-cyan-950 border border-cyan-400 text-phosphor-cyan font-extrabold font-sans">
-                  STREAM ACTIVE
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 uppercase font-sans">
-                HITL COGNITIVE DISPATCH // ELEVENLABS SPEECH RUNTIME
-              </p>
-            </div>
+    <div data-ui="ubot-simulator" className="h-full flex flex-col bg-[#07090E] text-slate-100 font-sans selection:bg-cyan-500/20">
+      {/* ── Single Unified Sleek Header ────────────────────────── */}
+      <div className="px-5 py-4 border-b border-white/[0.08] bg-[#0A0D15]/80 backdrop-blur-xl flex items-center justify-between gap-3 shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-xl bg-cyan-500/10 ring-1 ring-cyan-400/25 flex items-center justify-center text-cyan-300 shrink-0">
+            <Bot className="w-4 h-4" />
           </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-[13px] font-semibold text-white tracking-[-0.01em]">
+                U-Bot Copilot
+              </h3>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono text-cyan-300 bg-cyan-500/10 ring-1 ring-cyan-400/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                Fuji 43113
+              </span>
+            </div>
+            <p className="text-[11px] text-white/45">
+              DeepSeek V4.1 Flash · ElevenLabs Turbo v2.5
+            </p>
+          </div>
+        </div>
 
-          {/* Audio Indicator */}
+        {/* Audio state indicator & close button */}
+        <div className="flex items-center gap-2">
           {currentlyPlayingAudio ? (
             <button
               onClick={stopAudio}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-cyan-950/80 border border-cyan-400 text-phosphor-cyan text-xs font-bold btn-island cursor-pointer font-sans"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/15 ring-1 ring-cyan-400/30 text-cyan-200 text-[11px] font-medium transition hover:bg-cyan-500/25 cursor-pointer"
             >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>SYNTHESIZING... [MUTE]</span>
+              <Volume2 className="w-3.5 h-3.5 animate-pulse text-cyan-300" />
+              <span>Voice Playing</span>
             </button>
           ) : (
-            <div className="text-[11px] text-slate-500 uppercase flex items-center gap-1 font-sans">
-              <VolumeX className="w-3 h-3 text-slate-600" />
-              <span>VOICE STANDBY</span>
+            <div className="hidden sm:flex items-center gap-1 text-[11px] text-white/30 font-mono">
+              <VolumeX className="w-3.5 h-3.5" />
+              <span>Voice Ready</span>
             </div>
           )}
+
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/[0.04] text-white/60 ring-1 ring-white/[0.08] hover:bg-white/[0.1] hover:text-white transition-colors cursor-pointer"
+              title="Close Copilot"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
+      </div>
 
-        {/* Quick-Demo Action Presets Bar */}
-        <div className="p-3 bg-[#060A14] flex flex-wrap items-center gap-2 font-sans">
-          <span className="text-[10px] uppercase text-slate-400 font-extrabold">
-            QUICK DOCKET:
-          </span>
+      {/* ── Quick Docket Pill Carousel ──────────────────────────── */}
+      <div className="px-5 py-2.5 border-b border-white/[0.06] bg-[#080B12]/60 overflow-x-auto no-scrollbar flex items-center gap-2 shrink-0">
+        <span className="text-[10px] uppercase font-mono tracking-wider text-white/35 shrink-0">
+          Presets:
+        </span>
 
-          {/* 1. Pay AWS Invoice $2,500 */}
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => dispatchMessage('Pay AWS Invoice $2,500')}
-            className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/50 hover:bg-cyan-900/60 border border-cyan-500/50 text-phosphor-cyan text-xs font-bold btn-island disabled:opacity-50 cursor-pointer"
-          >
-            <span>AWS CLOUD ($2,500)</span>
-            <div className="btn-icon-wrapper w-4 h-4 rounded bg-cyan-500/20 border border-cyan-400 flex items-center justify-center">
-              <Zap className="w-2.5 h-2.5" />
-            </div>
-          </button>
+        {/* 1. AWS Cloud */}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => dispatchMessage('Pay AWS Invoice $2,500')}
+          className="group flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-cyan-500/10 ring-1 ring-white/[0.08] hover:ring-cyan-500/30 text-white/80 hover:text-cyan-200 transition-all shrink-0 cursor-pointer disabled:opacity-50"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+          <span>AWS Cloud ($2.5k)</span>
+          <Zap className="w-3 h-3 text-cyan-400 opacity-60 group-hover:opacity-100" />
+        </button>
 
-          {/* 2. Test OFAC Sanctioned */}
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => dispatchMessage('Test OFAC Sanctioned (Tornado Cash)')}
-            className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-hazard-dark/40 hover:bg-hazard-dark/60 border border-hazard text-white text-xs font-bold btn-island disabled:opacity-50 cursor-pointer"
-          >
-            <span>OFAC TORNADO CASH</span>
-            <div className="btn-icon-wrapper w-4 h-4 rounded bg-hazard border border-white flex items-center justify-center">
-              <ShieldAlert className="w-2.5 h-2.5" />
-            </div>
-          </button>
+        {/* 2. OFAC Tornado Cash */}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => dispatchMessage('Test OFAC Sanctioned (Tornado Cash)')}
+          className="group flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-rose-500/10 ring-1 ring-white/[0.08] hover:ring-rose-500/30 text-white/80 hover:text-rose-200 transition-all shrink-0 cursor-pointer disabled:opacity-50"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+          <span>Tornado Cash (OFAC)</span>
+          <ShieldAlert className="w-3 h-3 text-rose-400 opacity-60 group-hover:opacity-100" />
+        </button>
 
-          {/* 3. NodeOps Cloud */}
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => dispatchMessage('Pay NodeOps Cloud $850')}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-200 text-xs btn-island disabled:opacity-50 cursor-pointer"
-          >
-            <span>NODEOPS ($850)</span>
-          </button>
+        {/* 3. NodeOps Cloud */}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => dispatchMessage('Pay NodeOps Cloud $850')}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-white/[0.08] ring-1 ring-white/[0.08] text-white/70 hover:text-white transition-all shrink-0 cursor-pointer disabled:opacity-50"
+        >
+          <span>NodeOps (850 AVAX)</span>
+        </button>
 
-          {/* 4. Tokenomist Vesting Intel */}
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => dispatchMessage('Query AVAX Tokenomics & Unlock Schedule (Tokenomist)')}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-indigo-950/40 hover:bg-indigo-900/60 border border-indigo-500/40 text-indigo-300 text-xs font-bold btn-island disabled:opacity-50 cursor-pointer"
-          >
-            <BarChart3 className="w-3 h-3 text-indigo-400" />
-            <span>TOKENOMIST VESTING</span>
-          </button>
+        {/* 4. Tokenomist Vesting */}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => dispatchMessage('Query AVAX Tokenomics & Unlock Schedule (Tokenomist)')}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-indigo-500/10 ring-1 ring-white/[0.08] hover:ring-indigo-500/30 text-white/70 hover:text-indigo-200 transition-all shrink-0 cursor-pointer disabled:opacity-50"
+        >
+          <BarChart3 className="w-3 h-3 text-indigo-400" />
+          <span>Tokenomist Vesting</span>
+        </button>
 
-          {/* 4. Status */}
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => dispatchMessage('Check wallet balance and network status')}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-200 text-xs btn-island disabled:opacity-50 cursor-pointer"
-          >
-            <span>STATUS</span>
-          </button>
+        {/* 5. Status */}
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => dispatchMessage('Check wallet balance and network status')}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-white/[0.08] ring-1 ring-white/[0.08] text-white/70 hover:text-white transition-all shrink-0 cursor-pointer disabled:opacity-50"
+        >
+          <span>Status</span>
+        </button>
 
-          {/* Hidden File Input */}
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-            accept=".pdf,.json,.txt"
-            className="hidden"
-          />
+        {/* Hidden File Input & Upload Pill */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileUpload}
+          accept=".pdf,.json,.txt"
+          className="hidden"
+        />
 
-          <button
-            type="button"
-            disabled={isLoading}
-            onClick={() => fileInputRef.current?.click()}
-            title="Upload Custom Invoice PDF/JSON"
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 text-slate-300 text-xs btn-island disabled:opacity-50 cursor-pointer ml-auto"
-          >
-            <Paperclip className="w-3 h-3 text-phosphor-cyan" />
-            <span>UPLOAD PDF</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          disabled={isLoading}
+          onClick={() => fileInputRef.current?.click()}
+          title="Upload Custom Invoice PDF"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/[0.03] hover:bg-white/[0.08] ring-1 ring-white/[0.08] text-cyan-300 hover:text-cyan-200 transition-all shrink-0 cursor-pointer ml-auto disabled:opacity-50"
+        >
+          <Paperclip className="w-3 h-3 text-cyan-400" />
+          <span>Upload PDF</span>
+        </button>
+      </div>
 
-        {/* Chat Messages Stream */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 font-sans text-xs sm:text-sm">
-          {messages.map((msg) => {
-            const isBot = msg.sender === 'ubot';
+      {/* ── Chat Messages Stream ────────────────────────────────── */}
+      <div className="flex-1 overflow-y-auto px-5 py-6 space-y-5 text-[13px] leading-relaxed">
+        {messages.map((msg) => {
+          const isBot = msg.sender === 'ubot';
 
-            return (
+          return (
+            <div
+              key={msg.id}
+              className={`flex items-start gap-3 ${isBot ? 'justify-start' : 'justify-end'}`}
+            >
+              {isBot && (
+                <div className="w-7 h-7 rounded-lg bg-cyan-500/10 ring-1 ring-cyan-400/25 flex items-center justify-center text-cyan-300 shrink-0 mt-0.5">
+                  <Bot className="w-3.5 h-3.5" />
+                </div>
+              )}
+
               <div
-                key={msg.id}
-                className={`flex items-start gap-3 ${isBot ? 'justify-start' : 'justify-end'}`}
+                className={`max-w-[85%] ${
+                  isBot
+                    ? 'rounded-2xl rounded-tl-sm bg-white/[0.03] ring-1 ring-white/[0.07] p-4 text-white/90'
+                    : 'rounded-2xl rounded-tr-sm bg-white/[0.08] ring-1 ring-white/[0.14] p-3.5 text-white ml-auto'
+                }`}
               >
-                {isBot && (
-                  <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-phosphor-cyan shrink-0 mt-0.5">
-                    <Bot className="w-4 h-4" />
+                {/* Micro sender line & timestamp */}
+                <div className="flex items-center justify-between gap-4 text-[10px] text-white/35 font-mono mb-2">
+                  <span className="font-semibold text-white/60 tracking-wider">
+                    {isBot ? 'U-BOT' : 'OPERATOR'}
+                  </span>
+                  <span>{msg.timestamp}</span>
+                </div>
+
+                {/* Message Body */}
+                <div className="whitespace-pre-wrap text-white/85 leading-relaxed font-sans">
+                  {msg.text}
+                </div>
+
+                {/* Inline Voice Waveform Widget */}
+                {msg.audioUrl && (
+                  <div className="mt-3.5 flex items-center justify-between gap-3 rounded-xl bg-white/[0.03] px-3 py-2 ring-1 ring-white/[0.08]">
+                    <button
+                      onClick={() => playAudio(`${apiBaseUrl}${msg.audioUrl}`)}
+                      className="flex items-center gap-2.5 text-[11px] font-medium text-cyan-300 hover:text-cyan-200 transition-colors cursor-pointer"
+                    >
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/15 ring-1 ring-cyan-400/30">
+                        {currentlyPlayingAudio === `${apiBaseUrl}${msg.audioUrl}` ? (
+                          <Pause className="w-3 h-3 fill-current" />
+                        ) : (
+                          <Play className="w-3 h-3 fill-current ml-0.5" />
+                        )}
+                      </div>
+                      <span>
+                        {currentlyPlayingAudio === `${apiBaseUrl}${msg.audioUrl}`
+                          ? 'Pause audio briefing'
+                          : 'Listen to voice briefing'}
+                      </span>
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      <span className="w-1 h-2 rounded-full bg-cyan-400/60 animate-pulse" />
+                      <span className="w-1 h-3.5 rounded-full bg-cyan-400/80 animate-pulse" />
+                      <span className="w-1 h-2 rounded-full bg-cyan-400/60 animate-pulse" />
+                    </div>
                   </div>
                 )}
 
-                <div
-                  className={`max-w-[88%] sm:max-w-[82%] rounded-xl p-4 ${
-                    isBot
-                      ? 'bg-black/60 border border-white/10 text-slate-100'
-                      : 'bg-cyan-700 text-white font-medium ml-auto'
-                  }`}
-                >
-                  {/* Timestamp & Sender */}
-                  <div className="flex items-center justify-between gap-3 text-[10px] text-slate-400 mb-2 pb-1 bg-black/40 rounded p-1.5">
-                    <span className="font-extrabold uppercase text-slate-300">
-                      {isBot ? 'FLOWAGENT / U-BOT COPILOT' : 'OPERATOR / DRIVER'}
-                    </span>
-                    <samp className="font-mono">{msg.timestamp}</samp>
-                  </div>
-
-                  {/* Prose */}
-                  <div className="leading-relaxed whitespace-pre-wrap font-sans">{msg.text}</div>
-
-                  {/* Audio Synthesizer Widget */}
-                  {msg.audioUrl && (
-                    <div className="mt-3 p-2.5 rounded-lg bg-black/60 border border-cyan-500/40 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => playAudio(`${apiBaseUrl}${msg.audioUrl}`)}
-                          className="w-7 h-7 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/40 border border-cyan-400 flex items-center justify-center text-phosphor-cyan btn-island cursor-pointer"
-                          title="Play Speech"
-                        >
-                          <Play className="w-3.5 h-3.5 fill-current" />
-                        </button>
-                        <span className="text-[10px] uppercase text-phosphor-cyan font-bold font-sans">
-                          ELEVENLABS SPEECH SYNTHESIS
-                        </span>
+                {/* ── CARD 1: Payment Approval Card (HitL) ────────── */}
+                {msg.isApprovalCard && msg.card && (
+                  <div className="mt-4 rounded-xl bg-cyan-950/20 ring-1 ring-cyan-400/30 p-4 space-y-3.5">
+                    <div className="flex items-center justify-between gap-2 border-b border-white/[0.06] pb-2.5">
+                      <div>
+                        <h4 className="font-semibold text-white text-[13px] tracking-tight">
+                          {msg.card.title}
+                        </h4>
+                        <p className="text-[11px] text-cyan-300/80">{msg.card.subtitle}</p>
                       </div>
-
-                      <div className="flex items-center gap-1">
-                        <span className="h-2 w-1 bg-phosphor-cyan rounded-full"></span>
-                        <span className="h-3 w-1 bg-phosphor-cyan rounded-full"></span>
-                        <span className="h-4 w-1 bg-phosphor-cyan rounded-full"></span>
-                      </div>
+                      <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-400/30 font-medium">
+                        HITL Gate
+                      </span>
                     </div>
-                  )}
 
-                  {/* INTERACTIVE CARD 1: Payment Approval Card */}
-                  {msg.isApprovalCard && msg.card && (
-                    <div className="mt-4 p-4 rounded-xl bg-black/70 border-2 border-cyan-500/70 space-y-3 text-xs">
-                      <div className="flex items-center justify-between gap-2 bg-black/40 p-2 rounded-lg">
-                        <div>
-                          <h4 className="font-extrabold uppercase text-white text-sm font-display">
-                            {msg.card.title}
-                          </h4>
-                          <p className="text-[10px] text-phosphor-cyan font-sans">{msg.card.subtitle}</p>
+                    {/* Metrics Matrix */}
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      {msg.card.metrics?.map((m, idx) => (
+                        <div
+                          key={idx}
+                          className={`p-2.5 rounded-lg ${
+                            m.highlight
+                              ? 'bg-emerald-500/10 ring-1 ring-emerald-400/30 text-emerald-200'
+                              : 'bg-white/[0.03] ring-1 ring-white/[0.06] text-white/70'
+                          }`}
+                        >
+                          <span className="text-[10px] text-white/40 block font-mono uppercase">{m.label}</span>
+                          <span className="font-mono font-semibold text-white text-xs block mt-0.5">{m.value}</span>
                         </div>
-                        <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-cyan-950 border border-cyan-400 text-phosphor-cyan font-bold font-sans">
-                          HITL VERIFIED
-                        </span>
-                      </div>
-
-                      {/* Metrics Matrix */}
-                      <div className="grid grid-cols-2 gap-2 text-[11px]">
-                        {msg.card.metrics?.map((m, idx) => (
-                          <div
-                            key={idx}
-                            className={`p-2 rounded-lg border ${
-                              m.highlight
-                                ? 'bg-emerald-950/60 border-emerald-500/50 text-phosphor-green'
-                                : 'bg-black/60 border-white/10 text-slate-300'
-                            }`}
-                          >
-                            <span className="text-slate-400 block text-[10px] uppercase font-sans">{m.label}</span>
-                            <samp className="font-extrabold text-white text-xs font-mono block">{m.value}</samp>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Interactive Buttons */}
-                      <div className="flex items-center gap-2 pt-2 bg-black/40 p-2 rounded-lg">
-                        <button
-                          onClick={() => handleCardAction('APPROVE_PAYMENT', msg.sessionId)}
-                          disabled={isLoading}
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs btn-island disabled:opacity-50 cursor-pointer uppercase font-sans"
-                        >
-                          <Zap className="w-3.5 h-3.5" />
-                          <span>APPROVE &amp; BROADCAST (FUJI)</span>
-                        </button>
-
-                        <button
-                          onClick={() => handleCardAction('CANCEL_PAYMENT', msg.sessionId)}
-                          disabled={isLoading}
-                          className="px-4 py-2.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-slate-300 text-xs btn-island disabled:opacity-50 cursor-pointer uppercase font-bold font-sans"
-                        >
-                          ABORT
-                        </button>
-                      </div>
+                      ))}
                     </div>
-                  )}
 
-                  {/* INTERACTIVE CARD 2: Settlement Confirmed Card */}
-                  {msg.isConfirmedCard && msg.card && (
-                    <div className="mt-4 p-4 rounded-xl bg-emerald-950/40 border-2 border-emerald-400 space-y-3 text-xs">
-                      <div className="flex items-center justify-between gap-2 bg-black/40 p-2 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="w-5 h-5 text-phosphor-green" />
-                          <div>
-                            <h4 className="font-extrabold uppercase text-white text-sm font-display">
-                              {msg.card.title}
-                            </h4>
-                            <p className="text-[10px] text-phosphor-green font-bold font-sans">{msg.card.subtitle}</p>
-                          </div>
-                        </div>
-                        <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-emerald-950 border border-emerald-400 text-phosphor-green font-extrabold font-sans">
-                          FINALIZED
-                        </span>
-                      </div>
-
-                      {/* Metrics */}
-                      <div className="grid grid-cols-2 gap-2 text-[11px]">
-                        {msg.card.metrics?.map((m, idx) => (
-                          <div
-                            key={idx}
-                            className="p-2 rounded-lg bg-black/60 border border-emerald-800/40"
-                          >
-                            <span className="text-slate-400 block text-[10px] uppercase font-sans">{m.label}</span>
-                            <samp className="font-extrabold text-phosphor-green text-xs font-mono block">{m.value}</samp>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Links & CSV Export */}
-                      <div className="flex flex-col sm:flex-row items-center gap-2 pt-2 bg-black/40 p-2 rounded-lg font-sans">
-                        {msg.settlementData?.explorerUrl && (
-                          <a
-                            href={msg.settlementData.explorerUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-black/60 border border-emerald-500/50 text-phosphor-cyan hover:text-white hover:border-cyan-400 text-xs font-bold uppercase"
-                          >
-                            <span>VERIFY ON SNOWTRACE</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-
-                        <button
-                          onClick={() => handleExportReconciliationCSV(msg)}
-                          className="group w-full sm:w-auto flex items-center justify-center gap-2 py-2 px-3.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold btn-island cursor-pointer uppercase"
-                          title="Download PEAK / FlowAccount formatted reconciliation CSV"
-                        >
-                          <span>EXPORT RECONCILIATION CSV</span>
-                          <div className="btn-icon-wrapper w-4 h-4 rounded bg-black/40 flex items-center justify-center">
-                            <Download className="w-2.5 h-2.5" />
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* INTERACTIVE CARD 3: Compliance Blocked Card */}
-                  {msg.isBlockedCard && msg.card && (
-                    <div className="mt-4 p-4 rounded-xl bg-hazard-dark/40 border-2 border-hazard space-y-3 text-xs hazard-stripes">
-                      <div className="flex items-center justify-between gap-2 bg-black/70 p-2 rounded-lg">
-                        <div className="flex items-center gap-2">
-                          <AlertTriangle className="w-5 h-5 text-hazard" />
-                          <div>
-                            <h4 className="font-extrabold uppercase text-white text-sm font-display">
-                              {msg.card.title}
-                            </h4>
-                            <p className="text-[10px] text-rose-200 font-bold font-sans">{msg.card.subtitle}</p>
-                          </div>
-                        </div>
-                        <span className="text-[10px] uppercase px-2 py-0.5 rounded bg-hazard text-white font-extrabold font-sans">
-                          SANCTIONED
-                        </span>
-                      </div>
-
-                      <div className="space-y-1.5 text-[11px] bg-black/80 p-2 rounded-lg border border-hazard/50">
-                        {msg.card.metrics?.map((m, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center justify-between py-1 px-2 bg-black/40 rounded"
-                          >
-                            <span className="text-slate-400 uppercase text-[10px] font-sans">{m.label}:</span>
-                            <samp className="font-bold text-rose-200 font-mono">{m.value}</samp>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Inspect Protocol Button */}
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2 pt-1">
                       <button
-                        onClick={() => {
-                          if (onInspectCompliance) {
-                            onInspectCompliance({
-                              code: 'OFAC_SANCTION_MATCH',
-                              flagReason: 'OFAC SDN Match: Tornado Cash',
-                              checkedAddress: '0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b',
-                              vendorName: 'Tornado Cash Router',
-                              invoiceNumber: 'INV-OFAC-001',
-                              scanLatencyMs: 14,
-                            });
-                          }
-                        }}
-                        className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-hazard hover:bg-hazard-dark text-white font-extrabold text-xs btn-island cursor-pointer uppercase font-sans"
+                        onClick={() => handleCardAction('APPROVE_PAYMENT', msg.sessionId)}
+                        disabled={isLoading}
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs transition-colors cursor-pointer disabled:opacity-50"
                       >
-                        <ShieldAlert className="w-3.5 h-3.5" />
-                        <span>INSPECT COMPLIANCE INTERCEPT PROTOCOL</span>
+                        <Zap className="w-3.5 h-3.5 fill-current" />
+                        <span>Authorize on Avalanche Fuji</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleCardAction('CANCEL_PAYMENT', msg.sessionId)}
+                        disabled={isLoading}
+                        className="py-2.5 px-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] ring-1 ring-white/[0.08] text-white/60 hover:text-white text-xs font-medium transition-colors cursor-pointer disabled:opacity-50"
+                      >
+                        Abort
                       </button>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
 
-                {!isBot && (
-                  <div className="w-7 h-7 rounded-lg bg-cyan-700 border border-cyan-400 flex items-center justify-center text-white shrink-0 mt-0.5">
-                    <User className="w-4 h-4" />
+                {/* ── CARD 2: Settlement Confirmed Card ───────────── */}
+                {msg.isConfirmedCard && msg.card && (
+                  <div className="mt-4 rounded-xl bg-emerald-950/20 ring-1 ring-emerald-400/30 p-4 space-y-3.5">
+                    <div className="flex items-center justify-between gap-2 border-b border-white/[0.06] pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-white text-[13px] tracking-tight">
+                            {msg.card.title}
+                          </h4>
+                          <p className="text-[11px] text-emerald-300/80">{msg.card.subtitle}</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/30 font-medium">
+                        Mined
+                      </span>
+                    </div>
+
+                    {/* Metrics */}
+                    <div className="grid grid-cols-2 gap-2 text-[11px]">
+                      {msg.card.metrics?.map((m, idx) => (
+                        <div key={idx} className="p-2.5 rounded-lg bg-white/[0.03] ring-1 ring-white/[0.06]">
+                          <span className="text-[10px] text-white/40 block font-mono uppercase">{m.label}</span>
+                          <span className="font-mono font-semibold text-emerald-300 text-xs block mt-0.5">{m.value}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Verify & Export */}
+                    <div className="flex flex-col sm:flex-row items-center gap-2 pt-1 font-sans">
+                      {msg.settlementData?.explorerUrl && (
+                        <a
+                          href={msg.settlementData.explorerUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-full sm:w-auto flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] ring-1 ring-white/[0.08] text-white/80 hover:text-white text-xs font-medium transition-colors"
+                        >
+                          <span>Verify Snowtrace</span>
+                          <ExternalLink className="w-3 h-3 text-white/50" />
+                        </a>
+                      )}
+
+                      <button
+                        onClick={() => handleExportReconciliationCSV(msg)}
+                        className="w-full sm:w-auto flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-colors cursor-pointer"
+                        title="Download double-entry ERP reconciliation CSV"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>Export CSV</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* ── CARD 3: Compliance Blocked Card ─────────────── */}
+                {msg.isBlockedCard && msg.card && (
+                  <div className="mt-4 rounded-xl bg-rose-950/20 ring-1 ring-rose-500/30 p-4 space-y-3.5">
+                    <div className="flex items-center justify-between gap-2 border-b border-white/[0.06] pb-2.5">
+                      <div className="flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-white text-[13px] tracking-tight">
+                            {msg.card.title}
+                          </h4>
+                          <p className="text-[11px] text-rose-300/80">{msg.card.subtitle}</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-300 ring-1 ring-rose-400/30 font-medium">
+                        Sanctioned
+                      </span>
+                    </div>
+
+                    <div className="space-y-1.5 text-[11px]">
+                      {msg.card.metrics?.map((m, idx) => (
+                        <div key={idx} className="flex items-center justify-between py-1.5 px-2.5 bg-black/40 rounded-lg">
+                          <span className="text-white/40 font-mono text-[10px] uppercase">{m.label}:</span>
+                          <span className="font-mono font-semibold text-rose-200 text-xs">{m.value}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        if (onInspectCompliance) {
+                          onInspectCompliance({
+                            code: 'OFAC_SANCTION_MATCH',
+                            flagReason: 'OFAC SDN Match: Tornado Cash',
+                            checkedAddress: '0xd90e2f925DA726b50C4Ed8D0Fb90Ad053324F31b',
+                            vendorName: 'Tornado Cash Router',
+                            invoiceNumber: 'INV-OFAC-001',
+                            scanLatencyMs: 14,
+                          });
+                        }
+                      }}
+                      className="w-full flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-semibold text-xs transition-colors cursor-pointer"
+                    >
+                      <ShieldAlert className="w-3.5 h-3.5" />
+                      <span>Inspect Compliance Intercept Protocol</span>
+                    </button>
                   </div>
                 )}
               </div>
-            );
-          })}
 
-          {isLoading && (
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-black/60 border border-cyan-500/40 text-phosphor-cyan text-xs w-fit font-sans">
-              <Loader2 className="w-4 h-4 animate-spin text-phosphor-cyan" />
-              <span>PIPELINE BUS ACTIVE: PROCESSING ON FUJI C-CHAIN</span>
+              {!isBot && (
+                <div className="w-7 h-7 rounded-lg bg-white/[0.08] ring-1 ring-white/[0.12] flex items-center justify-center text-white/70 shrink-0 mt-0.5">
+                  <User className="w-3.5 h-3.5" />
+                </div>
+              )}
             </div>
-          )}
+          );
+        })}
 
-          <div ref={messagesEndRef} />
-        </div>
+        {isLoading && (
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] ring-1 ring-cyan-400/20 text-cyan-300 text-xs w-fit">
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+            <span className="font-mono text-[11px]">DeepSeek V4.1 Flash reasoning & processing...</span>
+          </div>
+        )}
 
-        {/* Text Input Bar */}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* ── Modern Bottom Command Bar ────────────────────────────── */}
+      <div className="p-4 border-t border-white/[0.08] bg-[#0A0D15]/90 backdrop-blur-xl shrink-0">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             dispatchMessage(inputText);
           }}
-          className="p-3 bg-black/80 flex items-center gap-2 font-sans"
+          className="relative flex items-center bg-white/[0.04] ring-1 ring-white/[0.1] focus-within:ring-cyan-400/40 focus-within:bg-white/[0.06] rounded-2xl transition-all"
         >
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Type 'Pay AWS Invoice $2,500' or dispatch message..."
+            placeholder="Ask U-Bot or type 'Pay AWS $2,500'..."
             disabled={isLoading}
-            className="flex-1 bg-white/[0.04] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 disabled:opacity-50"
+            className="flex-1 bg-transparent px-4 py-3 text-[13px] text-white placeholder-white/30 focus:outline-none disabled:opacity-50"
           />
 
           <button
             type="submit"
             disabled={isLoading || !inputText.trim()}
-            className="p-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white disabled:opacity-40 btn-island cursor-pointer"
+            className="mr-2 p-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:bg-white/[0.05] text-black disabled:text-white/20 transition-all cursor-pointer disabled:cursor-not-allowed shrink-0"
+            title="Dispatch prompt"
           >
-            <Send className="w-4 h-4" />
+            <Send className="w-3.5 h-3.5 fill-current" />
           </button>
         </form>
+
+        <div className="mt-2 flex items-center justify-between text-[10px] text-white/35 font-mono px-1">
+          <span>Snowman BFT Consensus</span>
+          <span>DeepSeek V4.1 Flash · Sub-2s SLA</span>
+        </div>
       </div>
     </div>
   );

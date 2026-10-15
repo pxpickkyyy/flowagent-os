@@ -10,6 +10,7 @@ import { avalancheService } from '../services/avalancheService.js';
 import { elevenlabsService } from '../services/elevenlabsService.js';
 import { tokenomistService } from '../services/tokenomistService.js';
 import { reconciliationService } from '../services/reconciliationService.js';
+import { llmService } from '../services/llmService.js';
 import {
   InvoiceData,
   InvoiceDataSchema,
@@ -72,14 +73,17 @@ function parseTokenizedMessage(rawMessage: string): TokenizedExtraction {
     msg.match(/\$\s*([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\b/);
 
   if (amountCurrencyMatch) {
-    if (amountCurrencyMatch[2] && isNaN(Number(amountCurrencyMatch[2]))) {
-      amount = parseFloat(amountCurrencyMatch[1].replace(/,/g, ''));
-      currency = amountCurrencyMatch[2].toUpperCase();
-    } else if (amountCurrencyMatch[1] && isNaN(Number(amountCurrencyMatch[1]))) {
-      currency = amountCurrencyMatch[1].toUpperCase();
-      amount = parseFloat(amountCurrencyMatch[2].replace(/,/g, ''));
+    const rawVal1 = amountCurrencyMatch[1] || '';
+    const rawVal2 = amountCurrencyMatch[2] || '';
+
+    if (/^(USDC|AVAX|USD|EUR|USDT)$/i.test(rawVal2)) {
+      currency = rawVal2.toUpperCase();
+      amount = parseFloat(rawVal1.replace(/,/g, ''));
+    } else if (/^(USDC|AVAX|USD|EUR|USDT)$/i.test(rawVal1)) {
+      currency = rawVal1.toUpperCase();
+      amount = parseFloat(rawVal2.replace(/,/g, ''));
     } else {
-      amount = parseFloat(amountCurrencyMatch[1].replace(/,/g, ''));
+      amount = parseFloat(rawVal1.replace(/,/g, ''));
       currency = 'USDC';
     }
   }
@@ -296,6 +300,74 @@ export class UbotController {
           conversationId,
           replyText,
           ubotCardPayload: card,
+        });
+        return;
+      }
+
+      // -----------------------------------------------------------------------
+      // Step 0.4: Conversational Intelligence via DeepSeek V4.1 Flash
+      // -----------------------------------------------------------------------
+      const isExplicitInvoice = Boolean(
+        req.file ||
+        invoiceJson ||
+        invoiceText ||
+        tokenized.alias ||
+        tokenized.amount ||
+        tokenized.recipientAddress
+      );
+
+      if (!isExplicitInvoice && message && message.trim().length > 0) {
+        telemetrySocketService.emitStage(
+          sessionId,
+          'PARSING',
+          {},
+          Math.round(performance.now() - startTime),
+          'DeepSeek V4.1 Flash semantic reasoning active...'
+        );
+
+        const llmResult = await llmService.generateChatResponse(message);
+        const replyText = llmResult.replyText;
+
+        let audioUrl: string | undefined;
+        if (synthesizeVoice) {
+          const tts = await elevenlabsService.synthesizeSpeech(replyText, { saveToFile: true });
+          if (tts.success && tts.outputPath) {
+            audioUrl = `/audio/${tts.outputPath.split(/[\\/]/).pop()}`;
+          }
+        }
+
+        const card: UbotCardPayload = {
+          type: 'card',
+          version: '1.0',
+          title: 'U-Bot Conversational Intelligence',
+          subtitle: `Powered by DeepSeek V4.1 Flash (${llmResult.latencyMs}ms)`,
+          status: 'SUCCESS',
+          metrics: [
+            { label: 'Cognitive Engine', value: 'DeepSeek V4.1 Flash', highlight: true },
+            { label: 'Voice Feedback', value: elevenlabsService.isConfigured() ? 'ElevenLabs Turbo v2.5' : 'Standby' },
+            { label: 'Settlement Rail', value: 'Avalanche Fuji (43113)' },
+            { label: 'Latency', value: `${llmResult.latencyMs}ms` },
+          ],
+          actions: [
+            {
+              type: 'button',
+              label: 'Pay AWS Invoice ($2,500)',
+              action: 'PROCESS_INVOICE',
+            },
+          ],
+        };
+
+        telemetrySocketService.emitStage(sessionId, 'IDLE', { card });
+
+        res.json({
+          success: true,
+          sessionId,
+          conversationId,
+          replyText,
+          audioUrl,
+          ubotCardPayload: card,
+          source: llmResult.source,
+          latencyMs: llmResult.latencyMs,
         });
         return;
       }

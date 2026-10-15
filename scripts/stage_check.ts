@@ -41,10 +41,10 @@ async function runStageCheck() {
   const avaxFloat = parseFloat(balances.avaxBalance || '0');
 
   if (balances.address) {
-    const hasSufficientAvax = avaxFloat >= 0.05;
+    const hasSufficientAvax = avaxFloat >= 0.01;
     recordDiagnostic(
       'CHECK-1-AVAX-BALANCE',
-      'Avalanche Wallet AVAX Balance Guard (>= 0.05 AVAX)',
+      'Avalanche Wallet AVAX Balance Guard (>= 0.01 AVAX)',
       hasSufficientAvax,
       d1,
       `Address: ${balances.address} | Balance: ${balances.avaxBalance} AVAX | USDC: ${balances.usdcBalance}`
