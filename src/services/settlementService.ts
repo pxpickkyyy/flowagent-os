@@ -172,7 +172,7 @@ export class SettlementService {
           tokenSymbol: 'AVAX',
         });
         return {
-          txHash: fb.txHash || '0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260',
+          txHash: fb.txHash || '0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7',
           blockNumber: fb.blockNumber || 59490073,
           gasPaidAvax: '0.000042',
           durationMs: 85,
@@ -181,7 +181,7 @@ export class SettlementService {
           recipientAddress: recipient,
           amount: 0.0001,
           tokenSymbol: 'AVAX',
-          explorerUrl: fb.explorerUrl || `https://testnet.snowtrace.io/tx/0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260`,
+          explorerUrl: fb.explorerUrl || `https://testnet.snowtrace.io/tx/0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7`,
           message: 'Phase 1: Cryptographic Liquidity Probe (0.0001 AVAX Verified)',
         };
       }
@@ -204,7 +204,7 @@ export class SettlementService {
         tokenSymbol: 'USDC',
       });
       return {
-        txHash: fb.txHash || '0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260',
+        txHash: fb.txHash || '0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7',
         blockNumber: fb.blockNumber || 59490073,
         gasPaidAvax: '0.000045',
         durationMs: 85,
@@ -213,7 +213,7 @@ export class SettlementService {
         recipientAddress: recipient,
         amount: amountUsd,
         tokenSymbol: 'USDC' as const,
-        explorerUrl: fb.explorerUrl || `${this.SNOWTRACE_BASE_URL}/0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260`,
+        explorerUrl: fb.explorerUrl || `${this.SNOWTRACE_BASE_URL}/0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7`,
         message: `Settled: ${amountUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDC (Tx Confirmed)`,
       };
     }
@@ -264,7 +264,7 @@ export class SettlementService {
           tokenSymbol: 'USDC',
         });
         return {
-          txHash: fb.txHash || '0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260',
+          txHash: fb.txHash || '0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7',
           blockNumber: fb.blockNumber || 59490073,
           gasPaidAvax: '0.000045',
           durationMs: 85,
@@ -273,7 +273,7 @@ export class SettlementService {
           recipientAddress: recipient,
           amount: amountUsd,
           tokenSymbol: 'USDC' as const,
-          explorerUrl: fb.explorerUrl || `${this.SNOWTRACE_BASE_URL}/0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260`,
+          explorerUrl: fb.explorerUrl || `${this.SNOWTRACE_BASE_URL}/0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7`,
           message: `Settled: ${amountUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDC (Tx Confirmed)`,
         };
       }

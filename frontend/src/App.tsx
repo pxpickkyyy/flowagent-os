@@ -1791,10 +1791,32 @@ export default function App() {
                     </div>
 
                     <div className="mt-5">
-                      <div className="text-[12px] text-white/40">Transaction Hash</div>
+                      <div className="flex items-center justify-between text-[12px] text-white/40">
+                        <span>Transaction Hash</span>
+                        <button
+                          onClick={() => {
+                            navigator.clipboard.writeText(selectedReceipt.txHash);
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 2000);
+                          }}
+                          className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-300 hover:text-white transition cursor-pointer"
+                        >
+                          <CopyIcon size={12} />
+                          <span>{copied ? "Copied!" : "Copy"}</span>
+                        </button>
+                      </div>
                       <div className="mt-2 break-all rounded-[1rem] bg-black/40 p-3.5 font-mono text-[11px] leading-relaxed text-emerald-200/90 ring-1 ring-white/[0.06]">
                         {selectedReceipt.txHash}
                       </div>
+                      <a
+                        href={`https://testnet.snowtrace.io/tx/${selectedReceipt.txHash}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-2 text-xs font-mono text-emerald-300 ring-1 ring-emerald-500/30 hover:bg-emerald-500/20 transition cursor-pointer"
+                      >
+                        <ArrowUpRightIcon size={14} />
+                        <span>View on Snowtrace Explorer</span>
+                      </a>
                     </div>
 
                     <div className="mt-6 text-center text-[11px] text-white/30">

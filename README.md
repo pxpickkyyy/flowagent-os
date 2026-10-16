@@ -10,6 +10,13 @@
 [![ElevenLabs Voice](https://img.shields.io/badge/ElevenLabs-Turbo%20v2.5-000000?style=for-the-badge&logo=elevenlabs)](https://elevenlabs.io)
 [![Tokenomist Intelligence](https://img.shields.io/badge/Tokenomist-Vesting%20Intelligence-6366F1?style=for-the-badge)](https://tokenomist.ai)
 [![Judging Score](https://img.shields.io/badge/U--Hackathon%20Audit-100%2F100%20(A%2B)-10B981?style=for-the-badge)](scripts/verify_judging.ts)
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-3%20Min%20Walkthrough-FF0000?style=for-the-badge&logo=youtube)](#-live-demo-video-walkthrough)
+
+---
+
+## 🎥 Live Demo Video Walkthrough
+> **3-Minute Stage & Architecture Walkthrough**: [Watch Live Demo](https://flowagent-os.vercel.app/pitch_deck.html)  
+> *Demonstrating dual-scenario execution: Clean AWS $2,500 USDC settlement on Avalanche Fuji with ElevenLabs voice synthesis vs. Tornado Cash OFAC sanctions interlock.*
 
 ---
 
