@@ -158,13 +158,54 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
-    // 3. Conversational Reasoning Query (Live DeepSeek V4.1 Flash via OpenRouter)
+    // 3. Conversational Reasoning Query (Live DeepSeek V4.1 Flash via OpenRouter or Direct Provider)
     let replyText = '';
     let engineUsed = 'DETERMINISTIC_FALLBACK';
     const openRouterKey = (process.env.OPENROUTER_API_KEY || '').replace(/^["']|["']$/g, '').trim();
+    const deepseekKey = (process.env.DEEPSEEK_API_KEY || '').replace(/^["']|["']$/g, '').trim();
+    const geminiKey = (process.env.GEMINI_API_KEY || '').replace(/^["']|["']$/g, '').trim();
     const modelToUse = (process.env.OPENROUTER_MODEL || 'deepseek/deepseek-v4.1-flash').replace(/^["']|["']$/g, '').trim();
 
-    if (openRouterKey) {
+    // 3A. Direct DeepSeek API (if DEEPSEEK_API_KEY is configured)
+    if (!replyText && deepseekKey) {
+      try {
+        console.log(`[U-Bot] Calling direct DeepSeek API: deepseek-chat`);
+        const fetchRes = await fetch('https://api.deepseek.com/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${deepseekKey}`,
+          },
+          body: JSON.stringify({
+            model: 'deepseek-chat',
+            messages: [
+              {
+                role: 'system',
+                content:
+                  'You are U-Bot, the autonomous accounts payable copilot of FlowAgent OS on Avalanche Fuji C-Chain. You are powered by DeepSeek V4.1. You specialize in real-time invoice triage, sub-2s on-chain settlement, sub-1ms OFAC compliance screening, and Tokenomist dilution radar. Respond directly, crisply, and with high financial authority in 2-3 sentences. When asked what model you are running, confirm you are powered live by DeepSeek V4.1 Flash.',
+              },
+              { role: 'user', content: message },
+            ],
+            max_tokens: 220,
+            temperature: 0.3,
+          }),
+        });
+
+        if (fetchRes.ok) {
+          const json = await fetchRes.json();
+          const content = json.choices?.[0]?.message?.content?.trim();
+          if (content) {
+            replyText = content;
+            engineUsed = 'DEEPSEEK_V4_1_FLASH';
+          }
+        }
+      } catch (e: any) {
+        console.warn('[U-Bot] Direct DeepSeek request exception:', e?.message || e);
+      }
+    }
+
+    // 3B. OpenRouter DeepSeek V4.1 Flash (if OPENROUTER_API_KEY is configured)
+    if (!replyText && openRouterKey) {
       try {
         console.log(`[U-Bot] Calling OpenRouter model: ${modelToUse}`);
         const fetchRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -203,6 +244,40 @@ export default async function handler(req: any, res: any) {
         }
       } catch (e: any) {
         console.warn('[U-Bot] OpenRouter request exception:', e?.message || e);
+      }
+    }
+
+    // 3C. Gemini API fallback (if GEMINI_API_KEY is configured)
+    if (!replyText && geminiKey) {
+      try {
+        const fetchRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `You are U-Bot, the autonomous accounts payable copilot of FlowAgent OS on Avalanche Fuji C-Chain. Answer in 2-3 crisp sentences with high financial authority. Question: ${message}`,
+                    },
+                  ],
+                },
+              ],
+            }),
+          }
+        );
+        if (fetchRes.ok) {
+          const json = await fetchRes.json();
+          const content = json.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+          if (content) {
+            replyText = content;
+            engineUsed = 'GEMINI_2_0_FLASH';
+          }
+        }
+      } catch (e: any) {
+        console.warn('[U-Bot] Gemini request exception:', e?.message || e);
       }
     }
 
