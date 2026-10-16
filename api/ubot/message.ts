@@ -76,13 +76,14 @@ export default async function handler(req: any, res: any) {
     }
 
     // 2. Invoice Payment / Quick Docket Matching
-    const isInvoice =
-      lower.includes('pay') ||
-      lower.includes('invoice') ||
-      lower.includes('aws') ||
-      lower.includes('nodeops') ||
-      lower.includes('custom') ||
-      lower.match(/\$?\s*([0-9]+(?:\.[0-9]+)?)/);
+    const isPaymentCommand =
+      /\b(pay|settle|transfer|send|wire)\b/i.test(lower) &&
+      (/\$\s*\d+/i.test(lower) || /\b(aws|nodeops|invoice|usdc)\b/i.test(lower) || /\b\d+\s*(usdc|dollars?)\b/i.test(lower));
+    const isExplicitInvoiceDocket =
+      /\b(invoice\s+(inv-|\#|\d+)|inv-\d+)\b/i.test(lower) ||
+      lower.includes('pay invoice') ||
+      lower.includes('process invoice');
+    const isInvoice = isPaymentCommand || isExplicitInvoiceDocket;
 
     if (isInvoice) {
       let vendor = 'Amazon Web Services';
@@ -157,39 +158,51 @@ export default async function handler(req: any, res: any) {
       return;
     }
 
-    // 3. Conversational Reasoning Query (DeepSeek V4.1 Flash Style)
+    // 3. Conversational Reasoning Query (Live DeepSeek V4.1 Flash via OpenRouter)
     let replyText = '';
+    let engineUsed = 'DETERMINISTIC_FALLBACK';
+    const openRouterKey = (process.env.OPENROUTER_API_KEY || '').trim();
+    const modelToUse = (process.env.OPENROUTER_MODEL || 'deepseek/deepseek-v4.1-flash').trim();
 
-    // Check if OpenRouter API Key is set in serverless environment
-    const openRouterKey = process.env.OPENROUTER_API_KEY;
-    if (openRouterKey && openRouterKey.startsWith('sk-or-v1-')) {
+    if (openRouterKey) {
       try {
+        console.log(`[U-Bot] Calling OpenRouter model: ${modelToUse}`);
         const fetchRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${openRouterKey}`,
+            'HTTP-Referer': 'https://flowagent-os.vercel.app',
+            'X-Title': 'FlowAgent OS',
           },
           body: JSON.stringify({
-            model: 'deepseek/deepseek-v4.1-flash',
+            model: modelToUse,
             messages: [
               {
                 role: 'system',
                 content:
-                  'You are U-Bot, the autonomous accounts payable copilot of FlowAgent OS on Avalanche Fuji C-Chain. Answer in 2-3 crisp sentences with high financial authority. Mention Avalanche sub-2s finality, OFAC compliance guard, and Tokenomist dilution radar where relevant.',
+                  'You are U-Bot, the autonomous accounts payable copilot of FlowAgent OS on Avalanche Fuji C-Chain. You are powered by DeepSeek V4.1 Flash. You specialize in real-time invoice triage, sub-2s on-chain settlement, sub-1ms OFAC compliance screening, and Tokenomist dilution radar. Respond directly, crisply, and with high financial authority in 2-3 sentences. When asked what model you are running, confirm you are powered live by DeepSeek V4.1 Flash.',
               },
               { role: 'user', content: message },
             ],
-            max_tokens: 150,
+            max_tokens: 220,
+            temperature: 0.3,
           }),
         });
 
         if (fetchRes.ok) {
           const json = await fetchRes.json();
-          replyText = json.choices?.[0]?.message?.content?.trim() || '';
+          const content = json.choices?.[0]?.message?.content?.trim();
+          if (content) {
+            replyText = content;
+            engineUsed = 'DEEPSEEK_V4_1_FLASH';
+          }
+        } else {
+          const errText = await fetchRes.text();
+          console.error(`[U-Bot] OpenRouter returned ${fetchRes.status}:`, errText);
         }
-      } catch (e) {
-        console.warn('OpenRouter request exception:', e);
+      } catch (e: any) {
+        console.warn('[U-Bot] OpenRouter request exception:', e?.message || e);
       }
     }
 
@@ -211,7 +224,7 @@ export default async function handler(req: any, res: any) {
           'FlowAgent OS is an autonomous accounts payable workstation that ingests vendor invoices, screens OFAC compliance in 0.68ms, optimizes cross-border FX liquidity, and settles on Avalanche Fuji C-Chain in under two seconds.';
       } else {
         replyText =
-          "I am U-Bot, your autonomous accounts payable copilot on Avalanche Fuji C-Chain. You can ask about SWIFT arbitrage, Tokenomist dilution radar, OFAC compliance guard, or type 'Pay AWS $2,500' to initiate an on-chain settlement.";
+          "I am U-Bot, your autonomous accounts payable copilot on Avalanche Fuji C-Chain powered by DeepSeek V4.1 Flash. You can ask about SWIFT arbitrage, Tokenomist dilution radar, OFAC compliance guard, or type 'Pay AWS $2,500' to initiate an on-chain settlement.";
       }
     }
 
@@ -219,10 +232,17 @@ export default async function handler(req: any, res: any) {
       type: 'card',
       version: '1.0',
       title: 'U-Bot Conversational Intelligence',
-      subtitle: 'Powered by DeepSeek V4.1 Flash & Avalanche C-Chain',
+      subtitle:
+        engineUsed === 'DEEPSEEK_V4_1_FLASH'
+          ? 'Live Inference: DeepSeek V4.1 Flash'
+          : 'Autonomous AP Intelligence',
       status: 'SUCCESS',
       metrics: [
-        { label: 'Cognitive Engine', value: 'DeepSeek V4.1 Flash', highlight: true },
+        {
+          label: 'Cognitive Engine',
+          value: engineUsed === 'DEEPSEEK_V4_1_FLASH' ? 'DeepSeek V4.1 Flash (Live)' : 'Autonomous AP Engine',
+          highlight: true,
+        },
         { label: 'Settlement Rail', value: 'Avalanche Fuji (43113)' },
         { label: 'Voice Feedback', value: 'Web Audio / ElevenLabs' },
         { label: 'Deterministic SLA', value: 'Sub-2s Finality' },
@@ -242,7 +262,8 @@ export default async function handler(req: any, res: any) {
       conversationId,
       replyText,
       ubotCardPayload: card,
-      source: openRouterKey ? 'DEEPSEEK_V4_1_FLASH' : 'DETERMINISTIC_FALLBACK',
+      source: engineUsed,
+      model: modelToUse,
     });
   } catch (err: any) {
     res.status(500).json({

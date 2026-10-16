@@ -243,13 +243,14 @@ export const UBotSimulator: React.FC<UBotSimulatorProps> = ({
     }
 
     // 2. Invoice Payment Commands
-    const isInvoiceCmd =
-      lower.includes('pay') ||
-      lower.includes('invoice') ||
-      lower.includes('aws') ||
-      lower.includes('nodeops') ||
-      lower.includes('custom') ||
-      lower.match(/\$?\s*([0-9]+(?:\.[0-9]+)?)/);
+    const isPaymentCommand =
+      /\b(pay|settle|transfer|send|wire)\b/i.test(lower) &&
+      (/\$\s*\d+/i.test(lower) || /\b(aws|nodeops|invoice|usdc)\b/i.test(lower) || /\b\d+\s*(usdc|dollars?)\b/i.test(lower));
+    const isExplicitInvoiceDocket =
+      /\b(invoice\s+(inv-|\#|\d+)|inv-\d+)\b/i.test(lower) ||
+      lower.includes('pay invoice') ||
+      lower.includes('process invoice');
+    const isInvoiceCmd = isPaymentCommand || isExplicitInvoiceDocket;
 
     if (isInvoiceCmd) {
       let vendor = 'Amazon Web Services';
