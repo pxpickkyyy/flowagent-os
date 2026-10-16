@@ -161,8 +161,8 @@ export default async function handler(req: any, res: any) {
     // 3. Conversational Reasoning Query (Live DeepSeek V4.1 Flash via OpenRouter)
     let replyText = '';
     let engineUsed = 'DETERMINISTIC_FALLBACK';
-    const openRouterKey = (process.env.OPENROUTER_API_KEY || '').trim();
-    const modelToUse = (process.env.OPENROUTER_MODEL || 'deepseek/deepseek-v4.1-flash').trim();
+    const openRouterKey = (process.env.OPENROUTER_API_KEY || '').replace(/^["']|["']$/g, '').trim();
+    const modelToUse = (process.env.OPENROUTER_MODEL || 'deepseek/deepseek-v4.1-flash').replace(/^["']|["']$/g, '').trim();
 
     if (openRouterKey) {
       try {

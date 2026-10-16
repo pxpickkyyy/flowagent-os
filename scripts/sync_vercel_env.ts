@@ -1,4 +1,4 @@
-import { spawnSync } from 'child_process';
+import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,30 +15,22 @@ const keysToSync = [
 ];
 
 for (const key of keysToSync) {
-  const val = process.env[key];
-  if (val && val.trim()) {
-    console.log(`Adding ${key} to Vercel...`);
-    const res = spawnSync(
-      'vercel',
-      [
-        'env',
-        'add',
-        key,
-        'production,preview,development',
-        '--scope',
-        'pxpickkyyys-projects',
-        '--force',
-        '--yes',
-        '--value',
-        val.trim(),
-      ],
-      { encoding: 'utf8', shell: true }
-    );
-
-    if (res.status === 0) {
+  const raw = process.env[key];
+  if (raw && raw.trim()) {
+    const cleaned = raw.replace(/^["']|["']$/g, '').trim();
+    console.log(`Syncing ${key} (clean length: ${cleaned.length})...`);
+    try {
+      execSync(
+        `vercel env add ${key} production,preview,development --scope pxpickkyyys-projects --force -y`,
+        {
+          input: cleaned,
+          encoding: 'utf8',
+          stdio: ['pipe', 'pipe', 'pipe'],
+        }
+      );
       console.log(`✅ Successfully added ${key}`);
-    } else {
-      console.error(`❌ Error adding ${key}:`, res.stderr || res.stdout);
+    } catch (err: any) {
+      console.error(`❌ Error adding ${key}:`, err.stderr || err.message);
     }
   }
 }
