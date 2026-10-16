@@ -8,6 +8,14 @@
       "destination": "/pitch_deck.html"
     },
     {
+      "source": "/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
