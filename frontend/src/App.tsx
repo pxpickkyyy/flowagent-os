@@ -135,9 +135,9 @@ interface ExecutionReceipt {
 }
 
 const VERIFIED_TX_HASHES: Record<string, string> = {
-  aws: "0xdc75e10bb2342d55a1f823e100ddb370ace10d8bd8cc6ace5d61c8c8bdc4c260",
-  nodeops: "0xb17a438ad428807fd98b25f56f9e205167b5f593bc16df6a0149e31289df382104",
-  custom: "0x58253efb3dff698b5b91540a02708e9156b7994e10ad8bc819e48a129ef31044",
+  aws: "0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7",
+  nodeops: "0xb29b523093543374a4d9d9c8fc064954c66c8f54bfd6b0a73da7104324fc7e76",
+  custom: "0xf071f29602dfe66116ecc5f429629a787d45476e86874ed3a090aeac03721f69",
 };
 
 export default function App() {
@@ -1168,6 +1168,34 @@ export default function App() {
                         <span className="pointer-events-none hidden font-mono text-[10px] uppercase tracking-[0.16em] text-white/25 sm:block">
                           PDF · PNG · JSON
                         </span>
+                      </div>
+
+                      {/* Judge Test Artifacts Download Strip */}
+                      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-white/[0.06]">
+                        <span className="text-[10px] uppercase font-mono tracking-wider text-white/40 flex items-center gap-1.5">
+                          <SparkleIcon size={12} className="text-emerald-400" />
+                          <span>Judge Test Kit:</span>
+                        </span>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <a
+                            href="/samples/sample-aws-clean-invoice.pdf"
+                            download="sample-aws-clean-invoice.pdf"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/10 px-2.5 py-1 text-[11px] font-mono text-emerald-300 ring-1 ring-emerald-500/30 hover:bg-emerald-500/20 transition cursor-pointer"
+                            title="Download sample clean invoice to test live OCR"
+                          >
+                            <DownloadSimpleIcon size={12} />
+                            <span>Clean AWS.pdf</span>
+                          </a>
+                          <a
+                            href="/samples/sample-tornado-sanctioned-invoice.pdf"
+                            download="sample-tornado-sanctioned-invoice.pdf"
+                            className="inline-flex items-center gap-1.5 rounded-lg bg-rose-500/10 px-2.5 py-1 text-[11px] font-mono text-rose-300 ring-1 ring-rose-500/30 hover:bg-rose-500/20 transition cursor-pointer"
+                            title="Download sample OFAC-sanctioned invoice to test compliance intercept"
+                          >
+                            <ShieldWarningIcon size={12} />
+                            <span>Sanctioned Tornado.pdf</span>
+                          </a>
+                        </div>
                       </div>
                     </Bezel>
                   </Reveal>

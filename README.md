@@ -93,6 +93,12 @@ flowchart TD
 4. An actionable **Compliance Intercept Modal** opens explaining the regulatory violation with a 1-click compliant invoice retry.
 5. **ElevenLabs** alerts: *"Warning. Transaction blocked by Compliance Guard. Target address is sanctioned."*
 
+### 🧪 Judge Hands-On Test Kit (Downloadable Artifacts)
+Judges can test the dropzone and dual-path execution using pre-compiled sample invoices:
+- [📄 **Download Clean AWS Invoice.pdf**](https://flowagent-os.vercel.app/samples/sample-aws-clean-invoice.pdf): Verifies pattern OCR, $2,500 USDC extraction, and sub-2s Fuji settlement.
+- [⚠️ **Download Sanctioned Tornado Invoice.pdf**](https://flowagent-os.vercel.app/samples/sample-tornado-sanctioned-invoice.pdf): Triggers deterministic OFAC SDN blacklist match, emergency voice siren, and modal intercept.
+- [📄 **Download NodeOps Validator Invoice.pdf**](https://flowagent-os.vercel.app/samples/sample-nodeops-validator-invoice.pdf): Verifies 150 AVAX extraction and currency normalization.
+
 ---
 
 ## 🛠️ Quick Start & Local Setup
@@ -190,8 +196,10 @@ TOTAL WEIGHTED JUDGING SCORE: 100.0 / 100.0 (GRADE: A+ / PITCH READY)
 | **Avalanche Fuji C-Chain** | Testnet | Chain ID: `43113` |
 | **Circle USDC (Fuji)** | Avalanche Fuji | `0x5425890298aed601595a70ab815c96711a31bc65` |
 | **Agent Signer Account** | Anvil / Fuji | `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266` |
-| **Verified Test Settlement** | Avalanche Fuji | `0xd9aa8ffd2d4ea26928f30fca797b947aaab69313bca585f342a683c2542ea992` |
-| **Tornado Cash (Sanctioned)** | OFAC SDN Flagged | `0x8576acc5c05d6ce08f4e49bf65bdf0c62f91353c` |
+| **Verified Test Settlement (AWS)** | Avalanche Fuji | [`0xdd5f23a5...ba7`](https://testnet.snowtrace.io/tx/0xdd5f23a58bc69bf73488eff825740c0fc988812bb928d25a24d374e23e059ba7) (Block 59536437) |
+| **Verified Test Settlement (NodeOps)** | Avalanche Fuji | [`0xb29b5230...e76`](https://testnet.snowtrace.io/tx/0xb29b523093543374a4d9d9c8fc064954c66c8f54bfd6b0a73da7104324fc7e76) (Block 59536626) |
+| **Verified U-Bot Settlement** | Avalanche Fuji | [`0x8f337f98...4e0`](https://testnet.snowtrace.io/tx/0x8f337f988afe0f945ca5ed4c953db9e27337deb3229efd36464e4cd86ff424e0) (Block 59521556) |
+| **Tornado Cash (Sanctioned)** | OFAC SDN Flagged | `0x8576acc5c05d6ce08f4e49bf65bdf0c62f91353c` (Deterministic Halt) |
 
 ---
 
