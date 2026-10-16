@@ -16,7 +16,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!api/|health|pitch_deck\\.html).*)",
       "destination": "/index.html"
     }
   ]
