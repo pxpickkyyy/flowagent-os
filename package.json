@@ -19,6 +19,9 @@
     "verify:sprint3": "tsx scripts/sprint3_verify.ts",
     "stage:check": "tsx scripts/stage_check.ts",
     "record:fixture": "tsx scripts/record_demo_fixture.ts",
+    "demo:audio": "tsx scripts/generate_demo_audio.ts",
+    "demo:record": "tsx scripts/record_demo.ts",
+    "demo:render": "remotion render video/src/index.ts FlowAgentDemo out/flowagent_demo_4k.mp4 --gl=angle --crf=16",
     "stage:build": "tsc"
   },
   "keywords": [
@@ -49,10 +52,19 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@remotion/bundler": "^4.0.535",
+    "@remotion/cli": "^4.0.535",
+    "@remotion/renderer": "^4.0.535",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/ws": "^8.18.2",
+    "playwright": "^1.64.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.535",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3"
   }

@@ -1,0 +1,38 @@
+{
+  "vo_scene_1": {
+    "startSec": 0.6,
+    "durationSec": 17.346,
+    "text": "Every month, global import-export SMEs lose thousands of dollars to correspondent banking friction, paying up to 3.5% in hidden FX spreads and waiting 3 to 5 business days for simple cross-border wires. FlowAgent OS transforms this broken accounts payable workflow into an autonomous, non-custodial settlement engine.",
+    "file": "demo/vo_scene_1.mp3"
+  },
+  "vo_scene_2": {
+    "startSec": 14.5,
+    "durationSec": 12.745,
+    "text": "When commercial invoices arrive—via PDF, OCR, or ERP webhooks—our semantic layer extracts structured invoice schemas instantly, syncing directly with our U-Bot Copilot to prepare executive sign-off.",
+    "file": "demo/vo_scene_2.mp3"
+  },
+  "vo_scene_3": {
+    "startSec": 28.5,
+    "durationSec": 14.899,
+    "text": "Before any fund movement occurs, the deterministic routing core benchmarks the real cost: traditional banking drains 112 dollars and 50 cents with three intermediary banks. FlowAgent routes over Avalanche C-Chain for just 2 dollars and 50 cents, capturing 98% in fee savings.",
+    "file": "demo/vo_scene_3.mp3"
+  },
+  "vo_scene_4": {
+    "startSec": 42.5,
+    "durationSec": 14.803,
+    "text": "With one executive click, the non-custodial signer broadcasts directly to Avalanche Snowman BFT consensus. Irrevocable finality is achieved in milliseconds with full cryptographic verification and instant 1-click CSV reconciliation for local accounting suites like PEAK and FlowAccount.",
+    "file": "demo/vo_scene_4.mp3"
+  },
+  "vo_scene_5": {
+    "startSec": 58.5,
+    "durationSec": 14.038,
+    "text": "Financial operations demand zero tolerance for AI hallucinations. When an invoice targets an OFAC-sanctioned wallet, our Deterministic Compliance Guard terminates execution in under 35 milliseconds—guaranteeing zero funds move and zero gas is lost.",
+    "file": "demo/vo_scene_5.mp3"
+  },
+  "vo_scene_6": {
+    "startSec": 72.3,
+    "durationSec": 7.536,
+    "text": "AI at the interface. Deterministic code at the core. FlowAgent OS: institutional cross-border finance at the speed of consensus.",
+    "file": "demo/vo_scene_6.mp3"
+  }
+}

@@ -136,6 +136,7 @@ export function Eyebrow({
  * magnetic pull toward the cursor and physical press.
  * ──────────────────────────────────────────────────────────── */
 interface IslandButtonProps {
+  id?: string;
   children: React.ReactNode;
   icon: React.ReactNode;
   onClick?: () => void;
@@ -147,6 +148,7 @@ interface IslandButtonProps {
 }
 
 export function IslandButton({
+  id,
   children,
   icon,
   onClick,
@@ -190,6 +192,7 @@ export function IslandButton({
 
   return (
     <motion.button
+      id={id}
       ref={ref}
       type="button"
       title={title}

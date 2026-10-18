@@ -1,0 +1,11 @@
+{
+  "duration": 60,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#s01-h1-1", "bySec": 1.2 },
+    { "kind": "before", "a": "#s01-h1-1", "b": "#s01-m1" },
+    { "kind": "staysInFrame", "selector": "#s01-card-front" },
+    { "kind": "staysInFrame", "selector": "#s04-savings-card" },
+    { "kind": "staysInFrame", "selector": "#s06-alert-banner" },
+    { "kind": "staysInFrame", "selector": "#s08-cta-primary" }
+  ]
+}

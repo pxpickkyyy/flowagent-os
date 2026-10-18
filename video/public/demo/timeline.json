@@ -1,0 +1,199 @@
+{
+  "targetUrl": "https://flowagent-os.vercel.app/",
+  "viewport": {
+    "width": 3840,
+    "height": 2160
+  },
+  "fps": 60,
+  "durationSec": 80,
+  "recordedAt": "2026-10-16T04:57:47.362Z",
+  "videoFile": "demo/browser_session.mp4",
+  "markers": [
+    {
+      "id": "scene1_establishing",
+      "scene": 1,
+      "label": "Panoramic Establishing Shot & Live Block Counter",
+      "timestampMs": 3241,
+      "videoTimeSec": 0,
+      "cursor": {
+        "x": 1920,
+        "y": 900
+      },
+      "targetBox": {
+        "x": 1426,
+        "y": 48,
+        "width": 987,
+        "height": 96
+      },
+      "snapshotFile": "demo/snap_scene1_establishing.png"
+    },
+    {
+      "id": "scene1_hero_metrics",
+      "scene": 1,
+      "label": "Hero Metrics Strip (< 2.0s Finality, 97.8% Fee Elimination)",
+      "timestampMs": 13327,
+      "videoTimeSec": 6.5,
+      "cursor": {
+        "x": 1969,
+        "y": 96
+      },
+      "snapshotFile": "demo/snap_scene1_hero_metrics.png"
+    },
+    {
+      "id": "scene2_preset_aws",
+      "scene": 2,
+      "label": "Clicked AWS Infrastructure ($2,500.00 USDC • Clean)",
+      "timestampMs": 22233,
+      "videoTimeSec": 14,
+      "cursor": {
+        "x": 1154,
+        "y": 1224
+      },
+      "targetBox": {
+        "x": 772,
+        "y": 1155,
+        "width": 849,
+        "height": 138
+      },
+      "snapshotFile": "demo/snap_scene2_preset_aws.png"
+    },
+    {
+      "id": "scene2_ubot_copilot",
+      "scene": 2,
+      "label": "U-Bot Financial Copilot Populated (AWS Cloud Infrastructure Corp)",
+      "timestampMs": 24803,
+      "videoTimeSec": 20.5,
+      "cursor": {
+        "x": 1154,
+        "y": 1224
+      },
+      "snapshotFile": "demo/snap_scene2_ubot_copilot.png"
+    },
+    {
+      "id": "scene3_arbitrage_race",
+      "scene": 3,
+      "label": "Liquidity Routing & Settlement Benchmark ($112.50 SWIFT vs $2.50 Avalanche)",
+      "timestampMs": 33001,
+      "videoTimeSec": 28,
+      "cursor": {
+        "x": 2646,
+        "y": 1255
+      },
+      "targetBox": {
+        "x": 1737,
+        "y": 560,
+        "width": 1399,
+        "height": 1264
+      },
+      "snapshotFile": "demo/snap_scene3_arbitrage_race.png"
+    },
+    {
+      "id": "scene4_before_authorize",
+      "scene": 4,
+      "label": "Cursor on Authorize & Settle via Avalanche",
+      "timestampMs": 41127,
+      "videoTimeSec": 42,
+      "cursor": {
+        "x": 1197,
+        "y": 1192
+      },
+      "targetBox": {
+        "x": 772,
+        "y": 1136,
+        "width": 849,
+        "height": 112
+      },
+      "snapshotFile": "demo/snap_scene4_before_authorize.png"
+    },
+    {
+      "id": "scene4_settling",
+      "scene": 4,
+      "label": "State SETTLING: Broadcasting to Avalanche Fuji Consensus...",
+      "timestampMs": 43658,
+      "videoTimeSec": 45,
+      "cursor": {
+        "x": 1197,
+        "y": 1192
+      },
+      "snapshotFile": "demo/snap_scene4_settling.png"
+    },
+    {
+      "id": "scene4_settled",
+      "scene": 4,
+      "label": "State SETTLED: Payment Authorized & Settlement Dispatched",
+      "timestampMs": 47178,
+      "videoTimeSec": 48.5,
+      "cursor": {
+        "x": 1197,
+        "y": 1192
+      },
+      "targetBox": {
+        "x": 2784,
+        "y": 924,
+        "width": 276,
+        "height": 88
+      },
+      "snapshotFile": "demo/snap_scene4_settled.png"
+    },
+    {
+      "id": "scene4_csv_exported",
+      "scene": 4,
+      "label": "Exported Reconciliation_INV-2026-901.csv",
+      "timestampMs": 54985,
+      "videoTimeSec": 53,
+      "cursor": {
+        "x": 2922,
+        "y": 968
+      },
+      "targetBox": {
+        "x": 2784,
+        "y": 2072,
+        "width": 276,
+        "height": 88
+      },
+      "snapshotFile": "demo/snap_scene4_csv_exported.png"
+    },
+    {
+      "id": "scene5_ofac_selected",
+      "scene": 5,
+      "label": "Selected Tornado Cash Router ($5,000.00 USDC • OFAC Flag)",
+      "timestampMs": 65010,
+      "videoTimeSec": 58,
+      "cursor": {
+        "x": 1154,
+        "y": 1370
+      },
+      "targetBox": {
+        "x": 772,
+        "y": 1301,
+        "width": 849,
+        "height": 138
+      },
+      "snapshotFile": "demo/snap_scene5_ofac_selected.png"
+    },
+    {
+      "id": "scene5_ofac_terminated",
+      "scene": 5,
+      "label": "Transaction Terminated: OFAC Sanctions Flag in 34ms (0 Gas)",
+      "timestampMs": 68322,
+      "videoTimeSec": 63.5,
+      "cursor": {
+        "x": 1154,
+        "y": 1370
+      },
+      "snapshotFile": "demo/snap_scene5_ofac_terminated.png"
+    },
+    {
+      "id": "scene6_outro_full",
+      "scene": 6,
+      "label": "Full-Screen FlowAgent OS Workstation Outro",
+      "timestampMs": 71554,
+      "videoTimeSec": 72,
+      "cursor": {
+        "x": 1154,
+        "y": 1370
+      },
+      "snapshotFile": "demo/snap_scene6_outro_full.png"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "flowagent-os-demo",
+  "version": "1.0.0",
+  "skill": "product-launch-video",
+  "entry": "index.html",
+  "width": 1920,
+  "height": 1080,
+  "fps": 60,
+  "duration": 60
+}

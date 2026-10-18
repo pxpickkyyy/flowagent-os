@@ -37,7 +37,7 @@ const envSchema = z.object({
 
   // Tokenomist API (Token Unlock, Vesting & Tokenomics Data)
   TOKENOMIST_API_KEY: z.string().optional(),
-  TOKENOMIST_API_URL: z.string().url().default('https://api.tokenomist.ai/v4'),
+  TOKENOMIST_API_URL: z.string().url().default('https://api.tokenomist.ai/v5'),
 
   // OpenRouter / DeepSeek AI
   OPENROUTER_API_KEY: z.string().optional(),

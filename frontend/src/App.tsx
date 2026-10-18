@@ -1043,6 +1043,7 @@ export default function App() {
                           const [amountLabel, tagLabel] = preset.badge.split(" • ");
                           return (
                             <button
+                              id={`preset-${preset.id}`}
                               key={preset.id}
                               onClick={() => handleSelectPreset(preset)}
                               className="group relative flex w-full items-center gap-4 rounded-[1.1rem] px-4 py-3.5 text-left"
@@ -1372,6 +1373,7 @@ export default function App() {
                           {stage === "AWAITING_APPROVAL" && !selectedPreset.isSanctioned && (
                             <motion.div key="await" {...swap}>
                               <IslandButton
+                                id="btn-authorize"
                                 size="lg"
                                 magnetic={false}
                                 onClick={handleAuthorizeAndSettle}
@@ -1640,7 +1642,7 @@ export default function App() {
                               <IslandButton variant="ghost" onClick={() => handleInspectTransaction(txHash)} icon={<ArrowUpRightIcon size={14} />}>
                                 Verify Snowtrace
                               </IslandButton>
-                              <IslandButton onClick={handleExportCSV} title="Download ERP Reconciliation CSV" icon={<DownloadSimpleIcon size={14} />}>
+                              <IslandButton id="btn-export-csv" onClick={handleExportCSV} title="Download ERP Reconciliation CSV" icon={<DownloadSimpleIcon size={14} />}>
                                 Export CSV
                               </IslandButton>
                             </div>

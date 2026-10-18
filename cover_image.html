@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0" />
+  <title>FlowAgent OS — Hackathon Cover Image (16:9 Master)</title>
+  <style>
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Instrument Serif';
+      src: url('assets/fonts/InstrumentSerif-Italic.woff2') format('woff2');
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #040406;
+      color: #F5F5F4;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Radial glows & background grid */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at 60% 50%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.1) 80%);
+      pointer-events: none;
+    }
+
+    .glow-emerald {
+      position: absolute;
+      top: -150px;
+      left: 15%;
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(5, 150, 105, 0.06) 45%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .glow-cyan {
+      position: absolute;
+      top: 30%;
+      right: 5%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(14, 165, 233, 0.04) 50%, transparent 70%);
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .glow-crimson {
+      position: absolute;
+      bottom: -100px;
+      left: 35%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(232, 65, 66, 0.10) 0%, transparent 65%);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    /* Master Layout */
+    .canvas-container {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 64px 44px 64px;
+      z-index: 10;
+    }
+
+    /* Header Nav */
+    .top-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: #0E0E10;
+      border: 1.5px solid rgba(52, 211, 153, 0.5);
+      box-shadow: 0 0 24px rgba(52, 211, 153, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .brand-name span {
+      color: #34D399;
+      font-weight: 700;
+    }
+
+    .badge-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #D6D3D1;
+      letter-spacing: 0.04em;
+    }
+
+    .top-stats-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6EE7B7;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34D399;
+      box-shadow: 0 0 10px #34D399;
+    }
+
+    .audit-score-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #7DD3FC;
+    }
+
+    /* Main Center Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin: 12px 0 24px 0;
+    }
+
+    /* Left Copy Area */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 840px;
+    }
+
+    .track-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #34D399;
+    }
+
+    .track-tag-bar {
+      width: 24px;
+      height: 2px;
+      background: #34D399;
+    }
+
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .headline-main {
+      font-size: 70px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      color: #FFFFFF;
+    }
+
+    .headline-serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 82px;
+      line-height: 1.0;
+      color: #6EE7B7;
+      text-shadow: 0 0 45px rgba(52, 211, 153, 0.45);
+    }
+
+    .hero-desc {
+      font-size: 20px;
+      line-height: 1.5;
+      color: #D6D3D1;
+      font-weight: 400;
+      max-width: 760px;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .chip-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px;
+      border-radius: 12px;
+      background: rgba(14, 14, 18, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 14px;
+      font-weight: 500;
+      color: #E7E5E4;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .chip-icon {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .chip-icon-emerald { background: #34D399; box-shadow: 0 0 8px #34D399; }
+    .chip-icon-cyan { background: #38BDF8; box-shadow: 0 0 8px #38BDF8; }
+    .chip-icon-rose { background: #FB7185; box-shadow: 0 0 8px #FB7185; }
+
+    /* Right Showcase Stage (Perspective UI & Floating Cards) */
+    .showcase-stage {
+      position: relative;
+      height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 20px;
+    }
+
+    .main-window-card {
+      width: 820px;
+      height: 460px;
+      border-radius: 20px;
+      background: #0C0C10;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 
+        0 35px 90px -15px rgba(0, 0, 0, 0.95),
+        0 0 50px rgba(16, 185, 129, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: perspective(1400px) rotateY(-4deg) rotateX(2deg);
+      transition: transform 0.3s ease;
+    }
+
+    .window-header {
+      height: 44px;
+      padding: 0 20px;
+      background: #131318;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 5;
+    }
+
+    .window-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #F43F5E; box-shadow: 0 0 6px rgba(244, 63, 94, 0.5); }
+    .dot-yellow { background: #FCD34D; }
+    .dot-green { background: #34D399; box-shadow: 0 0 6px rgba(52, 211, 153, 0.5); }
+
+    .window-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #D6D3D1;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 5px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 450px;
+    }
+
+    .window-body {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: #060608;
+    }
+
+    .window-body img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top 5% center;
+      filter: contrast(1.06) brightness(1.08);
+      display: block;
+    }
+
+    /* Floating Overlays on the Showcase */
+    .floating-card {
+      position: absolute;
+      border-radius: 18px;
+      padding: 16px 22px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      z-index: 20;
+    }
+
+    .floating-settlement {
+      top: -12px;
+      right: -15px;
+      background: rgba(10, 20, 16, 0.94);
+      border-color: rgba(52, 211, 153, 0.55);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(52, 211, 153, 0.25);
+      width: 330px;
+    }
+
+    .floating-arbitrage {
+      bottom: -16px;
+      left: 20px;
+      background: rgba(14, 18, 26, 0.94);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(56, 189, 248, 0.22);
+      width: 350px;
+    }
+
+    .floating-ofac {
+      top: 130px;
+      left: -50px;
+      background: rgba(26, 12, 16, 0.94);
+      border-color: rgba(244, 63, 94, 0.55);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(244, 63, 94, 0.25);
+      width: 295px;
+    }
+
+    .badge-mini {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .badge-mini-emerald {
+      background: rgba(52, 211, 153, 0.2);
+      color: #6EE7B7;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+    }
+
+    .badge-mini-cyan {
+      background: rgba(56, 189, 248, 0.2);
+      color: #7DD3FC;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-mini-rose {
+      background: rgba(244, 63, 94, 0.2);
+      color: #FDA4AF;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .f-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: #FFFFFF;
+    }
+
+    .f-sub {
+      font-size: 13px;
+      color: #D6D3D1;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* Bottom Proof Section & Partner Rails */
+    .bottom-section {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .metrics-bar {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+    }
+
+    .metric-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #A8A29E;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .num-emerald { color: #34D399; text-shadow: 0 0 20px rgba(52, 211, 153, 0.4); }
+    .num-cyan { color: #38BDF8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+    .num-rose { color: #FB7185; text-shadow: 0 0 20px rgba(251, 113, 133, 0.4); }
+    .num-amber { color: #FCD34D; text-shadow: 0 0 20px rgba(252, 211, 77, 0.4); }
+
+    .partners-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .partner-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      font-weight: 600;
+      color: #E7E5E4;
+    }
+
+    .partner-pill svg {
+      width: 18px;
+      height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="glow-emerald"></div>
+  <div class="glow-cyan"></div>
+  <div class="glow-crimson"></div>
+
+  <div class="canvas-container">
+    <!-- Top Header Bar -->
+    <header class="top-header">
+      <div class="brand-wrap">
+        <div class="brand-logo">
+          <!-- FlowAgent Mark -->
+          <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+            <path d="M18 22H46M18 32H38M18 42H30" stroke="#F5F5F4" stroke-width="4.5" stroke-linecap="round"/>
+            <circle cx="44" cy="40" r="8" fill="#34D399"/>
+            <path d="M41 40L43.2 42.2L47.5 37.8" stroke="#022014" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">FlowAgent<span>OS</span></div>
+        </div>
+        <div class="badge-category">
+          <span>AUTONOMOUS ACCOUNTS PAYABLE</span>
+          <span style="opacity:0.4;">·</span>
+          <span style="color:#6EE7B7;">AVALANCHE C-CHAIN</span>
+        </div>
+      </div>
+
+      <div class="top-stats-wrap">
+        <div class="status-pill">
+          <div class="pulse-dot"></div>
+          <span>FUJI TESTNET #59490095 · OPERATIONAL</span>
+        </div>
+        <div class="audit-score-pill">
+          <span>AUDIT 100/100 (A+)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Center Hero Grid -->
+    <main class="hero-grid">
+      <!-- Left Column: Value Prop & Pitch -->
+      <div class="hero-content">
+        <div class="track-tag">
+          <div class="track-tag-bar"></div>
+          <span>Next-Gen B2B Treasury &amp; Settlement Rail</span>
+        </div>
+
+        <div class="hero-headline">
+          <div class="headline-main">Invoices in.</div>
+          <div class="headline-serif">Settlement out.</div>
+          <div class="headline-main">Sub-second.</div>
+        </div>
+
+        <p class="hero-desc">
+          Transforming unstructured commercial invoices into sub-2.0s cryptographically settled payments on Avalanche Fuji with deterministic OFAC compliance, Gemini AI extraction, and ElevenLabs voice verification.
+        </p>
+
+        <div class="hero-chips">
+          <div class="chip-item">
+            <div class="chip-icon chip-icon-emerald"></div>
+            <span>Dual OCR Fast-Path (< 40ms)</span>
+          </div>
+          <div class="chip-item">
+            <div class="chip-icon chip-icon-cyan"></div>
+            <span>ElevenLabs Real-Time Voice</span>
+          </div>
+          <div class="chip-item">
+            <div class="chip-icon chip-icon-rose"></div>
+            <span>Deterministic OFAC Interlock</span>
+          </div>
+          <div class="chip-item">
+            <div class="chip-icon chip-icon-emerald"></div>
+            <span>Tokenomist Dilution Radar</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Workstation Showcase -->
+      <div class="showcase-stage">
+        <!-- Floating OFAC Sanction Interlock Badge (Top-Left) -->
+        <div class="floating-card floating-ofac">
+          <div class="badge-mini badge-mini-rose">GATE 03 · SANCTION GUARD</div>
+          <div class="f-val" style="color:#FECDD3; font-size:20px;">OFAC SDN HALT</div>
+          <div class="f-sub" style="color:#FB7185;">34ms Pre-Sign Interlock · 0 AVAX Gas</div>
+        </div>
+
+        <!-- 3D Perspective Browser Card -->
+        <div class="main-window-card">
+          <div class="window-header">
+            <div class="window-dots">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+            </div>
+            <div class="window-url">https://flowagent-os.vercel.app/workstation</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#34D399; font-weight:600;">EVM VERIFIED</div>
+          </div>
+          <div class="window-body">
+            <img src="assets/captures/02-section-workstation-aws.png" alt="FlowAgent Live HUD" />
+          </div>
+        </div>
+
+        <!-- Floating Settlement Confirmation Badge (Top-Right) -->
+        <div class="floating-card floating-settlement">
+          <div class="badge-mini badge-mini-emerald">GATE 04 · BFT SETTLEMENT</div>
+          <div class="f-val" style="color:#6EE7B7;">$2,500.00 USDC</div>
+          <div class="f-sub">Snowman Consensus Finality in <strong style="color:#FFFFFF;">0.09s</strong></div>
+          <div style="margin-top:8px; font-family:'JetBrains Mono',monospace; font-size:11px; color:#34D399; display:flex; align-items:center; gap:6px;">
+            <span>● 0x9f8c...4a2b</span>
+            <span style="opacity:0.5;">|</span>
+            <span style="color:#A7F3D0;">Snowtrace Confirmed ↗</span>
+          </div>
+        </div>
+
+        <!-- Floating Routing Arbitrage Badge (Bottom-Left) -->
+        <div class="floating-card floating-arbitrage">
+          <div class="badge-mini badge-mini-cyan">GATE 02 · ROUTING RACE</div>
+          <div style="display:flex; justify-content:space-between; align-items:baseline;">
+            <div class="f-val" style="color:#38BDF8;">$110.00 SAVED</div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; color:#34D399;">-97.8%</div>
+          </div>
+          <div class="f-sub">SWIFT Wire ($112.50) vs Avalanche ($2.50)</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Section: Core Metrics & Sponsor Ecosystem -->
+    <footer class="bottom-section">
+      <div class="metrics-bar">
+        <div class="metric-item">
+          <div class="metric-number num-emerald">0.09s</div>
+          <div class="metric-label">Consensus Finality</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number num-cyan">97.8%</div>
+          <div class="metric-label">Wire Fee Eliminated</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number num-rose">&lt; 1ms</div>
+          <div class="metric-label">OFAC SDN Interlock</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-number num-amber">100/100</div>
+          <div class="metric-label">Audit Score (A+)</div>
+        </div>
+      </div>
+
+      <div class="partners-row">
+        <!-- Avalanche -->
+        <div class="partner-pill">
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="28" fill="#E84142" fill-opacity="0.2" stroke="#E84142" stroke-width="2"/>
+            <path d="M36.8 35.6C37.7 34 39.2 34 40.1 35.6L45.8 45.6C46.7 47.2 45.9 48.5 44.1 48.5H32.6C30.8 48.5 30 47.2 30.9 45.6L36.8 35.6ZM29.9 15.8C30.8 14.2 32.3 14.2 33.2 15.8L44.2 35.4C45.1 37 44.3 38.3 42.5 38.3H36.3C34.7 38.3 33.2 37.4 32.4 36L25.4 23.6L18.2 36.2C17.4 37.6 15.9 38.3 14.3 38.3H11.5C9.7 38.3 8.9 37 9.8 35.4L29.9 15.8Z" fill="#E84142"/>
+          </svg>
+          <span>Avalanche Fuji</span>
+        </div>
+
+        <!-- Circle USDC -->
+        <div class="partner-pill">
+          <div style="width:18px; height:18px; border-radius:50%; background:#2775CA; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800;">$</div>
+          <span>Circle USDC</span>
+        </div>
+
+        <!-- ElevenLabs -->
+        <div class="partner-pill">
+          <div style="display:flex; gap:2px; align-items:center; height:16px;">
+            <span style="width:2.5px; height:8px; background:#fff; border-radius:1px;"></span>
+            <span style="width:2.5px; height:15px; background:#34D399; border-radius:1px;"></span>
+            <span style="width:2.5px; height:10px; background:#fff; border-radius:1px;"></span>
+          </div>
+          <span>ElevenLabs AI</span>
+        </div>
+
+        <!-- Google Gemini -->
+        <div class="partner-pill">
+          <span style="color:#38BDF8; font-weight:800; font-size:14px;">✦</span>
+          <span>Gemini 2.5</span>
+        </div>
+
+        <!-- Tokenomist -->
+        <div class="partner-pill">
+          <span style="color:#818CF8; font-weight:800; font-size:13px;">◈</span>
+          <span>Tokenomist</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

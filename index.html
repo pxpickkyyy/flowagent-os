@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables='[
+  {"id":"headline","type":"string","label":"Hero Headline","default":"Invoices in. Settlement out. Sub-second."},
+  {"id":"ctaText","type":"string","label":"Primary CTA","default":"Launch workstation"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0" />
+  <title>FlowAgent OS — Autonomous Accounts Payable on Avalanche (16:9 Master)</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <style>
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Instrument Serif';
+      src: url('assets/fonts/InstrumentSerif-Italic.woff2') format('woff2');
+      font-weight: 400;
+      font-style: italic;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #050505;
+      color: #F5F5F4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .mask-line {
+      overflow: hidden;
+      display: block;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 40px;
+      align-items: center;
+      flex: 1;
+    }
+
+    .grid-2col-equal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+      flex: 1;
+    }
+
+    .proof-bar-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .metric-card {
+      padding: 20px 26px;
+      border-radius: 16px;
+      background: rgba(14, 14, 16, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .metric-lbl {
+      font-size: 14px;
+      font-weight: 500;
+      color: #D6D3D1;
+    }
+
+    .cascade-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cascade-card {
+      padding: 20px 24px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #121216 0%, #09090C 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cascade-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .capture-plate {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: #09090A;
+    }
+
+    .capture-plate img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .waveform-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      height: 68px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: rgba(5, 5, 5, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .s03-wave-bar {
+      flex: 1;
+      height: 44px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #34D399 0%, #38BDF8 100%);
+      transform-origin: center center;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .progress-fill-swift {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #F43F5E 0%, #FB7185 100%);
+      transform-origin: left center;
+    }
+
+    .progress-fill-avax {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #10B981 0%, #34D399 55%, #38BDF8 100%);
+      transform-origin: left center;
+    }
+
+    .dag-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 1fr 90px 1fr 90px 1fr;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .dag-node {
+      padding: 24px 20px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #121216 0%, #09090B 100%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 310px;
+      justify-content: space-between;
+    }
+
+    .cta-btn-primary {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 36px;
+      border-radius: 9999px;
+      background: #34D399;
+      color: #022014;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 32px;
+      border-radius: 9999px;
+      background: rgba(244, 63, 94, 0.16);
+      border: 1px solid rgba(244, 63, 94, 0.5);
+      color: #FECDD3;
+      font-weight: 600;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-duration="60">
+    <!-- Global Background Grid -->
+    <div class="ambient-grid" data-layout-ignore></div>
+
+    <!-- =========================================================================
+         SCENE 01 — HOOK & HERO Z-AXIS CASCADE (0.0s – 6.0s)
+         ========================================================================= -->
+    <div id="scene-01" class="clip" data-start="0" data-duration="6" data-track-index="1">
+      <div id="s01-glow" class="ambient-orb" data-layout-ignore style="width:720px;height:720px;right:120px;top:90px;background:rgba(16,185,129,0.22);"></div>
+      <div id="s01-stage" class="scene-stage">
+        <!-- Top Bar -->
+        <div id="s01-topbar" class="hud-topbar">
+          <div class="hud-brand">
+            <img src="assets/svg/logo-mark.svg" alt="FlowAgent OS" style="width:32px;height:32px;" />
+            <span>FlowAgent OS</span>
+            <span class="badge-mono" style="margin-left:8px;">Autonomous accounts payable · Avalanche</span>
+          </div>
+          <div class="hud-telemetry">
+            <span class="status-dot"></span>
+            <span style="color:#F5F5F4;font-weight:600;">Operational</span>
+            <span>·</span>
+            <span class="mono-num" style="color:#34D399;">Block #59490095</span>
+            <span>·</span>
+            <span>Avalanche C-Chain (43114)</span>
+          </div>
+        </div>
+
+        <!-- Center 2-Column Hero -->
+        <div class="grid-2col">
+          <div style="display:flex;flex-direction:column;gap:22px;">
+            <div>
+              <span id="s01-eyebrow" class="eyebrow-pill">
+                <span class="status-dot"></span>
+                <span>NON-CUSTODIAL TREASURY AUTOMATION · SNOWMAN BFT</span>
+              </span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div class="mask-line">
+                <div id="s01-h1-1" style="font-size:66px;font-weight:700;letter-spacing:-0.035em;line-height:1.05;color:#F5F5F4;">
+                  Invoices in.
+                </div>
+              </div>
+              <div class="mask-line" style="position:relative;">
+                <div id="s01-h1-2" class="serif-italic" style="font-size:74px;line-height:1.02;color:#6EE7B7;">
+                  Settlement out.
+                </div>
+                <div id="s01-h1-sweep" class="light-sweep" data-layout-ignore></div>
+              </div>
+              <div class="mask-line">
+                <div id="s01-h1-3" style="font-size:66px;font-weight:700;letter-spacing:-0.035em;line-height:1.05;color:#F5F5F4;">
+                  Sub-second.
+                </div>
+              </div>
+            </div>
+
+            <p id="s01-sub" style="font-size:19px;line-height:1.5;color:#D6D3D1;max-width:780px;">
+              FlowAgent OS reads commercial invoices, screens every counterparty against OFAC, races SWIFT for the cheapest rail and settles on Avalanche — non-custodially, in a single authorization.
+            </p>
+
+            <div id="s01-problem-pill" style="display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:12px;background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.38);max-width:720px;">
+              <span class="status-dot status-dot--danger"></span>
+              <span style="font-size:15px;font-weight:600;color:#FECDD3;">
+                Legacy cross-border wires bleed $112.50 in fees and stall for 5 business days.
+              </span>
+            </div>
+          </div>
+
+          <!-- Right: Rebuilt 3-Layer Z-Axis Hero Cascade Cards -->
+          <div class="cascade-stack">
+            <!-- Card 1: OCR Extract -->
+            <div id="s01-card-back" class="cascade-card">
+              <div class="cascade-row">
+                <span class="badge-mono">GATE 01 · DUAL OCR EXTRACT</span>
+                <span class="mono-num" style="font-size:13px;color:#34D399;font-weight:600;">INV-2026-901 · VERIFIED</span>
+              </div>
+              <div class="cascade-row">
+                <div>
+                  <div style="font-size:18px;font-weight:700;color:#F5F5F4;">Amazon Web Services, Inc.</div>
+                  <div class="mono-num" style="font-size:13px;color:#D6D3D1;">0x71C95911E9a5D330f4D621842EC243EE1343292e</div>
+                </div>
+                <div class="mono-num" style="font-size:24px;font-weight:700;color:#F5F5F4;">$2,500.00</div>
+              </div>
+            </div>
+
+            <!-- Card 2: OFAC Guard -->
+            <div id="s01-card-mid" class="cascade-card" style="border-color:rgba(244,63,94,0.45);">
+              <div class="cascade-row">
+                <span class="badge-mono badge-mono--danger">GATE 03 · OFAC SDN INTERLOCK</span>
+                <span class="mono-num" style="font-size:13px;color:#FECDD3;font-weight:600;">34ms PRE-SIGN HALT</span>
+              </div>
+              <div class="cascade-row">
+                <div>
+                  <div style="font-size:18px;font-weight:700;color:#FECDD3;">Tornado Cash Router · BLOCKED</div>
+                  <div class="mono-num" style="font-size:13px;color:#D6D3D1;">0x8576acc5c05d6ce88f4e49bf65bdf0c62f91353c</div>
+                </div>
+                <div class="mono-num" style="font-size:20px;font-weight:700;color:#FB7185;">0.00 AVAX GAS</div>
+              </div>
+            </div>
+
+            <!-- Card 3: Snowman BFT Settlement -->
+            <div id="s01-card-front" class="cascade-card glass-card--emerald" style="position:relative;">
+              <div id="s01-radar-line" data-layout-ignore style="position:absolute;top:0;bottom:0;left:0;width:3px;background:#34D399;opacity:0.4;"></div>
+              <div class="cascade-row">
+                <span class="badge-mono">GATE 04 · SNOWMAN BFT SETTLEMENT</span>
+                <span class="mono-num" style="font-size:13px;color:#6EE7B7;font-weight:700;">0.09s FINALITY</span>
+              </div>
+              <div class="cascade-row">
+                <div>
+                  <div style="font-size:20px;font-weight:700;color:#F5F5F4;">SETTLEMENT COMPLETE · $2,500.00 USDC</div>
+                  <div class="mono-num" style="font-size:13px;color:#6EE7B7;">SWIFT $112.50 → AVAX $2.50 (-97.8% Fee)</div>
+                </div>
+                <div class="badge-mono" style="padding:8px 14px;">Snowtrace ↗</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom 3-Column Proof Bar -->
+        <div class="proof-bar-3col">
+          <div id="s01-m1" class="metric-card">
+            <div id="s01-m1-val" class="metric-val" style="color:#34D399;">0.09s</div>
+            <div class="metric-lbl">Consensus finality (&lt; 2.0s) · Snowman BFT</div>
+          </div>
+          <div id="s01-m2" class="metric-card">
+            <div id="s01-m2-val" class="metric-val" style="color:#38BDF8;">97.8%</div>
+            <div class="metric-lbl">Cheaper than a SWIFT wire ($2.50 vs $112.50)</div>
+          </div>
+          <div id="s01-m3" class="metric-card">
+            <div id="s01-m3-val" class="metric-val" style="color:#FB7185;">34ms</div>
+            <div class="metric-lbl">Sanctions halt, zero gas expended</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 02 — PROBLEM CONTRAST & 4-GATE WORKSTATION REVEAL (6.0s – 13.0s)
+         ========================================================================= -->
+    <div id="scene-02" class="clip" data-start="6" data-duration="7" data-track-index="1">
+      <div id="s02-stage" class="scene-stage">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <span id="s02-eyebrow" class="eyebrow-pill">
+              <span class="status-dot"></span>
+              <span>AUTONOMOUS AP WORKSTATION · 4 DETERMINISTIC GATES</span>
+            </span>
+            <h2 id="s02-title" style="font-size:44px;font-weight:700;letter-spacing:-0.03em;margin-top:10px;color:#F5F5F4;">
+              One Command Surface. <span class="serif-italic">Zero Manual Handoffs.</span>
+            </h2>
+          </div>
+          <p id="s02-subtitle" style="font-size:16px;color:#D6D3D1;max-width:620px;text-align:right;">
+            Every invoice passes through Dual OCR extraction, U-Bot voice &amp; Tokenomist intelligence, OFAC SDN screening, and live SWIFT vs Avalanche rail arbitrage.
+          </p>
+        </div>
+
+        <!-- 3D Glass Browser Shell containing Live UI + 4K Capture Plate -->
+        <div id="s02-browser-shell" class="glass-card" style="padding:20px 26px;display:flex;flex-direction:column;gap:18px;flex:1;margin:18px 0;">
+          <!-- Browser Window Chrome & Scenario Selector Bar -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.12);">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="width:11px;height:11px;border-radius:999px;background:#F43F5E;display:inline-block;"></span>
+              <span style="width:11px;height:11px;border-radius:999px;background:#FCD34D;display:inline-block;"></span>
+              <span style="width:11px;height:11px;border-radius:999px;background:#34D399;display:inline-block;"></span>
+              <span class="mono-num" style="margin-left:12px;font-size:13px;color:#D6D3D1;padding:5px 14px;border-radius:8px;background:rgba(255,255,255,0.06);">
+                https://flowagent-os.vercel.app/ · #59490095 · Operational
+              </span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">SCENARIOS:</span>
+              <div id="s02-preset-1" class="badge-mono">Amazon Web Services · $2,500.00 USDC</div>
+              <div id="s02-preset-2" class="badge-mono badge-mono--amber">NodeOps Cloud · 850 AVAX</div>
+              <div id="s02-preset-3" class="badge-mono badge-mono--danger">Tornado Cash · 15,000 USDT · SANCTIONED</div>
+            </div>
+          </div>
+
+          <!-- Split: Left 4K Live Product Capture Plate | Right 4-Gate Interactive Matrix -->
+          <div style="display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;flex:1;align-items:stretch;">
+            <div class="capture-plate">
+              <img src="assets/captures/02-section-workstation-aws.png" alt="FlowAgent OS Live Workstation" />
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:16px;">
+              <div id="s02-g1" class="cascade-card">
+                <span class="badge-mono">GATE 01</span>
+                <div style="font-size:18px;font-weight:700;color:#F5F5F4;">1. Commercial invoice ingestion</div>
+                <div style="font-size:14px;color:#D6D3D1;">Dual OCR &amp; EVM Parsed — extracts vendor, line items, and beneficiary wallet in sub-second latency.</div>
+                <div class="mono-num" style="font-size:13px;color:#34D399;">INV-2026-901 · $2,500.00 USDC</div>
+              </div>
+
+              <div id="s02-g2" class="cascade-card">
+                <span class="badge-mono badge-mono--cyan">GATE 02</span>
+                <div style="font-size:18px;font-weight:700;color:#F5F5F4;">2. U-Bot financial copilot</div>
+                <div style="font-size:14px;color:#D6D3D1;">ElevenLabs TTS &amp; Tokenomist Intelligence — real-time voice briefing and token unlock cliff checks.</div>
+                <div class="mono-num" style="font-size:13px;color:#7DD3FC;">Circulating 61.1% · Next Cliff 38d</div>
+              </div>
+
+              <div id="s02-g3" class="cascade-card">
+                <span class="badge-mono badge-mono--danger">GATE 03</span>
+                <div style="font-size:18px;font-weight:700;color:#F5F5F4;">3. Execution lifecycle</div>
+                <div style="font-size:14px;color:#D6D3D1;">OFAC SDN Screening &amp; Guard — deterministic pre-signature sanctions block in 34ms with 0 gas.</div>
+                <div class="mono-num" style="font-size:13px;color:#FECDD3;">SDN Guard · Non-Custodial Sign</div>
+              </div>
+
+              <div id="s02-g4" class="cascade-card">
+                <span class="badge-mono">GATE 04</span>
+                <div style="font-size:18px;font-weight:700;color:#F5F5F4;">4. Liquidity routing &amp; settlement</div>
+                <div style="font-size:14px;color:#D6D3D1;">Rail arbitrage — races SWIFT ($112.50) against Avalanche C-Chain ($2.50) for 97.8% fee savings.</div>
+                <div class="mono-num" style="font-size:13px;color:#34D399;">$110.00 Net Savings · 0.09s Finality</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 03 — GATE 1 DUAL OCR & GATE 2 U-BOT COPILOT (13.0s – 22.0s)
+         ========================================================================= -->
+    <div id="scene-03" class="clip" data-start="13" data-duration="9" data-track-index="1">
+      <div id="s03-stage" class="scene-stage">
+        <!-- Simulated Cursor -->
+        <div id="s03-cursor" class="sim-cursor" data-layout-ignore>
+          <div id="s03-ripple" class="sim-ripple"></div>
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3L23 13L14 15.5L10.5 24L5 3Z" fill="#34D399" stroke="#050505" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <!-- Top Header + Active Preset Bar -->
+        <div id="s03-header" style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <span class="eyebrow-pill"><span class="status-dot"></span><span>GATE 01 &amp; GATE 02 · INGESTION + AI COPILOT</span></span>
+            <h2 style="font-size:40px;font-weight:700;letter-spacing:-0.03em;margin-top:8px;color:#F5F5F4;">
+              Dual OCR Extraction &amp; <span class="serif-italic">U-Bot Neural Telemetry</span>
+            </h2>
+          </div>
+          <div id="s03-preset-bar" style="display:flex;align-items:center;gap:12px;">
+            <div id="s03-aws-btn" class="badge-mono" style="padding:10px 18px;font-size:14px;background:#34D399;color:#022014;font-weight:700;">
+              ✓ Scenario: Amazon Web Services · $2,500.00 USDC
+            </div>
+            <div class="badge-mono badge-mono--amber" style="padding:10px 16px;font-size:13px;">
+              NodeOps Cloud · 850 AVAX
+            </div>
+          </div>
+        </div>
+
+        <!-- Two-Column Gate 1 & Gate 2 Live UI Rebuild -->
+        <div class="grid-2col-equal" style="margin-top:20px;">
+          <!-- Left: Gate 1 Commercial Invoice Ingestion -->
+          <div id="s03-gate1-card" class="glass-card glass-card--emerald" style="padding:28px;display:flex;flex-direction:column;justify-content:space-between;position:relative;">
+            <div id="s03-ocr-laser" data-layout-ignore style="position:absolute;left:0;right:0;top:90px;height:3px;background:linear-gradient(90deg,transparent,#34D399,#38BDF8,transparent);box-shadow:0 0 18px #34D399;opacity:0;"></div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:22px;font-weight:700;color:#F5F5F4;">1. Commercial invoice ingestion</div>
+                <div style="font-size:14px;color:#D6D3D1;">Autonomous PDF Line-Item &amp; EVM Beneficiary Parser</div>
+              </div>
+              <span class="badge-mono">Dual OCR &amp; EVM Parsed</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;">
+              <div id="s03-field-vendor" class="cascade-card">
+                <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">COUNTERPARTY VENDOR</div>
+                <div style="font-size:20px;font-weight:700;color:#F5F5F4;">Amazon Web Services, Inc.</div>
+                <div style="font-size:13px;color:#34D399;">Verified Enterprise Cloud Provider</div>
+              </div>
+              <div id="s03-field-inv" class="cascade-card">
+                <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">INVOICE REFERENCE</div>
+                <div class="mono-num" style="font-size:22px;font-weight:700;color:#F5F5F4;">INV-2026-901</div>
+                <div style="font-size:13px;color:#D6D3D1;">Due Immediate · Net-0 Settlement</div>
+              </div>
+            </div>
+
+            <div id="s03-field-amt" class="cascade-card" style="flex-direction:row;align-items:center;justify-content:space-between;background:rgba(52,211,153,0.1);border-color:rgba(52,211,153,0.4);">
+              <div>
+                <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#6EE7B7;">TOTAL SETTLEMENT AMOUNT</div>
+                <div style="font-size:15px;color:#F5F5F4;">Enterprise Cloud Compute &amp; EKS Nodes</div>
+              </div>
+              <div class="mono-num" style="font-size:34px;font-weight:700;color:#34D399;">$2,500.00 USDC</div>
+            </div>
+
+            <div id="s03-field-wallet" class="cascade-card" style="position:relative;overflow:hidden;">
+              <div id="s03-wallet-sweep" class="light-sweep" data-layout-ignore></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">EXTRACTED EVM BENEFICIARY WALLET</span>
+                <span class="badge-mono">CHECKSUM VALID</span>
+              </div>
+              <div class="mono-num" style="font-size:16px;font-weight:600;color:#F5F5F4;margin-top:4px;">
+                0x71C95911E9a5D330f4D621842EC243EE1343292e
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Gate 2 U-Bot Financial Copilot -->
+          <div id="s03-gate2-card" class="glass-card" style="padding:28px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:22px;font-weight:700;color:#F5F5F4;">2. U-Bot financial copilot</div>
+                <div style="font-size:14px;color:#D6D3D1;">Real-Time Voice Synthesis &amp; Tokenomist Unlock Telemetry</div>
+              </div>
+              <span class="badge-mono badge-mono--cyan">ElevenLabs TTS &amp; Tokenomist Intelligence</span>
+            </div>
+
+            <!-- 32-Bar Neural Voice Waveform -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <span class="mono-num" style="font-size:12px;color:#7DD3FC;font-weight:600;">● U-BOT VOICE STREAM ACTIVE · 32-BAR NEURAL SPECTROGRAM</span>
+                <span class="mono-num" style="font-size:12px;color:#34D399;">48kHz PCM · ZERO LATENCY</span>
+              </div>
+              <div class="waveform-box">
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+                <div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div><div class="s03-wave-bar"></div>
+              </div>
+            </div>
+
+            <!-- Tokenomist Unlock Telemetry Box -->
+            <div id="s03-tokenomist-box" class="cascade-card" style="border-color:rgba(56,189,248,0.35);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:13px;font-weight:700;color:#7DD3FC;">TOKENOMIST UNLOCK SCHEDULE TELEMETRY (AVAX)</span>
+                <span class="badge-mono badge-mono--cyan">NO CLIFF VOLATILITY RISK</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px;">
+                <div>
+                  <div style="font-size:12px;color:#D6D3D1;">Circulating Supply</div>
+                  <div class="mono-num" style="font-size:22px;font-weight:700;color:#F5F5F4;">61.1%</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#D6D3D1;">Next Unlock Cliff</div>
+                  <div class="mono-num" style="font-size:22px;font-weight:700;color:#34D399;">38d</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;color:#D6D3D1;">Unlock Delta</div>
+                  <div class="mono-num" style="font-size:22px;font-weight:700;color:#7DD3FC;">1.24%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Verbatim U-Bot Advisory Transcript -->
+            <div id="s03-ubot-transcript" class="cascade-card" style="background:rgba(52,211,153,0.08);border-color:rgba(52,211,153,0.35);">
+              <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#6EE7B7;">U-BOT EXECUTIVE BRIEFING TRANSCRIPT</div>
+              <p style="font-size:15px;line-height:1.45;color:#F5F5F4;font-style:italic;">
+                "Invoice INV-2026-901 from Amazon Web Services for $2,500.00 USDC verified. Zero OFAC sanctions hits. Avalanche C-Chain saves $110.00 over SWIFT wire — 97.8% fee reduction. Ready for single-click non-custodial authorization."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 04 — GATE 4 LIQUIDITY ROUTING & RAIL ARBITRAGE (22.0s – 30.0s)
+         ========================================================================= -->
+    <div id="scene-04" class="clip" data-start="22" data-duration="8" data-track-index="1">
+      <div id="s04-emerald-glow" class="ambient-orb" data-layout-ignore style="width:760px;height:760px;left:580px;top:160px;background:rgba(52,211,153,0.22);"></div>
+      <div id="s04-stage" class="scene-stage">
+        <div id="s04-header" style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <span class="eyebrow-pill"><span class="status-dot"></span><span>GATE 04 · LIQUIDITY ROUTING &amp; SETTLEMENT BENCHMARK</span></span>
+            <h2 style="font-size:44px;font-weight:700;letter-spacing:-0.03em;margin-top:8px;color:#F5F5F4;">
+              Races Legacy SWIFT. <span class="serif-italic">Wins by 97.8%.</span>
+            </h2>
+          </div>
+          <span class="badge-mono" style="padding:10px 18px;font-size:14px;">Rail arbitrage · Real-Time Fee &amp; Finality Race</span>
+        </div>
+
+        <div class="grid-2col" style="margin-top:20px;">
+          <!-- Left: Live Rail Benchmark Bars -->
+          <div id="s04-bench-card" class="glass-card" style="padding:32px;display:flex;flex-direction:column;gap:28px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:22px;font-weight:700;color:#F5F5F4;">4. Liquidity routing &amp; settlement benchmark</div>
+              <span class="badge-mono">Invoice INV-2026-901 · $2,500.00</span>
+            </div>
+
+            <!-- Row 1: Traditional SWIFT Wire -->
+            <div class="cascade-card" style="border-color:rgba(244,63,94,0.38);gap:14px;">
+              <div class="cascade-row">
+                <div>
+                  <div style="font-size:20px;font-weight:700;color:#FECDD3;">Traditional SWIFT Wire</div>
+                  <div style="font-size:14px;color:#D6D3D1;">Correspondent Banking · $45 wire + 2.7% FX spread</div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="mono-num" style="font-size:28px;font-weight:700;color:#FB7185;">$112.50 Fee</div>
+                  <div class="mono-num" style="font-size:13px;color:#FECDD3;">3–5 Business Days</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div id="s04-swift-bar" class="progress-fill-swift"></div>
+              </div>
+            </div>
+
+            <!-- Row 2: Avalanche C-Chain -->
+            <div class="cascade-card glass-card--emerald" style="gap:14px;">
+              <div class="cascade-row">
+                <div>
+                  <div style="font-size:22px;font-weight:700;color:#F5F5F4;">Avalanche C-Chain (USDC)</div>
+                  <div style="font-size:14px;color:#6EE7B7;">Snowman BFT Finality · Direct Non-Custodial Settlement</div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="mono-num" style="font-size:32px;font-weight:700;color:#34D399;">$2.50 Fee</div>
+                  <div class="mono-num" style="font-size:14px;color:#6EE7B7;font-weight:600;">~1.2 Seconds (0.09s BFT)</div>
+                </div>
+              </div>
+              <div class="progress-track">
+                <div id="s04-avax-bar" class="progress-fill-avax"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Giant Arbitrage Delta Callout Card -->
+          <div id="s04-savings-card" class="glass-card glass-card--emerald" style="padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;position:relative;">
+            <div id="s04-savings-sweep" class="light-sweep" data-layout-ignore></div>
+            <div>
+              <span class="badge-mono">VERIFIED RAIL ARBITRAGE DELTA</span>
+              <div style="font-size:16px;color:#D6D3D1;margin-top:12px;">NET TREASURY SAVINGS ON SINGLE $2,500 INVOICE</div>
+              <div id="s04-savings-num" class="mono-num" style="font-size:84px;font-weight:700;color:#34D399;letter-spacing:-0.04em;line-height:1.05;margin-top:6px;">
+                $110.00
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="cascade-card">
+                <div style="font-size:13px;color:#D6D3D1;">Fee Reduction vs SWIFT</div>
+                <div id="s04-reduction-num" class="mono-num" style="font-size:42px;font-weight:700;color:#38BDF8;">97.8%</div>
+              </div>
+              <div class="cascade-card">
+                <div style="font-size:13px;color:#D6D3D1;">Settlement Speedup</div>
+                <div class="mono-num" style="font-size:42px;font-weight:700;color:#6EE7B7;">400,000×</div>
+              </div>
+            </div>
+
+            <div class="capture-plate" style="height:170px;">
+              <img src="assets/captures/04-section-arbitrage-race.png" alt="Gate 4 Arbitrage Benchmark Capture" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 05 — GATE 3: 0.09s SNOWMAN BFT SETTLEMENT & RECEIPT (30.0s – 38.0s)
+         ========================================================================= -->
+    <div id="scene-05" class="clip" data-start="30" data-duration="8" data-track-index="1">
+      <div id="s05-bft-glow" class="ambient-orb" data-layout-ignore style="width:740px;height:740px;left:420px;top:140px;background:rgba(52,211,153,0.25);"></div>
+      <div id="s05-stage" class="scene-stage">
+        <!-- Simulated Cursor -->
+        <div id="s05-cursor" class="sim-cursor" data-layout-ignore>
+          <div id="s05-ripple" class="sim-ripple"></div>
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3L23 13L14 15.5L10.5 24L5 3Z" fill="#34D399" stroke="#050505" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div id="s05-header" style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <span class="eyebrow-pill"><span class="status-dot"></span><span>GATE 03 · NON-CUSTODIAL EXECUTION &amp; CRYPTOGRAPHIC RECEIPT</span></span>
+            <h2 style="font-size:44px;font-weight:700;letter-spacing:-0.03em;margin-top:8px;color:#F5F5F4;">
+              Single Authorization. <span class="serif-italic">0.09s Finality.</span>
+            </h2>
+          </div>
+          <div class="badge-mono" style="padding:10px 18px;font-size:14px;">Avalanche C-Chain · Block #59490095</div>
+        </div>
+
+        <div class="grid-2col-equal" style="margin-top:20px;">
+          <!-- Left: Gate 3 Authorization & Finality Stopwatch -->
+          <div id="s05-exec-card" class="glass-card glass-card--emerald" style="padding:32px;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:22px;font-weight:700;color:#F5F5F4;">3. Execution lifecycle</div>
+              <span class="badge-mono">OFAC SDN CLEARED · 0 HITS</span>
+            </div>
+
+            <div style="text-align:center;padding:24px 0;">
+              <div style="font-size:14px;font-family:'JetBrains Mono',monospace;color:#6EE7B7;letter-spacing:0.08em;">
+                SNOWMAN BFT CONSENSUS FINALITY
+              </div>
+              <div id="s05-finality-val" class="mono-num" style="font-size:92px;font-weight:700;color:#34D399;line-height:1.05;letter-spacing:-0.04em;">
+                0.09s
+              </div>
+              <div style="font-size:16px;color:#D6D3D1;margin-top:4px;">90 Milliseconds · Irreversible On-Chain Settlement</div>
+            </div>
+
+            <div id="s05-auth-btn" class="cta-btn-primary" style="justify-content:center;width:100%;font-size:20px;padding:20px;">
+              <span>✓ Authorize Settlement · $2,500.00 USDC</span>
+            </div>
+
+            <div class="capture-plate" style="height:155px;margin-top:16px;">
+              <img src="assets/captures/05-section-snowman-settled.png" alt="Settled on Avalanche Capture" />
+            </div>
+          </div>
+
+          <!-- Right: Cryptographic Execution Receipt & CSV Reconciliation -->
+          <div id="s05-receipt-card" class="glass-card" style="padding:32px;display:flex;flex-direction:column;justify-content:space-between;position:relative;">
+            <div id="s05-receipt-sweep" class="light-sweep" data-layout-ignore></div>
+
+            <div id="s05-settled-pill" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:14px;background:rgba(52,211,153,0.14);border:1px solid rgba(52,211,153,0.45);">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span class="status-dot"></span>
+                <span style="font-size:18px;font-weight:700;color:#F5F5F4;">SETTLED ON AVALANCHE C-CHAIN</span>
+              </div>
+              <span class="mono-num" style="font-size:14px;color:#6EE7B7;font-weight:700;">CONFIRMED · 0.09s</span>
+            </div>
+
+            <div id="s05-tx-row" style="display:flex;flex-direction:column;gap:14px;">
+              <div class="cascade-card">
+                <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">SNOWTRACE TRANSACTION HASH</div>
+                <div class="mono-num" style="font-size:15px;font-weight:600;color:#34D399;">
+                  0x94f8a2b1c7d4e5093c8a11f0e29d4b678a3e109f
+                </div>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div class="cascade-card">
+                  <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">VALIDATOR BLOCK</div>
+                  <div class="mono-num" style="font-size:22px;font-weight:700;color:#F5F5F4;">#59490095</div>
+                </div>
+                <div class="cascade-card">
+                  <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#D6D3D1;">GAS &amp; RAIL FEE</div>
+                  <div class="mono-num" style="font-size:22px;font-weight:700;color:#34D399;">$2.50 USDC</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="s05-csv-toast" class="cascade-card" style="border-color:rgba(56,189,248,0.45);background:rgba(56,189,248,0.1);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div>
+                  <div style="font-size:16px;font-weight:700;color:#F5F5F4;">Export Reconciliation CSV</div>
+                  <div class="mono-num" style="font-size:13px;color:#7DD3FC;">flowagent-reconciliation-INV-2026-901.csv</div>
+                </div>
+                <span class="badge-mono badge-mono--cyan" style="padding:10px 16px;">Verify on Snowtrace ↗</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 06 — GATE 3 DEFENSE: 34ms OFAC SANCTIONS HALT (38.0s – 47.0s)
+         ========================================================================= -->
+    <div id="scene-06" class="clip" data-start="38" data-duration="9" data-track-index="1">
+      <div id="s06-danger-glow" class="ambient-orb" data-layout-ignore style="width:820px;height:820px;left:540px;top:120px;background:rgba(244,63,94,0.28);"></div>
+      <div id="s06-stage" class="scene-stage">
+        <!-- Simulated Cursor -->
+        <div id="s06-cursor" class="sim-cursor" data-layout-ignore>
+          <div id="s06-ripple" class="sim-ripple" style="border-color:#F43F5E;"></div>
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3L23 13L14 15.5L10.5 24L5 3Z" fill="#F43F5E" stroke="#050505" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <!-- Top Alert Header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <span class="eyebrow-pill" style="border-color:rgba(244,63,94,0.55);background:rgba(244,63,94,0.16);">
+              <span class="status-dot status-dot--danger"></span>
+              <span style="color:#FECDD3;">GATE 03 · DETERMINISTIC OFAC SDN COMPLIANCE FIREWALL</span>
+            </span>
+            <h2 style="font-size:44px;font-weight:700;letter-spacing:-0.03em;margin-top:8px;color:#F5F5F4;">
+              Sanctioned Counterparty? <span class="serif-italic" style="color:#FB7185;">Halted in 34ms.</span>
+            </h2>
+          </div>
+          <div id="s06-tornado-pill" class="badge-mono badge-mono--danger" style="padding:12px 20px;font-size:14px;">
+            ⚠ Scenario Selected: Tornado Cash · 15,000 USDT · SANCTIONED
+          </div>
+        </div>
+
+        <!-- Center Sanctions Enforcement Card -->
+        <div class="grid-2col" style="margin-top:18px;">
+          <div class="glass-card glass-card--danger" style="padding:32px;display:flex;flex-direction:column;gap:20px;">
+            <div id="s06-alert-banner" style="padding:20px 24px;border-radius:14px;background:rgba(244,63,94,0.22);border:2px solid #F43F5E;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <div style="font-size:22px;font-weight:700;color:#FECDD3;letter-spacing:0.02em;">
+                  SANCTIONS ENFORCEMENT ACTIVE
+                </div>
+                <div style="font-size:15px;color:#F5F5F4;margin-top:4px;">
+                  OFAC SDN Match Detected — Execution Terminated Pre-Signature
+                </div>
+              </div>
+              <span class="badge-mono badge-mono--danger" style="font-size:14px;padding:8px 14px;">HARD BLOCK</span>
+            </div>
+
+            <div id="s06-wallet-box" class="cascade-card" style="border-color:rgba(244,63,94,0.45);">
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#FECDD3;">FLAGGED BENEFICIARY · INV-2026-403</span>
+                <span class="badge-mono badge-mono--danger">TORNADO CASH ROUTER</span>
+              </div>
+              <div class="mono-num" style="font-size:17px;font-weight:700;color:#F5F5F4;margin-top:4px;">
+                0x8576acc5c05d6ce88f4e49bf65bdf0c62f91353c
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div id="s06-metric-latency" class="cascade-card">
+                <div style="font-size:13px;color:#FECDD3;">Pre-Signature Interception</div>
+                <div id="s06-latency-val" class="mono-num" style="font-size:44px;font-weight:700;color:#FB7185;">34ms</div>
+              </div>
+              <div id="s06-metric-gas" class="cascade-card">
+                <div style="font-size:13px;color:#FECDD3;">On-Chain Gas Expended</div>
+                <div class="mono-num" style="font-size:44px;font-weight:700;color:#34D399;">0.00 AVAX</div>
+              </div>
+            </div>
+
+            <div id="s06-locked-btn" style="padding:18px 24px;border-radius:12px;background:rgba(244,63,94,0.15);border:1px solid rgba(244,63,94,0.5);text-align:center;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#FECDD3;">
+              🔒 EXECUTION TERMINATED · WALLET SIGNATURE PREVENTED
+            </div>
+          </div>
+
+          <!-- Right: 4K Sanctioned Halt Capture + U-Bot Alert -->
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div class="capture-plate" style="height:360px;border-color:rgba(244,63,94,0.5);">
+              <img src="assets/captures/06-section-ofac-terminated.png" alt="OFAC Sanctions Terminated Capture" />
+            </div>
+            <div class="cascade-card" style="border-color:rgba(244,63,94,0.45);background:rgba(36,10,16,0.92);">
+              <div style="font-size:12px;font-family:'JetBrains Mono',monospace;color:#FB7185;">U-BOT SECURITY INTERLOCK BRIEFING</div>
+              <p style="font-size:15px;line-height:1.45;color:#F5F5F4;font-style:italic;">
+                "CRITICAL ALERT: Counterparty 0x8576...353c matches OFAC Specially Designated Nationals list (Tornado Cash Router). Execution terminated pre-signature in 34 milliseconds. Zero gas expended."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 07 — DETERMINISTIC 4-GATE WORKFLOW DAG (47.0s – 53.5s)
+         ========================================================================= -->
+    <div id="scene-07" class="clip" data-start="47" data-duration="6.5" data-track-index="1">
+      <div id="s07-stage" class="scene-stage">
+        <div id="s07-header" style="text-align:center;">
+          <span class="eyebrow-pill"><span class="status-dot"></span><span>DETERMINISTIC 4-GATE DAG · ZERO HUMAN BOTTLENECKS</span></span>
+          <h2 id="s07-title" style="font-size:48px;font-weight:700;letter-spacing:-0.03em;margin-top:12px;color:#F5F5F4;">
+            Autonomous Pipeline from <span class="serif-italic">PDF to Finality.</span>
+          </h2>
+        </div>
+
+        <!-- 4-Node SVG DAG Pipeline -->
+        <div class="dag-row">
+          <!-- Node 1 -->
+          <div id="s07-node-1" class="dag-node">
+            <span class="badge-mono">GATE 01 · INGESTION</span>
+            <div style="font-size:22px;font-weight:700;color:#F5F5F4;">1. Commercial invoice ingestion</div>
+            <p style="font-size:14px;color:#D6D3D1;line-height:1.45;">
+              Dual OCR &amp; EVM parser extracts line items, tax IDs, and checksummed beneficiary wallets.
+            </p>
+            <div class="mono-num" style="font-size:14px;color:#34D399;font-weight:700;">Dual OCR &amp; EVM Parsed</div>
+          </div>
+
+          <!-- Connector 1 -->
+          <div style="position:relative;height:40px;display:flex;align-items:center;">
+            <svg width="90" height="24" viewBox="0 0 90 24" fill="none">
+              <path id="s07-conn-1" d="M4 12H86" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <div id="s07-dot-1" data-layout-ignore style="position:absolute;left:0;top:14px;width:12px;height:12px;border-radius:999px;background:#34D399;box-shadow:0 0 12px #34D399;"></div>
+          </div>
+
+          <!-- Node 2 -->
+          <div id="s07-node-2" class="dag-node">
+            <span class="badge-mono badge-mono--cyan">GATE 02 · COPILOT</span>
+            <div style="font-size:22px;font-weight:700;color:#F5F5F4;">2. U-Bot financial copilot</div>
+            <p style="font-size:14px;color:#D6D3D1;line-height:1.45;">
+              ElevenLabs neural voice briefing paired with live Tokenomist unlock cliff telemetry.
+            </p>
+            <div class="mono-num" style="font-size:14px;color:#7DD3FC;font-weight:700;">61.1% Circ · 38d Cliff</div>
+          </div>
+
+          <!-- Connector 2 -->
+          <div style="position:relative;height:40px;display:flex;align-items:center;">
+            <svg width="90" height="24" viewBox="0 0 90 24" fill="none">
+              <path id="s07-conn-2" d="M4 12H86" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <div id="s07-dot-2" data-layout-ignore style="position:absolute;left:0;top:14px;width:12px;height:12px;border-radius:999px;background:#38BDF8;box-shadow:0 0 12px #38BDF8;"></div>
+          </div>
+
+          <!-- Node 3 -->
+          <div id="s07-node-3" class="dag-node">
+            <span class="badge-mono badge-mono--danger">GATE 03 · COMPLIANCE</span>
+            <div style="font-size:22px;font-weight:700;color:#F5F5F4;">3. Execution lifecycle</div>
+            <p style="font-size:14px;color:#D6D3D1;line-height:1.45;">
+              Pre-signature OFAC SDN screening halts sanctioned wallets in 34ms with 0.00 AVAX gas.
+            </p>
+            <div class="mono-num" style="font-size:14px;color:#FB7185;font-weight:700;">34ms SDN Guard · 0 Gas</div>
+          </div>
+
+          <!-- Connector 3 -->
+          <div style="position:relative;height:40px;display:flex;align-items:center;">
+            <svg width="90" height="24" viewBox="0 0 90 24" fill="none">
+              <path id="s07-conn-3" d="M4 12H86" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <div id="s07-dot-3" data-layout-ignore style="position:absolute;left:0;top:14px;width:12px;height:12px;border-radius:999px;background:#34D399;box-shadow:0 0 12px #34D399;"></div>
+          </div>
+
+          <!-- Node 4 -->
+          <div id="s07-node-4" class="dag-node glass-card--emerald">
+            <span class="badge-mono">GATE 04 · SETTLEMENT</span>
+            <div style="font-size:22px;font-weight:700;color:#F5F5F4;">4. Liquidity routing &amp; settlement</div>
+            <p style="font-size:14px;color:#D6D3D1;line-height:1.45;">
+              Races SWIFT ($112.50) vs Avalanche C-Chain ($2.50), settling in 0.09s with CSV export.
+            </p>
+            <div class="mono-num" style="font-size:14px;color:#6EE7B7;font-weight:700;">97.8% Fee Reduction</div>
+          </div>
+        </div>
+
+        <!-- Bottom Architecture Telemetry Pills -->
+        <div class="proof-bar-3col">
+          <div id="s07-pill-1" class="metric-card" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:600;color:#F5F5F4;">Avalanche C-Chain (Chain 43114)</span>
+            <span class="badge-mono">SNOWMAN BFT</span>
+          </div>
+          <div id="s07-pill-2" class="metric-card" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:600;color:#F5F5F4;">Non-Custodial EIP-1193 Signing</span>
+            <span class="badge-mono badge-mono--cyan">ZERO CUSTODY RISK</span>
+          </div>
+          <div id="s07-pill-3" class="metric-card" style="flex-direction:row;align-items:center;justify-content:space-between;">
+            <span style="font-size:15px;font-weight:600;color:#F5F5F4;">Audit-Ready CSV &amp; Snowtrace Proof</span>
+            <span class="badge-mono">DETERMINISTIC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         SCENE 08 — HERO PROOF LOCKUP & CTA FINALE (53.5s – 60.0s)
+         ========================================================================= -->
+    <div id="scene-08" class="clip" data-start="53.5" data-duration="6.5" data-track-index="1">
+      <div id="s08-glow" class="ambient-orb" data-layout-ignore style="width:860px;height:860px;left:530px;top:110px;background:rgba(16,185,129,0.24);"></div>
+      <div id="s08-stage" class="scene-stage" style="align-items:center;text-align:center;justify-content:space-between;">
+        <!-- Simulated Cursor -->
+        <div id="s08-cursor" class="sim-cursor" data-layout-ignore>
+          <div id="s08-ripple" class="sim-ripple"></div>
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 3L23 13L14 15.5L10.5 24L5 3Z" fill="#34D399" stroke="#050505" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <!-- Brand Emblem Pill -->
+        <div id="s08-brand-pill" style="display:inline-flex;align-items:center;gap:14px;padding:10px 24px;border-radius:999px;background:rgba(14,14,16,0.92);border:1px solid rgba(255,255,255,0.16);">
+          <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="64" height="64" rx="16" fill="#0E0E10" stroke="#34D399" stroke-width="2" stroke-opacity="0.45"/>
+            <path d="M18 22H46M18 32H38M18 42H30" stroke="#F5F5F4" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="44" cy="40" r="8" fill="#34D399"/>
+            <path d="M41 40L43.2 42.2L47.5 37.8" stroke="#022014" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span style="font-size:18px;font-weight:700;color:#F5F5F4;">FlowAgent OS</span>
+          <span style="color:#78716C;">·</span>
+          <img src="assets/svg/avalanche-badge.svg" alt="Avalanche" style="width:26px;height:26px;" />
+          <span class="mono-num" style="font-size:14px;color:#34D399;font-weight:600;">Autonomous accounts payable · Avalanche</span>
+        </div>
+
+        <!-- Center Lockup Headline -->
+        <div id="s08-hero-box" style="display:flex;flex-direction:column;align-items:center;gap:18px;max-width:1280px;">
+          <h1 id="s08-h1" style="font-size:76px;font-weight:700;letter-spacing:-0.035em;line-height:1.04;color:#F5F5F4;">
+            Invoices in. <span class="serif-italic">Settlement out.</span> Sub-second.
+          </h1>
+          <p id="s08-sub" style="font-size:21px;line-height:1.5;color:#D6D3D1;max-width:980px;">
+            FlowAgent OS reads commercial invoices, screens every counterparty against OFAC, races SWIFT for the cheapest rail and settles on Avalanche — non-custodially, in a single authorization.
+          </p>
+        </div>
+
+        <!-- 3 Proof Metric Cards -->
+        <div class="proof-bar-3col" style="width:100%;max-width:1420px;">
+          <div id="s08-stat-1" class="metric-card" style="align-items:center;">
+            <div class="metric-val" style="color:#34D399;">0.09s</div>
+            <div class="metric-lbl">Consensus finality (&lt; 2.0s)</div>
+          </div>
+          <div id="s08-stat-2" class="metric-card" style="align-items:center;">
+            <div class="metric-val" style="color:#38BDF8;">97.8%</div>
+            <div class="metric-lbl">Cheaper than a SWIFT wire</div>
+          </div>
+          <div id="s08-stat-3" class="metric-card" style="align-items:center;">
+            <div class="metric-val" style="color:#FB7185;">34ms</div>
+            <div class="metric-lbl">Sanctions halt, zero gas</div>
+          </div>
+        </div>
+
+        <!-- CTA Row & URL Footer -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:18px;">
+          <div id="s08-cta-row" style="display:flex;align-items:center;gap:20px;">
+            <div id="s08-cta-primary" class="cta-btn-primary">
+              <div id="s08-cta-sweep" class="light-sweep" data-layout-ignore></div>
+              <span>Launch workstation</span>
+              <span>→</span>
+            </div>
+            <div class="cta-btn-secondary">
+              <span>Test sanctions halt</span>
+            </div>
+          </div>
+
+          <div id="s08-url-bar" class="mono-num" style="font-size:16px;font-weight:600;color:#6EE7B7;letter-spacing:0.04em;">
+            flowagent-os.vercel.app · Built on Avalanche C-Chain · Block #59490095
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         AUDIO TRACKS (BGM Bed + 6 Scene Voiceovers + Beat-Synced SFX)
+         ========================================================================= -->
+    <!-- Track 2: Ambient BGM Bed -->
+    <audio id="bgm-bed" src="assets/audio/bgm_ambient.mp3" data-start="0" data-duration="60" data-track-index="2" data-volume="0.20"></audio>
+
+    <!-- Track 3: Voiceover Narration Clips -->
+    <audio id="vo-scene-1" src="assets/audio/vo_scene_1.mp3" data-start="0.2" data-duration="12.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="vo-scene-2" src="assets/audio/vo_scene_2.mp3" data-start="13.2" data-duration="8.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="vo-scene-3" src="assets/audio/vo_scene_3.mp3" data-start="22.2" data-duration="7.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="vo-scene-4" src="assets/audio/vo_scene_4.mp3" data-start="30.2" data-duration="7.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="vo-scene-5" src="assets/audio/vo_scene_5.mp3" data-start="38.2" data-duration="8.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="vo-scene-6" src="assets/audio/vo_scene_6.mp3" data-start="47.2" data-duration="6.8" data-track-index="3" data-volume="0.95"></audio>
+
+    <!-- Track 4: UI & Transition SFX -->
+    <audio id="sfx-riser-01" src="assets/audio/sfx_riser.mp3" data-start="0.0" data-duration="1.2" data-track-index="4" data-volume="0.42"></audio>
+    <audio id="sfx-confirm-01" src="assets/audio/sfx_confirm.mp3" data-start="2.0" data-duration="1.5" data-track-index="4" data-volume="0.45"></audio>
+    <audio id="sfx-click-02" src="assets/audio/sfx_click.mp3" data-start="6.2" data-duration="0.08" data-track-index="4" data-volume="0.50"></audio>
+    <audio id="sfx-click-03" src="assets/audio/sfx_click.mp3" data-start="14.2" data-duration="0.08" data-track-index="4" data-volume="0.55"></audio>
+    <audio id="sfx-confirm-03" src="assets/audio/sfx_confirm.mp3" data-start="16.5" data-duration="1.5" data-track-index="4" data-volume="0.42"></audio>
+    <audio id="sfx-riser-04" src="assets/audio/sfx_riser.mp3" data-start="22.5" data-duration="1.2" data-track-index="4" data-volume="0.42"></audio>
+    <audio id="sfx-confirm-04" src="assets/audio/sfx_confirm.mp3" data-start="24.5" data-duration="1.5" data-track-index="4" data-volume="0.48"></audio>
+    <audio id="sfx-click-05" src="assets/audio/sfx_click.mp3" data-start="31.1" data-duration="0.08" data-track-index="4" data-volume="0.55"></audio>
+    <audio id="sfx-confirm-05" src="assets/audio/sfx_confirm.mp3" data-start="32.2" data-duration="1.5" data-track-index="4" data-volume="0.50"></audio>
+    <audio id="sfx-alert-06" src="assets/audio/sfx_alert.mp3" data-start="38.2" data-duration="0.95" data-track-index="4" data-volume="0.55"></audio>
+    <audio id="sfx-confirm-07" src="assets/audio/sfx_confirm.mp3" data-start="48.5" data-duration="1.5" data-track-index="4" data-volume="0.42"></audio>
+    <audio id="sfx-confirm-08" src="assets/audio/sfx_confirm.mp3" data-start="55.5" data-duration="1.5" data-track-index="4" data-volume="0.48"></audio>
+  </div>
+
+  <!-- Local Vendored GSAP + CustomEase + Modular Scene Scripts -->
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/CustomEase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="lib/fx.js"></script>
+  <script src="scenes/01-hook.js"></script>
+  <script src="scenes/02-problem.js"></script>
+  <script src="scenes/03-ingest-ubot.js"></script>
+  <script src="scenes/04-arbitrage.js"></script>
+  <script src="scenes/05-settlement.js"></script>
+  <script src="scenes/06-ofac-halt.js"></script>
+  <script src="scenes/07-workflow-dag.js"></script>
+  <script src="scenes/08-cta.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const fx = window.FLOWAGENT_FX;
+
+      // Apply optional composition variable overrides if present
+      if (window.__hyperframes && typeof window.__hyperframes.getVariables === "function") {
+        const vars = window.__hyperframes.getVariables() || {};
+        if (vars.ctaText) {
+          const ctaEl = document.querySelector("#s08-cta-primary span");
+          if (ctaEl) ctaEl.textContent = vars.ctaText;
+        }
+      }
+
+      // Register all 8 beat-synced scenes (0.0s -> 60.0s @ 120 BPM)
+      window.SCENE_01_HOOK(tl, fx);
+      window.SCENE_02_PROBLEM(tl, fx);
+      window.SCENE_03_INGEST_UBOT(tl, fx);
+      window.SCENE_04_ARBITRAGE(tl, fx);
+      window.SCENE_05_SETTLEMENT(tl, fx);
+      window.SCENE_06_OFAC_HALT(tl, fx);
+      window.SCENE_07_WORKFLOW_DAG(tl, fx);
+      window.SCENE_08_CTA(tl, fx);
+
+      window.__timelines["main"] = tl;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "targetUrl": "https://flowagent-os.vercel.app/",
+  "capturedAt": "2026-10-16T12:40:00Z",
+  "viewports": {
+    "desktop": { "width": 1920, "height": 1080, "deviceScaleFactor": 2, "pixelDimensions": "3840x2160" },
+    "mobile": { "width": 390, "height": 844, "deviceScaleFactor": 2, "pixelDimensions": "780x1688" }
+  },
+  "captures": [
+    {
+      "id": "01-hero-desktop",
+      "file": "assets/captures/01-hero-desktop.png",
+      "selector": "header + main > section:first-of-type",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "Hero Z-axis cascade cards, verbatim H1 ('Invoices in. Settlement out. Sub-second.'), and 3-column proof bar (0.09s, 97.8%, 34ms)"
+    },
+    {
+      "id": "01-hero-mobile",
+      "file": "assets/captures/01-hero-mobile.png",
+      "selector": "main > section:first-of-type",
+      "bbox": { "x": 0, "y": 0, "width": 390, "height": 844 },
+      "description": "Mobile portrait hero viewport (390x844 @ 2x)"
+    },
+    {
+      "id": "02-section-workstation-aws",
+      "file": "assets/captures/02-section-workstation-aws.png",
+      "selector": "#workstation-grid",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "4-Gate Workstation: Gate 1 Commercial Invoice Ingestion (AWS INV-2026-901, $2,500.00 USDC, Dual OCR & EVM Parsed)"
+    },
+    {
+      "id": "03-section-ubot-copilot",
+      "file": "assets/captures/03-section-ubot-copilot.png",
+      "selector": "#gate-2-ubot",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "Gate 2 U-Bot Financial Copilot: ElevenLabs TTS & Tokenomist Intelligence with live 32-bar voice waveform"
+    },
+    {
+      "id": "04-section-arbitrage-race",
+      "file": "assets/captures/04-section-arbitrage-race.png",
+      "selector": "#gate-4-routing",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "Gate 4 Liquidity Routing & Settlement Benchmark: SWIFT Wire ($112.50, 3-5 Business Days) vs Avalanche C-Chain ($2.50, ~1.2 Seconds), $110.00 net savings (97.8% reduction)"
+    },
+    {
+      "id": "05-section-snowman-settled",
+      "file": "assets/captures/05-section-snowman-settled.png",
+      "selector": "#gate-3-execution-settled",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "Gate 3 & 4 Cryptographic Execution Receipt: Finality 0.09s (90ms), Block #59490095, Verified Snowtrace Tx & CSV Export"
+    },
+    {
+      "id": "06-section-ofac-terminated",
+      "file": "assets/captures/06-section-ofac-terminated.png",
+      "selector": "#gate-3-ofac-halt",
+      "bbox": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+      "description": "Gate 3 Sanctions Enforcement Active: Tornado Cash Router (0x8576...353c) halted in 34ms before signature, 0.00 AVAX gas spent"
+    }
+  ]
+}

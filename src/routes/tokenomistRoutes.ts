@@ -57,6 +57,28 @@ tokenomistRouter.get('/summary', async (_req: Request, res: Response) => {
 });
 
 /**
+ * GET /api/tokenomist/upcoming
+ * Returns market-wide upcoming unlock events from Tokenomist v5
+ */
+tokenomistRouter.get('/upcoming', async (_req: Request, res: Response) => {
+  try {
+    const upcoming = await tokenomistService.getUpcomingMarketUnlocks();
+    res.json({
+      success: true,
+      partner: 'Tokenomist',
+      count: upcoming.length,
+      data: upcoming,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      error: 'TokenomistUpcomingError',
+      message: err.message,
+    });
+  }
+});
+
+/**
  * GET /api/tokenomist/health
  * Ping endpoint for stage check and monitoring
  */

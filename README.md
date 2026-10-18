@@ -14,9 +14,31 @@
 
 ---
 
-## 🎥 Live Demo Video Walkthrough
+## 🎥 Live Demo Video Walkthrough & HyperFrames Motion System
 > **3-Minute Stage & Architecture Walkthrough**: [Watch Live Demo](https://flowagent-os.vercel.app/pitch_deck.html)  
 > *Demonstrating dual-scenario execution: Clean AWS $2,500 USDC settlement on Avalanche Fuji with ElevenLabs voice synthesis vs. Tornado Cash OFAC sanctions interlock.*
+
+### HyperFrames + GSAP Product Launch Video Suite (`v0.8.163`)
+This repository includes a deterministic **HyperFrames + GSAP** product launch video suite (`120 BPM`, `60fps`) built from the live FlowAgent OS UI and 4K product captures:
+
+| Deliverable | Path | Specs |
+| :--- | :--- | :--- |
+| **16:9 Master Launch Video** | `renders/flowagent-os-demo_16x9.mp4` | `1920×1080`, `60fps`, `60.0s`, H.264 (`yuv420p`) + AAC |
+| **9:16 Vertical Cutdown** | `renders/flowagent-os-demo_9x16.mp4` | `1080×1920`, `60fps`, `30.0s`, re-composed mobile layout |
+| **6s Seamless Hero Loop** | `renders/flowagent-os-loop.mp4` / `.webm` | `1920×1080`, `60fps`, `6.0s` (`frame 0 === frame N`) |
+| **Hero Poster & Contact Sheet** | `renders/poster.png` / `renders/contact-sheet.png` | `1920×1080` hero still + 16-frame timeline proof grid |
+
+#### How to Customize Copy, Brand Tokens, or Captures
+1. **Edit Copy, Colors, or Beat Timing**: Open [`config.js`](config.js) (`window.FLOWAGENT_CONFIG`) — the single source of truth for headlines, metrics (`0.09s`, `97.8%`, `34ms`), palette tokens, and scene durations.
+2. **Swap Product Screenshots**: Replace any PNG in [`assets/captures/`](assets/captures/) (mapped in [`assets/captures/manifest.json`](assets/captures/manifest.json)).
+3. **Run Automated QA Gate & Re-Render**:
+   ```bash
+   # Run static lint + headless Chromium runtime, layout, motion & WCAG AA contrast audit
+   npx hyperframes check --json
+
+   # Re-render 16:9 Master (60fps, delivery quality)
+   npx hyperframes render --fps 60 --quality delivery --output renders/flowagent-os-demo_16x9.mp4
+   ```
 
 ---
 

@@ -1,0 +1,74 @@
+{
+  "product": {
+    "name": "FlowAgent OS",
+    "category": "Autonomous accounts payable · Avalanche",
+    "url": "https://flowagent-os.vercel.app/",
+    "network": "Avalanche C-Chain (Chain 43114)",
+    "blockHeight": "#59490095",
+    "status": "Operational"
+  },
+  "palette": {
+    "bgPrimary": "#050505",
+    "bgElevated": "#0E0E10",
+    "bgSurface": "#09090A",
+    "bgGlass": "rgba(14, 14, 16, 0.82)",
+    "textPrimary": "#F5F5F4",
+    "textSecondary": "#A8A29E",
+    "textMuted": "rgba(255, 255, 255, 0.50)",
+    "accentEmerald": "#34D399",
+    "accentEmeraldLight": "#6EE7B7",
+    "accentEmeraldDark": "#022014",
+    "accentCyan": "#38BDF8",
+    "accentAmber": "#FCD34D",
+    "dangerRose": "#F43F5E",
+    "dangerRoseLight": "#FB7185",
+    "dangerRoseSoft": "#FECDD3",
+    "borderSubtle": "rgba(255, 255, 255, 0.08)",
+    "borderSpecular": "rgba(255, 255, 255, 0.14)",
+    "borderEmerald": "rgba(52, 211, 153, 0.35)",
+    "borderDanger": "rgba(244, 63, 94, 0.45)"
+  },
+  "gradients": {
+    "surfaceCard": "linear-gradient(180deg, #0E0E10 0%, #09090A 100%)",
+    "heroGlowEmerald": "radial-gradient(circle at 70% 35%, rgba(16, 185, 129, 0.14), transparent 65%)",
+    "heroGlowDanger": "radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.18), transparent 65%)",
+    "emeraldPill": "linear-gradient(135deg, #34D399 0%, #10B981 100%)"
+  },
+  "typography": {
+    "display": {
+      "family": "Plus Jakarta Sans",
+      "weights": [500, 600, 700],
+      "heroSize": "64px",
+      "heroLineHeight": 1.04,
+      "heroLetterSpacing": "-0.035em"
+    },
+    "serifAccent": {
+      "family": "Instrument Serif",
+      "style": "italic",
+      "weight": 400
+    },
+    "sans": {
+      "family": "Plus Jakarta Sans",
+      "weights": [400, 500, 600, 700],
+      "bodySize": "18px",
+      "bodyLineHeight": 1.5
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "weights": [400, 600, 700],
+      "codeSize": "14px",
+      "letterSpacing": "-0.02em"
+    }
+  },
+  "radii": {
+    "card": "16px",
+    "panel": "20px",
+    "pill": "9999px",
+    "badge": "6px"
+  },
+  "shadows": {
+    "cardSpecular": "inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.06), 0 24px 48px -12px rgba(0, 0, 0, 0.75)",
+    "emeraldGlow": "0 0 32px rgba(52, 211, 153, 0.28)",
+    "dangerGlow": "0 0 40px rgba(244, 63, 94, 0.35)"
+  }
+}

@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0" />
+  <title>FlowAgent OS â€” 9:16 Vertical Cutdown (1080x1920, 30s)</title>
+  <link rel="stylesheet" href="../styles/tokens.css" />
+  <style>
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('../assets/fonts/PlusJakartaSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('../assets/fonts/PlusJakartaSans-Medium.woff2') format('woff2');
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('../assets/fonts/PlusJakartaSans-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('../assets/fonts/PlusJakartaSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('../assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('../assets/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('../assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Instrument Serif';
+      src: url('../assets/fonts/InstrumentSerif-Italic.woff2') format('woff2');
+      font-weight: 400;
+      font-style: italic;
+      font-display: block;
+    }
+
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #050505;
+      color: #F5F5F4;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .v-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 88px 64px 110px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .v-card {
+      padding: 28px 32px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #121216 0%, #09090C 100%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .v-card--emerald {
+      border-color: rgba(52, 211, 153, 0.48);
+      box-shadow: 0 0 36px rgba(16, 185, 129, 0.2);
+    }
+
+    .v-card--danger {
+      background: linear-gradient(180deg, #240A10 0%, #0F0609 100%);
+      border-color: rgba(244, 63, 94, 0.58);
+      box-shadow: 0 0 40px rgba(244, 63, 94, 0.25);
+    }
+
+    .v-progress-track {
+      width: 100%;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .v-wave-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      height: 76px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: rgba(5, 5, 5, 0.9);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .v-wave-bar {
+      flex: 1;
+      height: 50px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #34D399 0%, #38BDF8 100%);
+      transform-origin: center center;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="portrait-main" data-width="1080" data-height="1920" data-duration="30">
+    <div class="ambient-grid" data-layout-ignore></div>
+
+    <!-- =======================================================================
+         V-SCENE 1: HOOK & Z-AXIS STACK (0.0s â€“ 6.0s)
+         ======================================================================= -->
+    <div id="v-scene-1" class="clip" data-start="0" data-duration="6" data-track-index="1">
+      <div id="v1-glow" class="ambient-orb" data-layout-ignore style="width:760px;height:760px;left:160px;top:360px;background:rgba(16,185,129,0.25);"></div>
+      <div id="v1-stage" class="v-stage">
+        <div id="v1-top" style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="eyebrow-pill" style="font-size:15px;padding:10px 20px;">
+            <span class="status-dot"></span>
+            <span>FlowAgent OS Â· Avalanche</span>
+          </span>
+          <span class="badge-mono" style="font-size:15px;padding:8px 16px;">#59490095</span>
+        </div>
+
+        <div id="v1-hero" style="display:flex;flex-direction:column;gap:14px;">
+          <div style="font-size:84px;font-weight:700;letter-spacing:-0.035em;line-height:1.02;color:#F5F5F4;">
+            Invoices in.<br />
+            <span class="serif-italic" style="font-size:92px;color:#6EE7B7;">Settlement out.</span><br />
+            Sub-second.
+          </div>
+          <p style="font-size:26px;line-height:1.45;color:#D6D3D1;">
+            Autonomous accounts payable that screens OFAC in 34ms, races SWIFT, and settles on Avalanche in 0.09s.
+          </p>
+        </div>
+
+        <div id="v1-cards" style="display:flex;flex-direction:column;gap:20px;">
+          <div class="v-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="badge-mono" style="font-size:14px;">GATE 01 Â· DUAL OCR PARSED</span>
+              <span class="mono-num" style="font-size:18px;color:#34D399;font-weight:700;">INV-2026-901</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:26px;font-weight:700;">Amazon Web Services, Inc.</span>
+              <span class="mono-num" style="font-size:32px;font-weight:700;color:#34D399;">$2,500.00</span>
+            </div>
+          </div>
+
+          <div class="v-card v-card--emerald">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="badge-mono" style="font-size:14px;">GATE 04 Â· SNOWMAN BFT</span>
+              <span class="mono-num" style="font-size:18px;color:#6EE7B7;font-weight:700;">0.09s FINALITY</span>
+            </div>
+            <div style="font-size:26px;font-weight:700;">SWIFT $112.50 â†’ AVAX $2.50 (-97.8%)</div>
+          </div>
+        </div>
+
+        <div id="v1-metrics" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+          <div class="v-card" style="align-items:center;text-align:center;padding:22px 16px;">
+            <div id="v1-m1" class="mono-num" style="font-size:44px;font-weight:700;color:#34D399;">0.09s</div>
+            <div style="font-size:16px;color:#D6D3D1;">BFT Finality</div>
+          </div>
+          <div class="v-card" style="align-items:center;text-align:center;padding:22px 16px;">
+            <div id="v1-m2" class="mono-num" style="font-size:44px;font-weight:700;color:#38BDF8;">97.8%</div>
+            <div style="font-size:16px;color:#D6D3D1;">Cheaper vs SWIFT</div>
+          </div>
+          <div class="v-card" style="align-items:center;text-align:center;padding:22px 16px;">
+            <div id="v1-m3" class="mono-num" style="font-size:44px;font-weight:700;color:#FB7185;">34ms</div>
+            <div style="font-size:16px;color:#D6D3D1;">OFAC Halt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         V-SCENE 2: DUAL OCR & U-BOT VOICE COPILOT (6.0s â€“ 12.0s)
+         ======================================================================= -->
+    <div id="v-scene-2" class="clip" data-start="6" data-duration="6" data-track-index="1">
+      <div id="v2-stage" class="v-stage">
+        <div id="v2-top">
+          <span class="eyebrow-pill" style="font-size:15px;padding:10px 20px;">
+            <span class="status-dot"></span>
+            <span>GATE 01 &amp; 02 Â· OCR + AI COPILOT</span>
+          </span>
+          <h2 style="font-size:62px;font-weight:700;letter-spacing:-0.03em;margin-top:16px;line-height:1.06;">
+            Dual OCR &amp; <span class="serif-italic">U-Bot Intelligence.</span>
+          </h2>
+        </div>
+
+        <div id="v2-ocr" class="v-card v-card--emerald">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:26px;font-weight:700;">1. Commercial invoice ingestion</span>
+            <span class="badge-mono" style="font-size:14px;">Dual OCR &amp; EVM Parsed</span>
+          </div>
+          <div style="font-size:22px;color:#D6D3D1;">Vendor: <strong style="color:#F5F5F4;">Amazon Web Services, Inc. (INV-2026-901)</strong></div>
+          <div class="mono-num" style="font-size:46px;font-weight:700;color:#34D399;">$2,500.00 USDC</div>
+          <div class="mono-num" style="font-size:18px;color:#D6D3D1;">0x71C95911E9a5D330f4D621842EC243EE1343292e</div>
+        </div>
+
+        <div id="v2-ubot" class="v-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:26px;font-weight:700;">2. U-Bot financial copilot</span>
+            <span class="badge-mono badge-mono--cyan" style="font-size:14px;">ElevenLabs TTS</span>
+          </div>
+          <div class="v-wave-row">
+            <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+            <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+            <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+            <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+            <div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div><div class="v-wave-bar"></div>
+          </div>
+          <p style="font-size:21px;line-height:1.45;color:#F5F5F4;font-style:italic;">
+            "Invoice INV-2026-901 verified. Zero OFAC sanctions hits. Tokenomist AVAX circulating 61.1%, next cliff 38d."
+          </p>
+        </div>
+
+        <div class="capture-plate" style="height:360px;">
+          <img src="../assets/captures/03-section-ubot-copilot.png" alt="U-Bot Copilot" />
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         V-SCENE 3: RAIL ARBITRAGE & 0.09s SETTLEMENT (12.0s â€“ 18.0s)
+         ======================================================================= -->
+    <div id="v-scene-3" class="clip" data-start="12" data-duration="6" data-track-index="1">
+      <div id="v3-stage" class="v-stage">
+        <div>
+          <span class="eyebrow-pill" style="font-size:15px;padding:10px 20px;">
+            <span class="status-dot"></span>
+            <span>GATE 04 Â· LIQUIDITY ROUTING RACE</span>
+          </span>
+          <h2 style="font-size:64px;font-weight:700;letter-spacing:-0.03em;margin-top:16px;line-height:1.05;">
+            97.8% Cheaper <span class="serif-italic">than SWIFT.</span>
+          </h2>
+        </div>
+
+        <div id="v3-swift" class="v-card" style="border-color:rgba(244,63,94,0.42);">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:26px;font-weight:700;color:#FECDD3;">Traditional SWIFT Wire</span>
+            <span class="mono-num" style="font-size:34px;font-weight:700;color:#FB7185;">$112.50</span>
+          </div>
+          <div style="font-size:20px;color:#D6D3D1;">3â€“5 Business Days Â· $45 wire + 2.7% FX spread</div>
+          <div class="v-progress-track">
+            <div id="v3-swift-bar" class="progress-fill-swift"></div>
+          </div>
+        </div>
+
+        <div id="v3-avax" class="v-card v-card--emerald">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:28px;font-weight:700;color:#F5F5F4;">Avalanche C-Chain (USDC)</span>
+            <span class="mono-num" style="font-size:38px;font-weight:700;color:#34D399;">$2.50</span>
+          </div>
+          <div style="font-size:20px;color:#6EE7B7;">0.09s Snowman BFT Finality Â· Block #59490095</div>
+          <div class="v-progress-track">
+            <div id="v3-avax-bar" class="progress-fill-avax"></div>
+          </div>
+        </div>
+
+        <div id="v3-savings" class="v-card v-card--emerald" style="align-items:center;text-align:center;padding:36px;">
+          <div style="font-size:20px;color:#6EE7B7;font-family:'JetBrains Mono',monospace;">NET SAVINGS PER INVOICE</div>
+          <div id="v3-savings-val" class="mono-num" style="font-size:96px;font-weight:700;color:#34D399;line-height:1.05;">$110.00</div>
+          <div style="font-size:22px;color:#F5F5F4;font-weight:600;">SETTLED ON AVALANCHE Â· Verified on Snowtrace â†—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         V-SCENE 4: 34ms OFAC SANCTIONS HALT (18.0s â€“ 24.0s)
+         ======================================================================= -->
+    <div id="v-scene-4" class="clip" data-start="18" data-duration="6" data-track-index="1">
+      <div id="v4-stage" class="v-stage">
+        <div>
+          <span class="eyebrow-pill" style="font-size:15px;padding:10px 20px;border-color:#F43F5E;background:rgba(244,63,94,0.18);">
+            <span class="status-dot status-dot--danger"></span>
+            <span style="color:#FECDD3;">GATE 03 Â· OFAC SDN INTERLOCK</span>
+          </span>
+          <h2 style="font-size:64px;font-weight:700;letter-spacing:-0.03em;margin-top:16px;line-height:1.05;">
+            Sanctions Halted <span class="serif-italic" style="color:#FB7185;">in 34ms.</span>
+          </h2>
+        </div>
+
+        <div id="v4-banner" class="v-card v-card--danger">
+          <div style="font-size:28px;font-weight:700;color:#FECDD3;">SANCTIONS ENFORCEMENT ACTIVE</div>
+          <div style="font-size:22px;color:#F5F5F4;">OFAC SDN Match Detected â€” Execution Terminated</div>
+          <div class="mono-num" style="font-size:20px;color:#FB7185;margin-top:8px;">
+            Tornado Cash Â· 0x8576acc5c05d6ce88f4e49bf65bdf0c62f91353c
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div class="v-card v-card--danger" style="align-items:center;text-align:center;">
+            <div style="font-size:18px;color:#FECDD3;">Halt Latency</div>
+            <div id="v4-ms" class="mono-num" style="font-size:64px;font-weight:700;color:#FB7185;">34ms</div>
+          </div>
+          <div class="v-card v-card--danger" style="align-items:center;text-align:center;">
+            <div style="font-size:18px;color:#FECDD3;">Gas Expended</div>
+            <div class="mono-num" style="font-size:64px;font-weight:700;color:#34D399;">0.00</div>
+          </div>
+        </div>
+
+        <div class="capture-plate" style="height:420px;border-color:#F43F5E;">
+          <img src="../assets/captures/06-section-ofac-terminated.png" alt="OFAC Terminated" />
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         V-SCENE 5: CTA LOCKUP FINALE (24.0s â€“ 30.0s)
+         ======================================================================= -->
+    <div id="v-scene-5" class="clip" data-start="24" data-duration="6" data-track-index="1">
+      <div id="v5-stage" class="v-stage" style="align-items:center;text-align:center;justify-content:center;gap:42px;">
+        <div class="eyebrow-pill" style="font-size:18px;padding:14px 28px;">
+          <span class="status-dot"></span>
+          <span>FlowAgent OS Â· Avalanche C-Chain</span>
+        </div>
+
+        <h1 style="font-size:84px;font-weight:700;letter-spacing:-0.035em;line-height:1.04;">
+          Invoices in.<br />
+          <span class="serif-italic" style="font-size:92px;color:#6EE7B7;">Settlement out.</span><br />
+          Sub-second.
+        </h1>
+
+        <div style="display:flex;flex-direction:column;gap:18px;width:100%;">
+          <div class="v-card v-card--emerald" style="flex-direction:row;justify-content:space-between;align-items:center;">
+            <span style="font-size:24px;color:#D6D3D1;">Consensus Finality</span>
+            <span class="mono-num" style="font-size:44px;font-weight:700;color:#34D399;">0.09s</span>
+          </div>
+          <div class="v-card" style="flex-direction:row;justify-content:space-between;align-items:center;">
+            <span style="font-size:24px;color:#D6D3D1;">Cheaper than SWIFT</span>
+            <span class="mono-num" style="font-size:44px;font-weight:700;color:#38BDF8;">97.8%</span>
+          </div>
+          <div class="v-card" style="flex-direction:row;justify-content:space-between;align-items:center;">
+            <span style="font-size:24px;color:#D6D3D1;">OFAC Sanctions Halt</span>
+            <span class="mono-num" style="font-size:44px;font-weight:700;color:#FB7185;">34ms</span>
+          </div>
+        </div>
+
+        <div id="v5-cta" class="cta-btn-primary" style="font-size:28px;padding:26px 56px;">
+          <span>Launch workstation â†’</span>
+        </div>
+
+        <div class="mono-num" style="font-size:22px;color:#6EE7B7;font-weight:600;">
+          flowagent-os.vercel.app
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Tracks for 30s Vertical Cutdown -->
+    <audio id="v-bgm" src="../assets/audio/bgm_ambient.mp3" data-start="0" data-duration="30" data-track-index="2" data-volume="0.22"></audio>
+    <audio id="v-vo-1" src="../assets/audio/vo_scene_1.mp3" data-start="0.2" data-duration="11.5" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="v-vo-3" src="../assets/audio/vo_scene_3.mp3" data-start="12.2" data-duration="5.6" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="v-vo-5" src="../assets/audio/vo_scene_5.mp3" data-start="18.2" data-duration="5.6" data-track-index="3" data-volume="0.95"></audio>
+    <audio id="v-vo-6" src="../assets/audio/vo_scene_6.mp3" data-start="24.2" data-duration="5.5" data-track-index="3" data-volume="0.95"></audio>
+  </div>
+
+  <script src="../assets/vendor/gsap.min.js"></script>
+  <script src="../assets/vendor/CustomEase.min.js"></script>
+  <script src="../config.js"></script>
+  <script src="../lib/fx.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const fx = window.FLOWAGENT_FX;
+      const rand = fx.mulberry32(916);
+
+      // V-Scene 1 (0 - 6s)
+      fx.maskReveal(tl, ["#v1-top", "#v1-hero", "#v1-cards", "#v1-metrics"], 0.1, { y: 40, stagger: 0.14, duration: 0.6 });
+      fx.countUp(tl, "#v1-m1", 0.8, { from: 1.8, to: 0.09, decimals: 2, suffix: "s", duration: 1.2 });
+      fx.countUp(tl, "#v1-m2", 0.9, { from: 10.0, to: 97.8, decimals: 1, suffix: "%", duration: 1.2 });
+      fx.countUp(tl, "#v1-m3", 1.0, { from: 320, to: 34, decimals: 0, suffix: "ms", duration: 1.2 });
+      tl.to("#v1-cards", { y: -12, duration: 3.5, ease: "sine.inOut", immediateRender: false }, 2.0);
+
+      // V-Scene 2 (6 - 12s)
+      fx.maskReveal(tl, ["#v2-top", "#v2-ocr", "#v2-ubot"], 6.1, { y: 40, stagger: 0.14, duration: 0.6 });
+      document.querySelectorAll(".v-wave-bar").forEach(function (bar, i) {
+        tl.fromTo(bar, { scaleY: 0.2 }, { scaleY: 0.35 + rand() * 0.65, duration: 1.5, ease: "sine.inOut" }, 6.4 + (i % 5) * 0.05)
+          .to(bar, { scaleY: 0.25 + rand() * 0.75, duration: 2.0, ease: "sine.inOut", immediateRender: false }, 8.2)
+          .to(bar, { scaleY: 0.3 + rand() * 0.7, duration: 1.5, ease: "sine.inOut", immediateRender: false }, 10.2);
+      });
+
+      // V-Scene 3 (12 - 18s)
+      fx.maskReveal(tl, ["#v3-swift", "#v3-avax", "#v3-savings"], 12.15, { y: 40, stagger: 0.14, duration: 0.6 });
+      tl.fromTo("#v3-avax-bar", { scaleX: 0.02 }, { scaleX: 1.0, duration: 0.55, ease: "snapOut" }, 12.8);
+      tl.fromTo("#v3-swift-bar", { scaleX: 0.02 }, { scaleX: 0.26, duration: 4.5, ease: "none" }, 12.8);
+      fx.countUp(tl, "#v3-savings-val", 13.0, { from: 0, to: 110.0, decimals: 2, prefix: "$", duration: 1.3 });
+      tl.to("#v3-savings", { y: -10, scale: 1.02, duration: 3.0, ease: "sine.inOut", immediateRender: false }, 14.5);
+
+      // V-Scene 4 (18 - 24s)
+      fx.rgbGlitchHit(tl, "#v4-stage", 18.05, { intensity: 12 });
+      fx.maskReveal(tl, ["#v4-banner"], 18.2, { y: 36, duration: 0.55 });
+      fx.countUp(tl, "#v4-ms", 18.5, { from: 240, to: 34, decimals: 0, suffix: "ms", duration: 0.9 });
+      tl.to("#v4-banner", { y: -8, duration: 3.5, ease: "sine.inOut", immediateRender: false }, 19.8);
+
+      // V-Scene 5 (24 - 30s)
+      fx.maskReveal(tl, ["#v5-stage"], 24.1, { y: 36, duration: 0.6 });
+      tl.fromTo("#v5-cta", { scale: 0.94 }, { scale: 1.04, duration: 2.5, ease: "sine.inOut" }, 25.0)
+        .to("#v5-cta", { scale: 1.0, duration: 2.2, ease: "sine.inOut", immediateRender: false }, 27.5);
+
+      window.__timelines["portrait-main"] = tl;
+    })();
+  </script>
+</body>
+</html>
+
